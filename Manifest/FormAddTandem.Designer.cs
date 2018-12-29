@@ -113,6 +113,7 @@
             this.buttonAdd.TabIndex = 8;
             this.buttonAdd.Text = "Add Tandem";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // FormAddTandem
             // 
