@@ -49,6 +49,10 @@
             this.buttonEditAircraft = new System.Windows.Forms.Button();
             this.buttonAddAircraft = new System.Windows.Forms.Button();
             this.tabPageLoads = new System.Windows.Forms.TabPage();
+            this.buttonAddFunJumper = new System.Windows.Forms.Button();
+            this.textBoxManNum = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonAddTandem = new System.Windows.Forms.Button();
             this.listBox5 = new System.Windows.Forms.ListBox();
             this.listBox4 = new System.Windows.Forms.ListBox();
             this.listBox3 = new System.Windows.Forms.ListBox();
@@ -56,10 +60,6 @@
             this.buttonNewLoad = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.buttonAddTandem = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxManNum = new System.Windows.Forms.TextBox();
-            this.buttonAddFunJumper = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPagePeople.SuspendLayout();
@@ -92,7 +92,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(151, 38);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -139,7 +139,7 @@
             this.tabPagePeople.Padding = new System.Windows.Forms.Padding(6);
             this.tabPagePeople.Size = new System.Drawing.Size(1584, 774);
             this.tabPagePeople.TabIndex = 0;
-            this.tabPagePeople.Text = "People";
+            this.tabPagePeople.Text = "     People     ";
             this.tabPagePeople.UseVisualStyleBackColor = true;
             // 
             // groupBoxPersonDetails
@@ -227,7 +227,7 @@
             this.tabPageAircraft.Padding = new System.Windows.Forms.Padding(6);
             this.tabPageAircraft.Size = new System.Drawing.Size(1584, 774);
             this.tabPageAircraft.TabIndex = 1;
-            this.tabPageAircraft.Text = "Aircraft";
+            this.tabPageAircraft.Text = "     Aircraft     ";
             this.tabPageAircraft.UseVisualStyleBackColor = true;
             // 
             // listBoxAircraft
@@ -290,8 +290,43 @@
             this.tabPageLoads.Padding = new System.Windows.Forms.Padding(6);
             this.tabPageLoads.Size = new System.Drawing.Size(1584, 774);
             this.tabPageLoads.TabIndex = 2;
-            this.tabPageLoads.Text = "Loads";
+            this.tabPageLoads.Text = "     Loads     ";
             this.tabPageLoads.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddFunJumper
+            // 
+            this.buttonAddFunJumper.Location = new System.Drawing.Point(864, 28);
+            this.buttonAddFunJumper.Name = "buttonAddFunJumper";
+            this.buttonAddFunJumper.Size = new System.Drawing.Size(187, 41);
+            this.buttonAddFunJumper.TabIndex = 9;
+            this.buttonAddFunJumper.Text = "Add Fun Jumper";
+            this.buttonAddFunJumper.UseVisualStyleBackColor = true;
+            // 
+            // textBoxManNum
+            // 
+            this.textBoxManNum.Location = new System.Drawing.Point(749, 33);
+            this.textBoxManNum.Name = "textBoxManNum";
+            this.textBoxManNum.Size = new System.Drawing.Size(100, 31);
+            this.textBoxManNum.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(630, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(112, 25);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Manifest #";
+            // 
+            // buttonAddTandem
+            // 
+            this.buttonAddTandem.Location = new System.Drawing.Point(340, 24);
+            this.buttonAddTandem.Name = "buttonAddTandem";
+            this.buttonAddTandem.Size = new System.Drawing.Size(166, 41);
+            this.buttonAddTandem.TabIndex = 6;
+            this.buttonAddTandem.Text = "Add Tandem";
+            this.buttonAddTandem.UseVisualStyleBackColor = true;
+            this.buttonAddTandem.Click += new System.EventHandler(this.buttonAddTandem_Click);
             // 
             // listBox5
             // 
@@ -380,41 +415,6 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(412, 32);
             this.toolStripStatusLabel1.Text = "West Tennessee Skydiving - Manifest";
-            // 
-            // buttonAddTandem
-            // 
-            this.buttonAddTandem.Location = new System.Drawing.Point(340, 24);
-            this.buttonAddTandem.Name = "buttonAddTandem";
-            this.buttonAddTandem.Size = new System.Drawing.Size(166, 41);
-            this.buttonAddTandem.TabIndex = 6;
-            this.buttonAddTandem.Text = "Add Tandem";
-            this.buttonAddTandem.UseVisualStyleBackColor = true;
-            this.buttonAddTandem.Click += new System.EventHandler(this.buttonAddTandem_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(630, 39);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 25);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Manifest #";
-            // 
-            // textBoxManNum
-            // 
-            this.textBoxManNum.Location = new System.Drawing.Point(749, 33);
-            this.textBoxManNum.Name = "textBoxManNum";
-            this.textBoxManNum.Size = new System.Drawing.Size(100, 31);
-            this.textBoxManNum.TabIndex = 8;
-            // 
-            // buttonAddFunJumper
-            // 
-            this.buttonAddFunJumper.Location = new System.Drawing.Point(864, 28);
-            this.buttonAddFunJumper.Name = "buttonAddFunJumper";
-            this.buttonAddFunJumper.Size = new System.Drawing.Size(187, 41);
-            this.buttonAddFunJumper.TabIndex = 9;
-            this.buttonAddFunJumper.Text = "Add Fun Jumper";
-            this.buttonAddFunJumper.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
