@@ -53,13 +53,12 @@
             this.textBoxManNum = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonAddTandem = new System.Windows.Forms.Button();
-            this.listBox5 = new System.Windows.Forms.ListBox();
-            this.listBox4 = new System.Windows.Forms.ListBox();
-            this.listBox3 = new System.Windows.Forms.ListBox();
             this.buttonCompleteLoad = new System.Windows.Forms.Button();
             this.buttonNewLoad = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panelLoads = new System.Windows.Forms.FlowLayoutPanel();
+            this.comboBoxLoadAircraft = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPagePeople.SuspendLayout();
@@ -275,13 +274,12 @@
             // 
             // tabPageLoads
             // 
+            this.tabPageLoads.Controls.Add(this.comboBoxLoadAircraft);
+            this.tabPageLoads.Controls.Add(this.panelLoads);
             this.tabPageLoads.Controls.Add(this.buttonAddFunJumper);
             this.tabPageLoads.Controls.Add(this.textBoxManNum);
             this.tabPageLoads.Controls.Add(this.label1);
             this.tabPageLoads.Controls.Add(this.buttonAddTandem);
-            this.tabPageLoads.Controls.Add(this.listBox5);
-            this.tabPageLoads.Controls.Add(this.listBox4);
-            this.tabPageLoads.Controls.Add(this.listBox3);
             this.tabPageLoads.Controls.Add(this.buttonCompleteLoad);
             this.tabPageLoads.Controls.Add(this.buttonNewLoad);
             this.tabPageLoads.Location = new System.Drawing.Point(8, 39);
@@ -295,7 +293,7 @@
             // 
             // buttonAddFunJumper
             // 
-            this.buttonAddFunJumper.Location = new System.Drawing.Point(864, 28);
+            this.buttonAddFunJumper.Location = new System.Drawing.Point(1351, 29);
             this.buttonAddFunJumper.Name = "buttonAddFunJumper";
             this.buttonAddFunJumper.Size = new System.Drawing.Size(187, 41);
             this.buttonAddFunJumper.TabIndex = 9;
@@ -304,7 +302,7 @@
             // 
             // textBoxManNum
             // 
-            this.textBoxManNum.Location = new System.Drawing.Point(749, 33);
+            this.textBoxManNum.Location = new System.Drawing.Point(1236, 34);
             this.textBoxManNum.Name = "textBoxManNum";
             this.textBoxManNum.Size = new System.Drawing.Size(100, 31);
             this.textBoxManNum.TabIndex = 8;
@@ -312,7 +310,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(630, 39);
+            this.label1.Location = new System.Drawing.Point(1117, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 25);
             this.label1.TabIndex = 7;
@@ -320,7 +318,7 @@
             // 
             // buttonAddTandem
             // 
-            this.buttonAddTandem.Location = new System.Drawing.Point(340, 24);
+            this.buttonAddTandem.Location = new System.Drawing.Point(863, 29);
             this.buttonAddTandem.Name = "buttonAddTandem";
             this.buttonAddTandem.Size = new System.Drawing.Size(166, 41);
             this.buttonAddTandem.TabIndex = 6;
@@ -328,62 +326,9 @@
             this.buttonAddTandem.UseVisualStyleBackColor = true;
             this.buttonAddTandem.Click += new System.EventHandler(this.buttonAddTandem_Click);
             // 
-            // listBox5
-            // 
-            this.listBox5.BackColor = System.Drawing.Color.Crimson;
-            this.listBox5.FormattingEnabled = true;
-            this.listBox5.ItemHeight = 25;
-            this.listBox5.Items.AddRange(new object[] {
-            "Load 3 - Bi-Plane",
-            "That Guy"});
-            this.listBox5.Location = new System.Drawing.Point(915, 92);
-            this.listBox5.Name = "listBox5";
-            this.listBox5.Size = new System.Drawing.Size(421, 629);
-            this.listBox5.TabIndex = 5;
-            // 
-            // listBox4
-            // 
-            this.listBox4.FormattingEnabled = true;
-            this.listBox4.ItemHeight = 25;
-            this.listBox4.Items.AddRange(new object[] {
-            "Load 2 - King Air",
-            "Jim Instructor",
-            "Another Student",
-            "Vid Idiot",
-            "That Guy",
-            "Newb Student - AFF2",
-            "Paul Gholson",
-            "Elizabeth Young",
-            "Sum Ting Wong",
-            "Wi Tu Lo",
-            "Ho Lee Fook"});
-            this.listBox4.Location = new System.Drawing.Point(466, 92);
-            this.listBox4.Name = "listBox4";
-            this.listBox4.Size = new System.Drawing.Size(421, 629);
-            this.listBox4.TabIndex = 4;
-            // 
-            // listBox3
-            // 
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.ItemHeight = 25;
-            this.listBox3.Items.AddRange(new object[] {
-            "Load 1 - King Air",
-            "4 slots reserved",
-            "Jim Instructor",
-            "Sally Student",
-            "Vid Idiot",
-            "Observer",
-            "Newb Student - AFF1",
-            "Paul Gholson",
-            "Elizabeth Young"});
-            this.listBox3.Location = new System.Drawing.Point(21, 92);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(421, 629);
-            this.listBox3.TabIndex = 3;
-            // 
             // buttonCompleteLoad
             // 
-            this.buttonCompleteLoad.Location = new System.Drawing.Point(168, 24);
+            this.buttonCompleteLoad.Location = new System.Drawing.Point(513, 29);
             this.buttonCompleteLoad.Name = "buttonCompleteLoad";
             this.buttonCompleteLoad.Size = new System.Drawing.Size(166, 41);
             this.buttonCompleteLoad.TabIndex = 2;
@@ -392,12 +337,13 @@
             // 
             // buttonNewLoad
             // 
-            this.buttonNewLoad.Location = new System.Drawing.Point(21, 24);
+            this.buttonNewLoad.Location = new System.Drawing.Point(366, 29);
             this.buttonNewLoad.Name = "buttonNewLoad";
             this.buttonNewLoad.Size = new System.Drawing.Size(141, 41);
             this.buttonNewLoad.TabIndex = 0;
             this.buttonNewLoad.Text = "New Load";
             this.buttonNewLoad.UseVisualStyleBackColor = true;
+            this.buttonNewLoad.Click += new System.EventHandler(this.buttonNewLoad_Click);
             // 
             // statusStrip1
             // 
@@ -416,6 +362,28 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(412, 32);
             this.toolStripStatusLabel1.Text = "West Tennessee Skydiving - Manifest";
             // 
+            // panelLoads
+            // 
+            this.panelLoads.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelLoads.AutoScroll = true;
+            this.panelLoads.Location = new System.Drawing.Point(21, 87);
+            this.panelLoads.Name = "panelLoads";
+            this.panelLoads.Size = new System.Drawing.Size(1527, 623);
+            this.panelLoads.TabIndex = 10;
+            this.panelLoads.WrapContents = false;
+            // 
+            // comboBoxLoadAircraft
+            // 
+            this.comboBoxLoadAircraft.FormattingEnabled = true;
+            this.comboBoxLoadAircraft.Items.AddRange(new object[] {
+            "King Air"});
+            this.comboBoxLoadAircraft.Location = new System.Drawing.Point(21, 29);
+            this.comboBoxLoadAircraft.Name = "comboBoxLoadAircraft";
+            this.comboBoxLoadAircraft.Size = new System.Drawing.Size(324, 33);
+            this.comboBoxLoadAircraft.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -425,6 +393,7 @@
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MinimumSize = new System.Drawing.Size(1626, 936);
@@ -466,9 +435,6 @@
         private System.Windows.Forms.Button buttonDeleteAircraft;
         private System.Windows.Forms.Button buttonEditAircraft;
         private System.Windows.Forms.Button buttonAddAircraft;
-        private System.Windows.Forms.ListBox listBox5;
-        private System.Windows.Forms.ListBox listBox4;
-        private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.Button buttonCompleteLoad;
         private System.Windows.Forms.Button buttonNewLoad;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -478,6 +444,8 @@
         private System.Windows.Forms.TextBox textBoxManNum;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonAddTandem;
+        private System.Windows.Forms.FlowLayoutPanel panelLoads;
+        private System.Windows.Forms.ComboBox comboBoxLoadAircraft;
     }
 }
 

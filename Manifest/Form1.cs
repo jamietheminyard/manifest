@@ -10,17 +10,33 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace Manifest
 {
     public partial class Form1 : Form
     {
-        
+        public ImageList Imagelist = new ImageList();
         public Form1()
         {
             InitializeComponent();
+            this.KeyUp += new KeyEventHandler(this.Form1_KeyUp);
             WindowState = FormWindowState.Maximized;
+            tabControl.SelectedTab = tabPageLoads;
+            comboBoxLoadAircraft.SelectedIndex = 0;
             loadPeople();
+
+            
+            //retrieve all image files
+            String[] ImageFiles = Directory.GetFiles(@"C:\test");
+            foreach (var file in ImageFiles)
+            {
+                //Add images to Imagelist
+                Imagelist.Images.Add(Image.FromFile(file));
+            }
+
+
+
         }
 
         public void loadPeople()
@@ -113,6 +129,46 @@ namespace Manifest
         {
             Form addTandemWindow = new FormAddTandem();
             addTandemWindow.ShowDialog();
+        }
+
+        void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Right)
+            {
+                Point current = panelLoads.AutoScrollPosition;
+                Point scrolled = new Point(current.X + 1100, current.Y);
+                panelLoads.AutoScrollPosition = scrolled;
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+                Point current = panelLoads.AutoScrollPosition;
+                Point scrolled = new Point(current.X - 1100, current.Y);
+                panelLoads.AutoScrollPosition = scrolled;
+            }
+        }
+
+        private void buttonNewLoad_Click(object sender, EventArgs e)
+        {
+            ListView loadList = new ListView();
+
+            loadList.LargeImageList = Imagelist;
+            loadList.SmallImageList = Imagelist;
+
+            loadList.View = View.Details;
+
+            loadList.HeaderStyle = ColumnHeaderStyle.None;
+            loadList.FullRowSelect = true;
+            loadList.Columns.Add("", -2);
+            String aircraft = comboBoxLoadAircraft.Text;
+            loadList.Items.Add(aircraft);
+            loadList.Items.Add("5368 - Jamie Minyard AFF1");
+            loadList.View = View.Details; // Enables Details view so you can see columns
+            loadList.Items.Add(new ListViewItem { ImageIndex = 0, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Width = 200;
+            loadList.Height = 500;
+            loadList.Columns[0].Width = Width - 50;
+
+            panelLoads.Controls.Add(loadList);
         }
     }
 }
