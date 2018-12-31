@@ -49,6 +49,8 @@
             this.buttonEditAircraft = new System.Windows.Forms.Button();
             this.buttonAddAircraft = new System.Windows.Forms.Button();
             this.tabPageLoads = new System.Windows.Forms.TabPage();
+            this.comboBoxLoadAircraft = new System.Windows.Forms.ComboBox();
+            this.panelLoads = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonAddFunJumper = new System.Windows.Forms.Button();
             this.textBoxManNum = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,11 +59,25 @@
             this.buttonNewLoad = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.panelLoads = new System.Windows.Forms.FlowLayoutPanel();
-            this.comboBoxLoadAircraft = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.checkBoxVideo = new System.Windows.Forms.CheckBox();
+            this.checkBoxCoach = new System.Windows.Forms.CheckBox();
+            this.checkBoxAFF = new System.Windows.Forms.CheckBox();
+            this.checkBoxTI = new System.Windows.Forms.CheckBox();
+            this.labelLastName = new System.Windows.Forms.Label();
+            this.labelFirstName = new System.Windows.Forms.Label();
+            this.labelManifestNumber = new System.Windows.Forms.Label();
+            this.buttonSavePerson = new System.Windows.Forms.Button();
+            this.textBoxManifestNumber = new System.Windows.Forms.TextBox();
+            this.textBoxLastName = new System.Windows.Forms.TextBox();
+            this.textBoxFirstName = new System.Windows.Forms.TextBox();
+            this.buttonAddPerson = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPagePeople.SuspendLayout();
+            this.groupBoxPersonDetails.SuspendLayout();
             this.tabPageAircraft.SuspendLayout();
             this.tabPageLoads.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -138,7 +154,7 @@
             this.tabPagePeople.Padding = new System.Windows.Forms.Padding(6);
             this.tabPagePeople.Size = new System.Drawing.Size(1584, 774);
             this.tabPagePeople.TabIndex = 0;
-            this.tabPagePeople.Text = "     People     ";
+            this.tabPagePeople.Text = "Fun Jumpers & Staff  ";
             this.tabPagePeople.UseVisualStyleBackColor = true;
             // 
             // groupBoxPersonDetails
@@ -146,6 +162,18 @@
             this.groupBoxPersonDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxPersonDetails.Controls.Add(this.buttonAddPerson);
+            this.groupBoxPersonDetails.Controls.Add(this.checkBoxVideo);
+            this.groupBoxPersonDetails.Controls.Add(this.checkBoxCoach);
+            this.groupBoxPersonDetails.Controls.Add(this.checkBoxAFF);
+            this.groupBoxPersonDetails.Controls.Add(this.checkBoxTI);
+            this.groupBoxPersonDetails.Controls.Add(this.labelLastName);
+            this.groupBoxPersonDetails.Controls.Add(this.labelFirstName);
+            this.groupBoxPersonDetails.Controls.Add(this.labelManifestNumber);
+            this.groupBoxPersonDetails.Controls.Add(this.buttonSavePerson);
+            this.groupBoxPersonDetails.Controls.Add(this.textBoxManifestNumber);
+            this.groupBoxPersonDetails.Controls.Add(this.textBoxLastName);
+            this.groupBoxPersonDetails.Controls.Add(this.textBoxFirstName);
             this.groupBoxPersonDetails.Location = new System.Drawing.Point(523, 137);
             this.groupBoxPersonDetails.Name = "groupBoxPersonDetails";
             this.groupBoxPersonDetails.Size = new System.Drawing.Size(958, 579);
@@ -161,6 +189,7 @@
             this.buttonDeletePerson.TabIndex = 5;
             this.buttonDeletePerson.Text = "Delete person";
             this.buttonDeletePerson.UseVisualStyleBackColor = true;
+            this.buttonDeletePerson.Click += new System.EventHandler(this.buttonDeletePerson_Click);
             // 
             // buttonEditPerson
             // 
@@ -170,6 +199,7 @@
             this.buttonEditPerson.TabIndex = 4;
             this.buttonEditPerson.Text = "Edit person";
             this.buttonEditPerson.UseVisualStyleBackColor = true;
+            this.buttonEditPerson.Click += new System.EventHandler(this.buttonEditPerson_Click);
             // 
             // buttonAddNewPerson
             // 
@@ -191,6 +221,7 @@
             this.buttonSearchPeople.TabIndex = 2;
             this.buttonSearchPeople.Text = "Search People";
             this.buttonSearchPeople.UseVisualStyleBackColor = true;
+            this.buttonSearchPeople.Click += new System.EventHandler(this.buttonSearchPeople_Click);
             // 
             // textBoxSearchPeople
             // 
@@ -274,6 +305,9 @@
             // 
             // tabPageLoads
             // 
+            this.tabPageLoads.Controls.Add(this.label3);
+            this.tabPageLoads.Controls.Add(this.label2);
+            this.tabPageLoads.Controls.Add(this.textBox1);
             this.tabPageLoads.Controls.Add(this.comboBoxLoadAircraft);
             this.tabPageLoads.Controls.Add(this.panelLoads);
             this.tabPageLoads.Controls.Add(this.buttonAddFunJumper);
@@ -290,18 +324,43 @@
             this.tabPageLoads.TabIndex = 2;
             this.tabPageLoads.Text = "     Loads     ";
             this.tabPageLoads.UseVisualStyleBackColor = true;
+            this.tabPageLoads.Click += new System.EventHandler(this.tabPageLoads_Click);
+            // 
+            // comboBoxLoadAircraft
+            // 
+            this.comboBoxLoadAircraft.FormattingEnabled = true;
+            this.comboBoxLoadAircraft.Items.AddRange(new object[] {
+            "King Air"});
+            this.comboBoxLoadAircraft.Location = new System.Drawing.Point(19, 37);
+            this.comboBoxLoadAircraft.Name = "comboBoxLoadAircraft";
+            this.comboBoxLoadAircraft.Size = new System.Drawing.Size(256, 33);
+            this.comboBoxLoadAircraft.TabIndex = 11;
+            // 
+            // panelLoads
+            // 
+            this.panelLoads.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelLoads.AutoScroll = true;
+            this.panelLoads.Location = new System.Drawing.Point(21, 129);
+            this.panelLoads.Name = "panelLoads";
+            this.panelLoads.Size = new System.Drawing.Size(1527, 581);
+            this.panelLoads.TabIndex = 10;
+            this.panelLoads.WrapContents = false;
             // 
             // buttonAddFunJumper
             // 
+            this.buttonAddFunJumper.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddFunJumper.Location = new System.Drawing.Point(1351, 29);
             this.buttonAddFunJumper.Name = "buttonAddFunJumper";
-            this.buttonAddFunJumper.Size = new System.Drawing.Size(187, 41);
+            this.buttonAddFunJumper.Size = new System.Drawing.Size(143, 41);
             this.buttonAddFunJumper.TabIndex = 9;
-            this.buttonAddFunJumper.Text = "Add Fun Jumper";
+            this.buttonAddFunJumper.Text = "Quick Add";
             this.buttonAddFunJumper.UseVisualStyleBackColor = true;
             // 
             // textBoxManNum
             // 
+            this.textBoxManNum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxManNum.Location = new System.Drawing.Point(1236, 34);
             this.textBoxManNum.Name = "textBoxManNum";
             this.textBoxManNum.Size = new System.Drawing.Size(100, 31);
@@ -309,26 +368,28 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(1117, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 25);
             this.label1.TabIndex = 7;
             this.label1.Text = "Manifest #";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // buttonAddTandem
             // 
-            this.buttonAddTandem.Location = new System.Drawing.Point(863, 29);
+            this.buttonAddTandem.Location = new System.Drawing.Point(795, 32);
             this.buttonAddTandem.Name = "buttonAddTandem";
-            this.buttonAddTandem.Size = new System.Drawing.Size(166, 41);
+            this.buttonAddTandem.Size = new System.Drawing.Size(257, 41);
             this.buttonAddTandem.TabIndex = 6;
-            this.buttonAddTandem.Text = "Add Tandem";
+            this.buttonAddTandem.Text = "Add Person to Load";
             this.buttonAddTandem.UseVisualStyleBackColor = true;
             this.buttonAddTandem.Click += new System.EventHandler(this.buttonAddTandem_Click);
             // 
             // buttonCompleteLoad
             // 
-            this.buttonCompleteLoad.Location = new System.Drawing.Point(513, 29);
+            this.buttonCompleteLoad.Location = new System.Drawing.Point(21, 82);
             this.buttonCompleteLoad.Name = "buttonCompleteLoad";
             this.buttonCompleteLoad.Size = new System.Drawing.Size(166, 41);
             this.buttonCompleteLoad.TabIndex = 2;
@@ -337,7 +398,7 @@
             // 
             // buttonNewLoad
             // 
-            this.buttonNewLoad.Location = new System.Drawing.Point(366, 29);
+            this.buttonNewLoad.Location = new System.Drawing.Point(535, 32);
             this.buttonNewLoad.Name = "buttonNewLoad";
             this.buttonNewLoad.Size = new System.Drawing.Size(141, 41);
             this.buttonNewLoad.TabIndex = 0;
@@ -362,27 +423,139 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(412, 32);
             this.toolStripStatusLabel1.Text = "West Tennessee Skydiving - Manifest";
             // 
-            // panelLoads
+            // textBox1
             // 
-            this.panelLoads.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLoads.AutoScroll = true;
-            this.panelLoads.Location = new System.Drawing.Point(21, 87);
-            this.panelLoads.Name = "panelLoads";
-            this.panelLoads.Size = new System.Drawing.Size(1527, 623);
-            this.panelLoads.TabIndex = 10;
-            this.panelLoads.WrapContents = false;
+            this.textBox1.Location = new System.Drawing.Point(298, 40);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 31);
+            this.textBox1.TabIndex = 12;
             // 
-            // comboBoxLoadAircraft
+            // label2
             // 
-            this.comboBoxLoadAircraft.FormattingEnabled = true;
-            this.comboBoxLoadAircraft.Items.AddRange(new object[] {
-            "King Air"});
-            this.comboBoxLoadAircraft.Location = new System.Drawing.Point(21, 29);
-            this.comboBoxLoadAircraft.Name = "comboBoxLoadAircraft";
-            this.comboBoxLoadAircraft.Size = new System.Drawing.Size(324, 33);
-            this.comboBoxLoadAircraft.TabIndex = 11;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(404, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(134, 25);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "max jumpers";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1117, 73);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(380, 25);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "(Reg price, own gear, full altitude only)";
+            // 
+            // checkBoxVideo
+            // 
+            this.checkBoxVideo.AutoSize = true;
+            this.checkBoxVideo.Location = new System.Drawing.Point(505, 230);
+            this.checkBoxVideo.Name = "checkBoxVideo";
+            this.checkBoxVideo.Size = new System.Drawing.Size(173, 29);
+            this.checkBoxVideo.TabIndex = 21;
+            this.checkBoxVideo.Text = "Videographer";
+            this.checkBoxVideo.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxCoach
+            // 
+            this.checkBoxCoach.AutoSize = true;
+            this.checkBoxCoach.Location = new System.Drawing.Point(505, 178);
+            this.checkBoxCoach.Name = "checkBoxCoach";
+            this.checkBoxCoach.Size = new System.Drawing.Size(106, 29);
+            this.checkBoxCoach.TabIndex = 20;
+            this.checkBoxCoach.Text = "Coach";
+            this.checkBoxCoach.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAFF
+            // 
+            this.checkBoxAFF.AutoSize = true;
+            this.checkBoxAFF.Location = new System.Drawing.Point(505, 128);
+            this.checkBoxAFF.Name = "checkBoxAFF";
+            this.checkBoxAFF.Size = new System.Drawing.Size(179, 29);
+            this.checkBoxAFF.TabIndex = 19;
+            this.checkBoxAFF.Text = "AFF Instructor";
+            this.checkBoxAFF.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxTI
+            // 
+            this.checkBoxTI.AutoSize = true;
+            this.checkBoxTI.Location = new System.Drawing.Point(505, 76);
+            this.checkBoxTI.Name = "checkBoxTI";
+            this.checkBoxTI.Size = new System.Drawing.Size(217, 29);
+            this.checkBoxTI.TabIndex = 18;
+            this.checkBoxTI.Text = "Tandem Instructor";
+            this.checkBoxTI.UseVisualStyleBackColor = true;
+            // 
+            // labelLastName
+            // 
+            this.labelLastName.AutoSize = true;
+            this.labelLastName.Location = new System.Drawing.Point(46, 184);
+            this.labelLastName.Name = "labelLastName";
+            this.labelLastName.Size = new System.Drawing.Size(115, 25);
+            this.labelLastName.TabIndex = 17;
+            this.labelLastName.Text = "Last Name";
+            // 
+            // labelFirstName
+            // 
+            this.labelFirstName.AutoSize = true;
+            this.labelFirstName.Location = new System.Drawing.Point(50, 134);
+            this.labelFirstName.Name = "labelFirstName";
+            this.labelFirstName.Size = new System.Drawing.Size(116, 25);
+            this.labelFirstName.TabIndex = 16;
+            this.labelFirstName.Text = "First Name";
+            // 
+            // labelManifestNumber
+            // 
+            this.labelManifestNumber.AutoSize = true;
+            this.labelManifestNumber.Location = new System.Drawing.Point(50, 81);
+            this.labelManifestNumber.Name = "labelManifestNumber";
+            this.labelManifestNumber.Size = new System.Drawing.Size(112, 25);
+            this.labelManifestNumber.TabIndex = 15;
+            this.labelManifestNumber.Text = "Manifest #";
+            // 
+            // buttonSavePerson
+            // 
+            this.buttonSavePerson.Location = new System.Drawing.Point(232, 299);
+            this.buttonSavePerson.Name = "buttonSavePerson";
+            this.buttonSavePerson.Size = new System.Drawing.Size(172, 47);
+            this.buttonSavePerson.TabIndex = 14;
+            this.buttonSavePerson.Text = "Save";
+            this.buttonSavePerson.UseVisualStyleBackColor = true;
+            this.buttonSavePerson.Click += new System.EventHandler(this.buttonSavePerson_Click);
+            // 
+            // textBoxManifestNumber
+            // 
+            this.textBoxManifestNumber.Location = new System.Drawing.Point(177, 76);
+            this.textBoxManifestNumber.Name = "textBoxManifestNumber";
+            this.textBoxManifestNumber.Size = new System.Drawing.Size(100, 31);
+            this.textBoxManifestNumber.TabIndex = 11;
+            // 
+            // textBoxLastName
+            // 
+            this.textBoxLastName.Location = new System.Drawing.Point(177, 178);
+            this.textBoxLastName.Name = "textBoxLastName";
+            this.textBoxLastName.Size = new System.Drawing.Size(227, 31);
+            this.textBoxLastName.TabIndex = 13;
+            // 
+            // textBoxFirstName
+            // 
+            this.textBoxFirstName.Location = new System.Drawing.Point(177, 128);
+            this.textBoxFirstName.Name = "textBoxFirstName";
+            this.textBoxFirstName.Size = new System.Drawing.Size(227, 31);
+            this.textBoxFirstName.TabIndex = 12;
+            // 
+            // buttonAddPerson
+            // 
+            this.buttonAddPerson.Location = new System.Drawing.Point(232, 246);
+            this.buttonAddPerson.Name = "buttonAddPerson";
+            this.buttonAddPerson.Size = new System.Drawing.Size(172, 47);
+            this.buttonAddPerson.TabIndex = 22;
+            this.buttonAddPerson.Text = "Add";
+            this.buttonAddPerson.UseVisualStyleBackColor = true;
+            this.buttonAddPerson.Click += new System.EventHandler(this.buttonAddPerson_Click);
             // 
             // Form1
             // 
@@ -404,6 +577,8 @@
             this.tabControl.ResumeLayout(false);
             this.tabPagePeople.ResumeLayout(false);
             this.tabPagePeople.PerformLayout();
+            this.groupBoxPersonDetails.ResumeLayout(false);
+            this.groupBoxPersonDetails.PerformLayout();
             this.tabPageAircraft.ResumeLayout(false);
             this.tabPageLoads.ResumeLayout(false);
             this.tabPageLoads.PerformLayout();
@@ -446,6 +621,21 @@
         private System.Windows.Forms.Button buttonAddTandem;
         private System.Windows.Forms.FlowLayoutPanel panelLoads;
         private System.Windows.Forms.ComboBox comboBoxLoadAircraft;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox checkBoxVideo;
+        private System.Windows.Forms.CheckBox checkBoxCoach;
+        private System.Windows.Forms.CheckBox checkBoxAFF;
+        private System.Windows.Forms.CheckBox checkBoxTI;
+        private System.Windows.Forms.Label labelLastName;
+        private System.Windows.Forms.Label labelFirstName;
+        private System.Windows.Forms.Label labelManifestNumber;
+        private System.Windows.Forms.Button buttonSavePerson;
+        private System.Windows.Forms.TextBox textBoxManifestNumber;
+        private System.Windows.Forms.TextBox textBoxLastName;
+        private System.Windows.Forms.TextBox textBoxFirstName;
+        private System.Windows.Forms.Button buttonAddPerson;
     }
 }
 

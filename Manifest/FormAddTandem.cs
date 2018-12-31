@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Manifest
 {
-    public partial class FormAddTandem : Form
+    public partial class FormAddPersonToLoad : Form
     {
-        public FormAddTandem()
+        public FormAddPersonToLoad()
         {
             InitializeComponent();
         }
@@ -20,6 +20,11 @@ namespace Manifest
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             MessageBox.Show("added");
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
