@@ -18,52 +18,67 @@ namespace Manifest
     {
         public ImageList Imagelist = new ImageList();
         int searchIndex;
+
         public Form1()
         {
             InitializeComponent();
             searchIndex = 0;
             textBoxSearchPeople.KeyDown += new KeyEventHandler(searchPeople_KeyDown);
 
-            // Hide edit UI components
-            labelManifestNumber.Hide();
-            textBoxManifestNumber.Hide();
-            labelFirstName.Hide();
-            textBoxFirstName.Hide();
-            labelLastName.Hide();
-            textBoxLastName.Hide();
-            checkBoxTI.Hide();
-            checkBoxAFF.Hide();
-            checkBoxCoach.Hide();
-            checkBoxVideo.Hide();
+            // show/hide UI components
+            hideEditPersonUI();
             buttonSavePerson.Hide();
             buttonAddPerson.Hide();
             buttonCancel.Hide();
             labelEditDetails.Hide();
 
-            labelEditDetailsAircraft.Hide();
-            labelAircraftName.Hide();
-            textBoxAircraftName.Hide();
-            labelMaxJumpers.Hide();
-            numericUpDownMaxJumpers.Hide();
+            hideEditAircraftUI();
             buttonAddAircraftSubmit.Hide();
             buttonSaveAircraft.Hide();
             buttonCancelAircraft.Hide();
 
-
+            // Key event handler for left/right keys
+            // Requested by Mike for scrolling left/right through loads
             this.KeyUp += new KeyEventHandler(this.Form1_KeyUp);
+
             WindowState = FormWindowState.Maximized;
             tabControl.SelectedTab = tabPageLoads;
             comboBoxLoadAircraft.SelectedIndex = 0;
             loadPeople();
 
-            
-            //retrieve all image files
+            // Retrieve all image files for logos used to group tandems/AFF
             String[] ImageFiles = Directory.GetFiles(@"C:\test");
             foreach (var file in ImageFiles)
             {
                 //Add images to Imagelist
                 Imagelist.Images.Add(Image.FromFile(file));
             }
+        }
+
+        void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Right)
+            {
+                Point current = panelLoads.AutoScrollPosition;
+                Point scrolled = new Point(current.X + 50, current.Y);
+                panelLoads.AutoScrollPosition = scrolled;
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+                Point current = panelLoads.AutoScrollPosition;
+                Point scrolled = new Point(current.X - 50, current.Y);
+                panelLoads.AutoScrollPosition = scrolled;
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("West Tennessee Skydiving - Manifest software\nCopyright 2018\nAll rights reserved", "About");
         }
 
         public void searchPeople_KeyDown(object sender, KeyEventArgs e)
@@ -103,7 +118,7 @@ namespace Manifest
             {
                 if (listBoxPeople.Items[i].ToString().ToLower().Contains(searchText))
                 {
-                  found = true;
+                    found = true;
                     listBoxPeople.SelectedIndex = i;
                     searchIndex = i;
                     break;
@@ -114,6 +129,7 @@ namespace Manifest
             {
                 MessageBox.Show("Reached the end of the list.");
                 searchIndex = 0;
+                listBoxPeople.SelectedIndex = 0;
             }
         }
 
@@ -166,33 +182,9 @@ namespace Manifest
             }
             listBoxPeople.DataSource = people;
         }
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBoxPeople.SelectedIndex >= 0)
-            {
-                String data = listBoxPeople.Items[listBoxPeople.SelectedIndex].ToString();
-                String manifestNumber = data.Split('-')[0].Trim();
-            }
-        }
 
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void showEditPersonUI()
         {
-
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("West Tennessee Skydiving - Manifest software\nCopyright 2018\nAll rights reserved", "About");
-        }
-
-        private void buttonAddNewPerson_Click(object sender, EventArgs e)
-        {
-            // Display the edit UI components
             labelManifestNumber.Show();
             textBoxManifestNumber.Show();
             labelFirstName.Show();
@@ -203,6 +195,26 @@ namespace Manifest
             checkBoxAFF.Show();
             checkBoxCoach.Show();
             checkBoxVideo.Show();
+        }
+
+        private void hideEditPersonUI()
+        {
+            labelManifestNumber.Hide();
+            textBoxManifestNumber.Hide();
+            labelFirstName.Hide();
+            textBoxFirstName.Hide();
+            labelLastName.Hide();
+            textBoxLastName.Hide();
+            checkBoxTI.Hide();
+            checkBoxAFF.Hide();
+            checkBoxCoach.Hide();
+            checkBoxVideo.Hide();
+        }
+
+        private void buttonAddNewPerson_Click(object sender, EventArgs e)
+        {
+            // Display the edit UI components
+            showEditPersonUI();
             buttonAddPerson.Show();
             buttonCancel.Show();
             buttonSavePerson.Hide();
@@ -218,32 +230,10 @@ namespace Manifest
             //           addPersonWindow.ShowDialog();
         }
 
-        void Person_Form_Closed(object sender, FormClosedEventArgs e)
-        {
-            listBoxPeople.DataSource = null;
-            loadPeople();
-        }
-
         private void buttonAddTandem_Click(object sender, EventArgs e)
         {
             Form addTandemWindow = new FormAddPersonToLoad();
             addTandemWindow.ShowDialog();
-        }
-
-        void Form1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Right)
-            {
-                Point current = panelLoads.AutoScrollPosition;
-                Point scrolled = new Point(current.X + 50, current.Y);
-                panelLoads.AutoScrollPosition = scrolled;
-            }
-            if (e.KeyCode == Keys.Left)
-            {
-                Point current = panelLoads.AutoScrollPosition;
-                Point scrolled = new Point(current.X - 50, current.Y);
-                panelLoads.AutoScrollPosition = scrolled;
-            }
         }
 
         private void buttonNewLoad_Click(object sender, EventArgs e)
@@ -270,16 +260,6 @@ namespace Manifest
             panelLoads.Controls.Add(loadList);
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPageLoads_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonDeletePerson_Click(object sender, EventArgs e)
         {
             try
@@ -303,16 +283,7 @@ namespace Manifest
                             loadPeople();
 
                             // Hide the edit UI components
-                            labelManifestNumber.Hide();
-                            textBoxManifestNumber.Hide();
-                            labelFirstName.Hide();
-                            textBoxFirstName.Hide();
-                            labelLastName.Hide();
-                            textBoxLastName.Hide();
-                            checkBoxTI.Hide();
-                            checkBoxAFF.Hide();
-                            checkBoxCoach.Hide();
-                            checkBoxVideo.Hide();
+                            hideEditPersonUI();
                             buttonSavePerson.Hide();
                         }
                     }
@@ -327,16 +298,7 @@ namespace Manifest
         private void buttonEditPerson_Click(object sender, EventArgs e)
         {
             // Display the edit UI components
-            labelManifestNumber.Show();
-            textBoxManifestNumber.Show();
-            labelFirstName.Show();
-            textBoxFirstName.Show();
-            labelLastName.Show();
-            textBoxLastName.Show();
-            checkBoxTI.Show();
-            checkBoxAFF.Show();
-            checkBoxCoach.Show();
-            checkBoxVideo.Show();
+            showEditPersonUI();
             buttonSavePerson.Show();
             buttonCancel.Show();
             buttonAddPerson.Hide();
@@ -427,17 +389,9 @@ namespace Manifest
                     loadPeople();
 
                     // Hide the edit UI components
-                    labelManifestNumber.Hide();
-                    textBoxManifestNumber.Hide();
-                    labelFirstName.Hide();
-                    textBoxFirstName.Hide();
-                    labelLastName.Hide();
-                    textBoxLastName.Hide();
-                    checkBoxTI.Hide();
-                    checkBoxAFF.Hide();
-                    checkBoxCoach.Hide();
-                    checkBoxVideo.Hide();
+                    hideEditPersonUI();
                     buttonSavePerson.Hide();
+                    buttonCancel.Hide();
                     labelEditDetails.Hide();
                 }
             }
@@ -486,16 +440,8 @@ namespace Manifest
                     loadPeople();
 
                     // Hide the edit UI components
-                    labelManifestNumber.Hide();
-                    textBoxManifestNumber.Hide();
-                    labelFirstName.Hide();
-                    textBoxFirstName.Hide();
-                    labelLastName.Hide();
-                    textBoxLastName.Hide();
-                    checkBoxTI.Hide();
-                    checkBoxAFF.Hide();
-                    checkBoxCoach.Hide();
-                    checkBoxVideo.Hide();
+                    hideEditPersonUI();
+                    buttonCancel.Hide();
                     buttonAddPerson.Hide();
                 }
             }
@@ -508,46 +454,42 @@ namespace Manifest
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            labelManifestNumber.Hide();
-            textBoxManifestNumber.Hide();
-            labelFirstName.Hide();
-            textBoxFirstName.Hide();
-            labelLastName.Hide();
-            textBoxLastName.Hide();
-            checkBoxTI.Hide();
-            checkBoxAFF.Hide();
-            checkBoxCoach.Hide();
-            checkBoxVideo.Hide();
+            hideEditPersonUI();
             buttonSavePerson.Hide();
             buttonAddPerson.Hide();
             buttonCancel.Hide();
             labelEditDetails.Hide();
         }
 
-        private void buttonCancelAircraft_Click(object sender, EventArgs e)
+        private void showEditAircraftUI()
+        {
+            labelEditDetailsAircraft.Show();
+            labelAircraftName.Show();
+            textBoxAircraftName.Show();
+            labelMaxJumpers.Show();
+            numericUpDownMaxJumpers.Show();
+        }
+
+        private void hideEditAircraftUI()
         {
             labelEditDetailsAircraft.Hide();
             labelAircraftName.Hide();
             textBoxAircraftName.Hide();
             labelMaxJumpers.Hide();
             numericUpDownMaxJumpers.Hide();
+        }
+
+        private void buttonCancelAircraft_Click(object sender, EventArgs e)
+        {
+            hideEditAircraftUI();
             buttonAddAircraftSubmit.Hide();
             buttonSaveAircraft.Hide();
             buttonCancelAircraft.Hide();
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonAddAircraftSubmit_Click(object sender, EventArgs e)
         {
-            labelEditDetailsAircraft.Hide();
-            labelAircraftName.Hide();
-            textBoxAircraftName.Hide();
-            labelMaxJumpers.Hide();
-            numericUpDownMaxJumpers.Hide();
+            hideEditAircraftUI();
             buttonAddAircraftSubmit.Hide();
             buttonSaveAircraft.Hide();
             buttonCancelAircraft.Hide();
@@ -555,11 +497,7 @@ namespace Manifest
 
         private void buttonSaveAircraft_Click(object sender, EventArgs e)
         {
-            labelEditDetailsAircraft.Hide();
-            labelAircraftName.Hide();
-            textBoxAircraftName.Hide();
-            labelMaxJumpers.Hide();
-            numericUpDownMaxJumpers.Hide();
+            hideEditAircraftUI();
             buttonAddAircraftSubmit.Hide();
             buttonSaveAircraft.Hide();
             buttonCancelAircraft.Hide();
@@ -567,11 +505,7 @@ namespace Manifest
 
         private void buttonAddAircraft_Click(object sender, EventArgs e)
         {
-            labelEditDetailsAircraft.Show();
-            labelAircraftName.Show();
-            textBoxAircraftName.Show();
-            labelMaxJumpers.Show();
-            numericUpDownMaxJumpers.Show();
+            showEditAircraftUI();
             buttonAddAircraftSubmit.Show();
             buttonSaveAircraft.Hide();
             buttonCancelAircraft.Show();
@@ -579,11 +513,7 @@ namespace Manifest
 
         private void buttonEditAircraft_Click(object sender, EventArgs e)
         {
-            labelEditDetailsAircraft.Show();
-            labelAircraftName.Show();
-            textBoxAircraftName.Show();
-            labelMaxJumpers.Show();
-            numericUpDownMaxJumpers.Show();
+            showEditAircraftUI();
             buttonAddAircraftSubmit.Hide();
             buttonSaveAircraft.Show();
             buttonCancelAircraft.Show();

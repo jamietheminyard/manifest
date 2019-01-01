@@ -21,10 +21,5 @@ namespace Manifest
         {
             MessageBox.Show("added");
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

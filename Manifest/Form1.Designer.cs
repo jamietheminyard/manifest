@@ -366,7 +366,6 @@
             this.listBoxPeople.Name = "listBoxPeople";
             this.listBoxPeople.Size = new System.Drawing.Size(485, 579);
             this.listBoxPeople.TabIndex = 0;
-            this.listBoxPeople.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // tabPageAircraft
             // 
@@ -398,7 +397,6 @@
             this.listBoxAircraft.Name = "listBoxAircraft";
             this.listBoxAircraft.Size = new System.Drawing.Size(572, 579);
             this.listBoxAircraft.TabIndex = 3;
-            this.listBoxAircraft.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // buttonDeleteAircraft
             // 
@@ -451,7 +449,6 @@
             this.tabPageLoads.TabIndex = 2;
             this.tabPageLoads.Text = "     Loads     ";
             this.tabPageLoads.UseVisualStyleBackColor = true;
-            this.tabPageLoads.Click += new System.EventHandler(this.tabPageLoads_Click);
             // 
             // label3
             // 
@@ -528,7 +525,6 @@
             this.label1.Size = new System.Drawing.Size(112, 25);
             this.label1.TabIndex = 7;
             this.label1.Text = "Manifest #";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // buttonAddTandem
             // 
@@ -641,7 +637,6 @@
             this.labelMaxJumpers.Size = new System.Drawing.Size(135, 25);
             this.labelMaxJumpers.TabIndex = 2;
             this.labelMaxJumpers.Text = "Max jumpers";
-            this.labelMaxJumpers.Click += new System.EventHandler(this.label5_Click);
             // 
             // numericUpDownMaxJumpers
             // 
