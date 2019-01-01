@@ -74,11 +74,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormAddTandem.cs">
+    <Compile Include="FormAddPersonToLoad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddTandem.Designer.cs">
-      <DependentUpon>FormAddTandem.cs</DependentUpon>
+    <Compile Include="FormAddPersonToLoad.Designer.cs">
+      <DependentUpon>FormAddPersonToLoad.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadType.cs" />
     <Compile Include="PersonType.cs" />
@@ -96,8 +96,8 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAddTandem.resx">
-      <DependentUpon>FormAddTandem.cs</DependentUpon>
+    <EmbeddedResource Include="FormAddPersonToLoad.resx">
+      <DependentUpon>FormAddPersonToLoad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

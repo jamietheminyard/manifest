@@ -17,9 +17,13 @@ namespace Manifest
     public partial class Form1 : Form
     {
         public ImageList Imagelist = new ImageList();
+        int searchIndex;
         public Form1()
         {
             InitializeComponent();
+            searchIndex = 0;
+            textBoxSearchPeople.KeyDown += new KeyEventHandler(searchPeople_KeyDown);
+
             // Hide edit UI components
             labelManifestNumber.Hide();
             textBoxManifestNumber.Hide();
@@ -33,6 +37,18 @@ namespace Manifest
             checkBoxVideo.Hide();
             buttonSavePerson.Hide();
             buttonAddPerson.Hide();
+            buttonCancel.Hide();
+            labelEditDetails.Hide();
+
+            labelEditDetailsAircraft.Hide();
+            labelAircraftName.Hide();
+            textBoxAircraftName.Hide();
+            labelMaxJumpers.Hide();
+            numericUpDownMaxJumpers.Hide();
+            buttonAddAircraftSubmit.Hide();
+            buttonSaveAircraft.Hide();
+            buttonCancelAircraft.Hide();
+
 
             this.KeyUp += new KeyEventHandler(this.Form1_KeyUp);
             WindowState = FormWindowState.Maximized;
@@ -48,9 +64,57 @@ namespace Manifest
                 //Add images to Imagelist
                 Imagelist.Images.Add(Image.FromFile(file));
             }
+        }
+
+        public void searchPeople_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                searchForPeople();
+            }
+        }
+
+        public void searchForPeople()
+        {
+            String searchText = textBoxSearchPeople.Text.ToLower();
+            Boolean found = false;
+            int selectedIndex = listBoxPeople.SelectedIndex;
+            int numItems = listBoxPeople.Items.Count;
+
+            // If the first item in the list is selected and matches, just increment search index and return
+            if (selectedIndex == 0 && searchIndex == 0 && listBoxPeople.Items[0].ToString().ToLower().Contains(searchText))
+            {
+                searchIndex++;
+                return;
+            }
 
 
+            if (selectedIndex + 1 == numItems)
+            {
+                searchIndex = 0;
+                selectedIndex = 0;
+                listBoxPeople.SelectedIndex = 0;
+            }    
+            else
+                searchIndex = selectedIndex + 1;
 
+            // Starting at the search index, look for the next instance of the search text
+            for (int i = searchIndex; i < listBoxPeople.Items.Count; i++)
+            {
+                if (listBoxPeople.Items[i].ToString().ToLower().Contains(searchText))
+                {
+                  found = true;
+                    listBoxPeople.SelectedIndex = i;
+                    searchIndex = i;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                MessageBox.Show("Reached the end of the list.");
+                searchIndex = 0;
+            }
         }
 
         public void loadPeople()
@@ -140,7 +204,7 @@ namespace Manifest
             checkBoxCoach.Show();
             checkBoxVideo.Show();
             buttonAddPerson.Show();
-
+            buttonCancel.Show();
             buttonSavePerson.Hide();
 
             // Clear the edit UI components
@@ -274,9 +338,8 @@ namespace Manifest
             checkBoxCoach.Show();
             checkBoxVideo.Show();
             buttonSavePerson.Show();
-
+            buttonCancel.Show();
             buttonAddPerson.Hide();
-
             try
             {
                 String item = listBoxPeople.GetItemText(listBoxPeople.SelectedItem);
@@ -316,8 +379,9 @@ namespace Manifest
                 checkBoxAFF.Checked = a;
                 checkBoxCoach.Checked = c;
                 checkBoxVideo.Checked = v;
-                
 
+                labelEditDetails.Text = "Editing details for " + manNum.ToString() + " - " + firstName + " " + lastName;
+                labelEditDetails.Show();
             }
             catch (Exception x)
             {
@@ -374,6 +438,7 @@ namespace Manifest
                     checkBoxCoach.Hide();
                     checkBoxVideo.Hide();
                     buttonSavePerson.Hide();
+                    labelEditDetails.Hide();
                 }
             }
         }
@@ -414,7 +479,7 @@ namespace Manifest
                     "values(" + manNum + ",'" + fName + "','"
                     + lName + "','" + 0 + "'," + t + "," + a + "," + c + "," + v + ")";
                 cn.Open();
-                MessageBox.Show(cmd.CommandText);
+
                 if (cmd.ExecuteNonQuery() == 1)
                 {
                     // If insert was successful, reload the people in the UI list
@@ -438,34 +503,99 @@ namespace Manifest
 
         private void buttonSearchPeople_Click(object sender, EventArgs e)
         {
-            String searchText = textBoxSearchPeople.Text.ToLower();
-            Boolean found = false;
-            int selectedIndex = listBoxPeople.SelectedIndex;
-            int numItems = listBoxPeople.Items.Count;
-            int searchIndex;
-            if (selectedIndex == numItems)
-                searchIndex = 0;
-            else
-                searchIndex = selectedIndex + 1;
+            searchForPeople();
+        }
 
-            // Starting at the search index, look for the next instance of the search text
-            for (int i = searchIndex; i < listBoxPeople.Items.Count; i++)
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            labelManifestNumber.Hide();
+            textBoxManifestNumber.Hide();
+            labelFirstName.Hide();
+            textBoxFirstName.Hide();
+            labelLastName.Hide();
+            textBoxLastName.Hide();
+            checkBoxTI.Hide();
+            checkBoxAFF.Hide();
+            checkBoxCoach.Hide();
+            checkBoxVideo.Hide();
+            buttonSavePerson.Hide();
+            buttonAddPerson.Hide();
+            buttonCancel.Hide();
+            labelEditDetails.Hide();
+        }
+
+        private void buttonCancelAircraft_Click(object sender, EventArgs e)
+        {
+            labelEditDetailsAircraft.Hide();
+            labelAircraftName.Hide();
+            textBoxAircraftName.Hide();
+            labelMaxJumpers.Hide();
+            numericUpDownMaxJumpers.Hide();
+            buttonAddAircraftSubmit.Hide();
+            buttonSaveAircraft.Hide();
+            buttonCancelAircraft.Hide();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAddAircraftSubmit_Click(object sender, EventArgs e)
+        {
+            labelEditDetailsAircraft.Hide();
+            labelAircraftName.Hide();
+            textBoxAircraftName.Hide();
+            labelMaxJumpers.Hide();
+            numericUpDownMaxJumpers.Hide();
+            buttonAddAircraftSubmit.Hide();
+            buttonSaveAircraft.Hide();
+            buttonCancelAircraft.Hide();
+        }
+
+        private void buttonSaveAircraft_Click(object sender, EventArgs e)
+        {
+            labelEditDetailsAircraft.Hide();
+            labelAircraftName.Hide();
+            textBoxAircraftName.Hide();
+            labelMaxJumpers.Hide();
+            numericUpDownMaxJumpers.Hide();
+            buttonAddAircraftSubmit.Hide();
+            buttonSaveAircraft.Hide();
+            buttonCancelAircraft.Hide();
+        }
+
+        private void buttonAddAircraft_Click(object sender, EventArgs e)
+        {
+            labelEditDetailsAircraft.Show();
+            labelAircraftName.Show();
+            textBoxAircraftName.Show();
+            labelMaxJumpers.Show();
+            numericUpDownMaxJumpers.Show();
+            buttonAddAircraftSubmit.Show();
+            buttonSaveAircraft.Hide();
+            buttonCancelAircraft.Show();
+        }
+
+        private void buttonEditAircraft_Click(object sender, EventArgs e)
+        {
+            labelEditDetailsAircraft.Show();
+            labelAircraftName.Show();
+            textBoxAircraftName.Show();
+            labelMaxJumpers.Show();
+            numericUpDownMaxJumpers.Show();
+            buttonAddAircraftSubmit.Hide();
+            buttonSaveAircraft.Show();
+            buttonCancelAircraft.Show();
+        }
+
+        private void buttonDeleteAircraft_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this aircrafit?\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                if (listBoxPeople.Items[i].ToString().ToLower().Contains(searchText))
-                {
-                    found = true;
-                    listBoxPeople.SelectedIndex = i;
-                    searchIndex = i;
-                    break;
-                }
+                MessageBox.Show("Delete");
             }
-            
-            if (!found)
-            {
-                searchIndex = 0;
- //               listBoxPeople.SelectedIndex = 0;
-            }
-                
         }
     }
 }
