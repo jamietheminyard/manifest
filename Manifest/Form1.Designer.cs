@@ -37,6 +37,8 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPagePeople = new System.Windows.Forms.TabPage();
             this.groupBoxPersonDetails = new System.Windows.Forms.GroupBox();
+            this.labelEditDetails = new System.Windows.Forms.Label();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonAddPerson = new System.Windows.Forms.Button();
             this.checkBoxVideo = new System.Windows.Forms.CheckBox();
             this.checkBoxCoach = new System.Windows.Forms.CheckBox();
@@ -56,6 +58,15 @@
             this.textBoxSearchPeople = new System.Windows.Forms.TextBox();
             this.listBoxPeople = new System.Windows.Forms.ListBox();
             this.tabPageAircraft = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonCancelAircraft = new System.Windows.Forms.Button();
+            this.buttonSaveAircraft = new System.Windows.Forms.Button();
+            this.buttonAddAircraftSubmit = new System.Windows.Forms.Button();
+            this.textBoxAircraftName = new System.Windows.Forms.TextBox();
+            this.numericUpDownMaxJumpers = new System.Windows.Forms.NumericUpDown();
+            this.labelMaxJumpers = new System.Windows.Forms.Label();
+            this.labelAircraftName = new System.Windows.Forms.Label();
+            this.labelEditDetailsAircraft = new System.Windows.Forms.Label();
             this.listBoxAircraft = new System.Windows.Forms.ListBox();
             this.buttonDeleteAircraft = new System.Windows.Forms.Button();
             this.buttonEditAircraft = new System.Windows.Forms.Button();
@@ -74,26 +85,15 @@
             this.buttonNewLoad = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.labelEditDetails = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labelEditDetailsAircraft = new System.Windows.Forms.Label();
-            this.labelAircraftName = new System.Windows.Forms.Label();
-            this.labelMaxJumpers = new System.Windows.Forms.Label();
-            this.numericUpDownMaxJumpers = new System.Windows.Forms.NumericUpDown();
-            this.textBoxAircraftName = new System.Windows.Forms.TextBox();
-            this.buttonAddAircraftSubmit = new System.Windows.Forms.Button();
-            this.buttonSaveAircraft = new System.Windows.Forms.Button();
-            this.buttonCancelAircraft = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPagePeople.SuspendLayout();
             this.groupBoxPersonDetails.SuspendLayout();
             this.tabPageAircraft.SuspendLayout();
-            this.tabPageLoads.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxJumpers)).BeginInit();
+            this.tabPageLoads.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -195,6 +195,25 @@
             this.groupBoxPersonDetails.TabIndex = 6;
             this.groupBoxPersonDetails.TabStop = false;
             this.groupBoxPersonDetails.Text = "Person Details";
+            // 
+            // labelEditDetails
+            // 
+            this.labelEditDetails.AutoSize = true;
+            this.labelEditDetails.Location = new System.Drawing.Point(56, 60);
+            this.labelEditDetails.Name = "labelEditDetails";
+            this.labelEditDetails.Size = new System.Drawing.Size(178, 25);
+            this.labelEditDetails.TabIndex = 24;
+            this.labelEditDetails.Text = "Editing details for";
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(242, 408);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(172, 47);
+            this.buttonCancel.TabIndex = 23;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonAddPerson
             // 
@@ -383,16 +402,103 @@
             this.tabPageAircraft.Text = "     Aircraft     ";
             this.tabPageAircraft.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.buttonCancelAircraft);
+            this.groupBox1.Controls.Add(this.buttonSaveAircraft);
+            this.groupBox1.Controls.Add(this.buttonAddAircraftSubmit);
+            this.groupBox1.Controls.Add(this.textBoxAircraftName);
+            this.groupBox1.Controls.Add(this.numericUpDownMaxJumpers);
+            this.groupBox1.Controls.Add(this.labelMaxJumpers);
+            this.groupBox1.Controls.Add(this.labelAircraftName);
+            this.groupBox1.Controls.Add(this.labelEditDetailsAircraft);
+            this.groupBox1.Location = new System.Drawing.Point(631, 111);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(931, 579);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Aircraft details";
+            // 
+            // buttonCancelAircraft
+            // 
+            this.buttonCancelAircraft.Location = new System.Drawing.Point(188, 342);
+            this.buttonCancelAircraft.Name = "buttonCancelAircraft";
+            this.buttonCancelAircraft.Size = new System.Drawing.Size(129, 43);
+            this.buttonCancelAircraft.TabIndex = 7;
+            this.buttonCancelAircraft.Text = "Cancel";
+            this.buttonCancelAircraft.UseVisualStyleBackColor = true;
+            this.buttonCancelAircraft.Click += new System.EventHandler(this.buttonCancelAircraft_Click);
+            // 
+            // buttonSaveAircraft
+            // 
+            this.buttonSaveAircraft.Location = new System.Drawing.Point(188, 293);
+            this.buttonSaveAircraft.Name = "buttonSaveAircraft";
+            this.buttonSaveAircraft.Size = new System.Drawing.Size(129, 43);
+            this.buttonSaveAircraft.TabIndex = 6;
+            this.buttonSaveAircraft.Text = "Save";
+            this.buttonSaveAircraft.UseVisualStyleBackColor = true;
+            this.buttonSaveAircraft.Click += new System.EventHandler(this.buttonSaveAircraft_Click);
+            // 
+            // buttonAddAircraftSubmit
+            // 
+            this.buttonAddAircraftSubmit.Location = new System.Drawing.Point(188, 244);
+            this.buttonAddAircraftSubmit.Name = "buttonAddAircraftSubmit";
+            this.buttonAddAircraftSubmit.Size = new System.Drawing.Size(129, 43);
+            this.buttonAddAircraftSubmit.TabIndex = 5;
+            this.buttonAddAircraftSubmit.Text = "Add";
+            this.buttonAddAircraftSubmit.UseVisualStyleBackColor = true;
+            this.buttonAddAircraftSubmit.Click += new System.EventHandler(this.buttonAddAircraftSubmit_Click);
+            // 
+            // textBoxAircraftName
+            // 
+            this.textBoxAircraftName.Location = new System.Drawing.Point(145, 115);
+            this.textBoxAircraftName.Name = "textBoxAircraftName";
+            this.textBoxAircraftName.Size = new System.Drawing.Size(286, 31);
+            this.textBoxAircraftName.TabIndex = 4;
+            // 
+            // numericUpDownMaxJumpers
+            // 
+            this.numericUpDownMaxJumpers.Location = new System.Drawing.Point(197, 172);
+            this.numericUpDownMaxJumpers.Name = "numericUpDownMaxJumpers";
+            this.numericUpDownMaxJumpers.Size = new System.Drawing.Size(120, 31);
+            this.numericUpDownMaxJumpers.TabIndex = 3;
+            // 
+            // labelMaxJumpers
+            // 
+            this.labelMaxJumpers.AutoSize = true;
+            this.labelMaxJumpers.Location = new System.Drawing.Point(56, 172);
+            this.labelMaxJumpers.Name = "labelMaxJumpers";
+            this.labelMaxJumpers.Size = new System.Drawing.Size(135, 25);
+            this.labelMaxJumpers.TabIndex = 2;
+            this.labelMaxJumpers.Text = "Max jumpers";
+            // 
+            // labelAircraftName
+            // 
+            this.labelAircraftName.AutoSize = true;
+            this.labelAircraftName.Location = new System.Drawing.Point(56, 122);
+            this.labelAircraftName.Name = "labelAircraftName";
+            this.labelAircraftName.Size = new System.Drawing.Size(68, 25);
+            this.labelAircraftName.TabIndex = 1;
+            this.labelAircraftName.Text = "Name";
+            // 
+            // labelEditDetailsAircraft
+            // 
+            this.labelEditDetailsAircraft.AutoSize = true;
+            this.labelEditDetailsAircraft.Location = new System.Drawing.Point(56, 62);
+            this.labelEditDetailsAircraft.Name = "labelEditDetailsAircraft";
+            this.labelEditDetailsAircraft.Size = new System.Drawing.Size(184, 25);
+            this.labelEditDetailsAircraft.TabIndex = 0;
+            this.labelEditDetailsAircraft.Text = "Editing details for ";
+            // 
             // listBoxAircraft
             // 
             this.listBoxAircraft.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxAircraft.FormattingEnabled = true;
             this.listBoxAircraft.ItemHeight = 25;
-            this.listBoxAircraft.Items.AddRange(new object[] {
-            "King Air - 14 slots",
-            "Helicopter - 1 slot",
-            "Bi-plane - 1 slot"});
             this.listBoxAircraft.Location = new System.Drawing.Point(30, 111);
             this.listBoxAircraft.Name = "listBoxAircraft";
             this.listBoxAircraft.Size = new System.Drawing.Size(572, 579);
@@ -474,7 +580,7 @@
             this.textBox1.Location = new System.Drawing.Point(298, 40);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 31);
-            this.textBox1.TabIndex = 12;
+            this.textBox1.TabIndex = 2;
             // 
             // comboBoxLoadAircraft
             // 
@@ -484,7 +590,7 @@
             this.comboBoxLoadAircraft.Location = new System.Drawing.Point(19, 37);
             this.comboBoxLoadAircraft.Name = "comboBoxLoadAircraft";
             this.comboBoxLoadAircraft.Size = new System.Drawing.Size(256, 33);
-            this.comboBoxLoadAircraft.TabIndex = 11;
+            this.comboBoxLoadAircraft.TabIndex = 1;
             // 
             // panelLoads
             // 
@@ -504,7 +610,7 @@
             this.buttonAddFunJumper.Location = new System.Drawing.Point(1351, 29);
             this.buttonAddFunJumper.Name = "buttonAddFunJumper";
             this.buttonAddFunJumper.Size = new System.Drawing.Size(143, 41);
-            this.buttonAddFunJumper.TabIndex = 9;
+            this.buttonAddFunJumper.TabIndex = 6;
             this.buttonAddFunJumper.Text = "Quick Add";
             this.buttonAddFunJumper.UseVisualStyleBackColor = true;
             // 
@@ -514,7 +620,7 @@
             this.textBoxManNum.Location = new System.Drawing.Point(1236, 34);
             this.textBoxManNum.Name = "textBoxManNum";
             this.textBoxManNum.Size = new System.Drawing.Size(100, 31);
-            this.textBoxManNum.TabIndex = 8;
+            this.textBoxManNum.TabIndex = 5;
             // 
             // label1
             // 
@@ -528,10 +634,10 @@
             // 
             // buttonAddTandem
             // 
-            this.buttonAddTandem.Location = new System.Drawing.Point(795, 32);
+            this.buttonAddTandem.Location = new System.Drawing.Point(794, 35);
             this.buttonAddTandem.Name = "buttonAddTandem";
             this.buttonAddTandem.Size = new System.Drawing.Size(257, 41);
-            this.buttonAddTandem.TabIndex = 6;
+            this.buttonAddTandem.TabIndex = 4;
             this.buttonAddTandem.Text = "Add Person to Load";
             this.buttonAddTandem.UseVisualStyleBackColor = true;
             this.buttonAddTandem.Click += new System.EventHandler(this.buttonAddTandem_Click);
@@ -541,16 +647,16 @@
             this.buttonCompleteLoad.Location = new System.Drawing.Point(21, 82);
             this.buttonCompleteLoad.Name = "buttonCompleteLoad";
             this.buttonCompleteLoad.Size = new System.Drawing.Size(166, 41);
-            this.buttonCompleteLoad.TabIndex = 2;
+            this.buttonCompleteLoad.TabIndex = 7;
             this.buttonCompleteLoad.Text = "Complete Load";
             this.buttonCompleteLoad.UseVisualStyleBackColor = true;
             // 
             // buttonNewLoad
             // 
-            this.buttonNewLoad.Location = new System.Drawing.Point(535, 32);
+            this.buttonNewLoad.Location = new System.Drawing.Point(544, 37);
             this.buttonNewLoad.Name = "buttonNewLoad";
             this.buttonNewLoad.Size = new System.Drawing.Size(141, 41);
-            this.buttonNewLoad.TabIndex = 0;
+            this.buttonNewLoad.TabIndex = 3;
             this.buttonNewLoad.Text = "New Load";
             this.buttonNewLoad.UseVisualStyleBackColor = true;
             this.buttonNewLoad.Click += new System.EventHandler(this.buttonNewLoad_Click);
@@ -571,116 +677,6 @@
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(412, 32);
             this.toolStripStatusLabel1.Text = "West Tennessee Skydiving - Manifest";
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Location = new System.Drawing.Point(242, 408);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(172, 47);
-            this.buttonCancel.TabIndex = 23;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // labelEditDetails
-            // 
-            this.labelEditDetails.AutoSize = true;
-            this.labelEditDetails.Location = new System.Drawing.Point(56, 60);
-            this.labelEditDetails.Name = "labelEditDetails";
-            this.labelEditDetails.Size = new System.Drawing.Size(178, 25);
-            this.labelEditDetails.TabIndex = 24;
-            this.labelEditDetails.Text = "Editing details for";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.buttonCancelAircraft);
-            this.groupBox1.Controls.Add(this.buttonSaveAircraft);
-            this.groupBox1.Controls.Add(this.buttonAddAircraftSubmit);
-            this.groupBox1.Controls.Add(this.textBoxAircraftName);
-            this.groupBox1.Controls.Add(this.numericUpDownMaxJumpers);
-            this.groupBox1.Controls.Add(this.labelMaxJumpers);
-            this.groupBox1.Controls.Add(this.labelAircraftName);
-            this.groupBox1.Controls.Add(this.labelEditDetailsAircraft);
-            this.groupBox1.Location = new System.Drawing.Point(631, 111);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(931, 579);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Aircraft details";
-            // 
-            // labelEditDetailsAircraft
-            // 
-            this.labelEditDetailsAircraft.AutoSize = true;
-            this.labelEditDetailsAircraft.Location = new System.Drawing.Point(56, 62);
-            this.labelEditDetailsAircraft.Name = "labelEditDetailsAircraft";
-            this.labelEditDetailsAircraft.Size = new System.Drawing.Size(184, 25);
-            this.labelEditDetailsAircraft.TabIndex = 0;
-            this.labelEditDetailsAircraft.Text = "Editing details for ";
-            // 
-            // labelAircraftName
-            // 
-            this.labelAircraftName.AutoSize = true;
-            this.labelAircraftName.Location = new System.Drawing.Point(56, 122);
-            this.labelAircraftName.Name = "labelAircraftName";
-            this.labelAircraftName.Size = new System.Drawing.Size(68, 25);
-            this.labelAircraftName.TabIndex = 1;
-            this.labelAircraftName.Text = "Name";
-            // 
-            // labelMaxJumpers
-            // 
-            this.labelMaxJumpers.AutoSize = true;
-            this.labelMaxJumpers.Location = new System.Drawing.Point(56, 172);
-            this.labelMaxJumpers.Name = "labelMaxJumpers";
-            this.labelMaxJumpers.Size = new System.Drawing.Size(135, 25);
-            this.labelMaxJumpers.TabIndex = 2;
-            this.labelMaxJumpers.Text = "Max jumpers";
-            // 
-            // numericUpDownMaxJumpers
-            // 
-            this.numericUpDownMaxJumpers.Location = new System.Drawing.Point(197, 172);
-            this.numericUpDownMaxJumpers.Name = "numericUpDownMaxJumpers";
-            this.numericUpDownMaxJumpers.Size = new System.Drawing.Size(120, 31);
-            this.numericUpDownMaxJumpers.TabIndex = 3;
-            // 
-            // textBoxAircraftName
-            // 
-            this.textBoxAircraftName.Location = new System.Drawing.Point(145, 115);
-            this.textBoxAircraftName.Name = "textBoxAircraftName";
-            this.textBoxAircraftName.Size = new System.Drawing.Size(286, 31);
-            this.textBoxAircraftName.TabIndex = 4;
-            // 
-            // buttonAddAircraftSubmit
-            // 
-            this.buttonAddAircraftSubmit.Location = new System.Drawing.Point(188, 244);
-            this.buttonAddAircraftSubmit.Name = "buttonAddAircraftSubmit";
-            this.buttonAddAircraftSubmit.Size = new System.Drawing.Size(129, 43);
-            this.buttonAddAircraftSubmit.TabIndex = 5;
-            this.buttonAddAircraftSubmit.Text = "Add";
-            this.buttonAddAircraftSubmit.UseVisualStyleBackColor = true;
-            this.buttonAddAircraftSubmit.Click += new System.EventHandler(this.buttonAddAircraftSubmit_Click);
-            // 
-            // buttonSaveAircraft
-            // 
-            this.buttonSaveAircraft.Location = new System.Drawing.Point(188, 293);
-            this.buttonSaveAircraft.Name = "buttonSaveAircraft";
-            this.buttonSaveAircraft.Size = new System.Drawing.Size(129, 43);
-            this.buttonSaveAircraft.TabIndex = 6;
-            this.buttonSaveAircraft.Text = "Save";
-            this.buttonSaveAircraft.UseVisualStyleBackColor = true;
-            this.buttonSaveAircraft.Click += new System.EventHandler(this.buttonSaveAircraft_Click);
-            // 
-            // buttonCancelAircraft
-            // 
-            this.buttonCancelAircraft.Location = new System.Drawing.Point(188, 342);
-            this.buttonCancelAircraft.Name = "buttonCancelAircraft";
-            this.buttonCancelAircraft.Size = new System.Drawing.Size(129, 43);
-            this.buttonCancelAircraft.TabIndex = 7;
-            this.buttonCancelAircraft.Text = "Cancel";
-            this.buttonCancelAircraft.UseVisualStyleBackColor = true;
-            this.buttonCancelAircraft.Click += new System.EventHandler(this.buttonCancelAircraft_Click);
             // 
             // Form1
             // 
@@ -705,13 +701,13 @@
             this.groupBoxPersonDetails.ResumeLayout(false);
             this.groupBoxPersonDetails.PerformLayout();
             this.tabPageAircraft.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxJumpers)).EndInit();
             this.tabPageLoads.ResumeLayout(false);
             this.tabPageLoads.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxJumpers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

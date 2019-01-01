@@ -23,6 +23,11 @@ namespace Manifest
         {
             InitializeComponent();
             searchIndex = 0;
+
+            // Key event handler for left/right keys
+            // Requested by Mike for scrolling left/right through loads
+            this.KeyUp += new KeyEventHandler(this.Form1_KeyUp);
+
             textBoxSearchPeople.KeyDown += new KeyEventHandler(searchPeople_KeyDown);
 
             // show/hide UI components
@@ -37,14 +42,12 @@ namespace Manifest
             buttonSaveAircraft.Hide();
             buttonCancelAircraft.Hide();
 
-            // Key event handler for left/right keys
-            // Requested by Mike for scrolling left/right through loads
-            this.KeyUp += new KeyEventHandler(this.Form1_KeyUp);
-
             WindowState = FormWindowState.Maximized;
             tabControl.SelectedTab = tabPageLoads;
             comboBoxLoadAircraft.SelectedIndex = 0;
+            numericUpDownMaxJumpers.Value = 1;
             loadPeople();
+            loadAircraft();
 
             // Retrieve all image files for logos used to group tandems/AFF
             String[] ImageFiles = Directory.GetFiles(@"C:\test");
@@ -200,14 +203,21 @@ namespace Manifest
         private void hideEditPersonUI()
         {
             labelManifestNumber.Hide();
+            textBoxManifestNumber.Text = "";
             textBoxManifestNumber.Hide();
             labelFirstName.Hide();
+            textBoxFirstName.Text = "";
             textBoxFirstName.Hide();
             labelLastName.Hide();
+            textBoxLastName.Text = "";
             textBoxLastName.Hide();
+            checkBoxTI.Checked = false;
             checkBoxTI.Hide();
+            checkBoxAFF.Checked = false;
             checkBoxAFF.Hide();
+            checkBoxCoach.Checked = false;
             checkBoxCoach.Hide();
+            checkBoxVideo.Checked = false;
             checkBoxVideo.Hide();
         }
 
@@ -223,11 +233,6 @@ namespace Manifest
             textBoxManifestNumber.Text = "";
             textBoxFirstName.Text = "";
             textBoxLastName.Text = "";
-
-
-            //           Form addPersonWindow = new AddUserForm();
-            //           addPersonWindow.FormClosed += new FormClosedEventHandler(Person_Form_Closed);
-            //           addPersonWindow.ShowDialog();
         }
 
         private void buttonAddTandem_Click(object sender, EventArgs e)
@@ -250,9 +255,32 @@ namespace Manifest
             loadList.Columns.Add("", -2);
             String aircraft = comboBoxLoadAircraft.Text;
             loadList.Items.Add(aircraft);
-            loadList.Items.Add("5368 - Jamie Minyard AFF1");
             loadList.View = View.Details; // Enables Details view so you can see columns
             loadList.Items.Add(new ListViewItem { ImageIndex = 0, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 0, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 1, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 1, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 2, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 2, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 3, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 3, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 4, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 4, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 5, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 5, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 6, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 6, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 7, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 7, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 8, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 8, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 9, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 9, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 10, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 10, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 11, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 11, Text = "5368 - Jamie Minyard AFF1" });
+
             loadList.Width = 200;
             loadList.Height = 500;
             loadList.Columns[0].Width = Width - 50;
@@ -381,7 +409,12 @@ namespace Manifest
             using (SqlConnection cn = new SqlConnection(connString))
             using (SqlCommand cmd = cn.CreateCommand())
             {
-                cmd.CommandText = "update People set firstName = '" + fName + "', lastName = '" + lName + "', TI = " + t + ", AFFI = " + a + ", coach = " + c + ", videographer = " + v + " where manifestNumber = '" + manNum + "'";
+                cmd.CommandText = "update People set firstName = @param2, lastName = @param3, TI = " + t + ", AFFI = " + a + ", coach = " + c + ", videographer = " + v + " where manifestNumber = @param1";
+
+                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 8).Value = manNum;
+                cmd.Parameters.Add("@param2", SqlDbType.NVarChar, 50).Value = fName;
+                cmd.Parameters.Add("@param3", SqlDbType.NVarChar, 50).Value = lName;
+
                 cn.Open();
                 if (cmd.ExecuteNonQuery() == 1)
                 {
@@ -430,8 +463,12 @@ namespace Manifest
             using (SqlCommand cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "insert into People(manifestNumber, firstName, lastName, paid, TI, AFFI, coach, videographer)" +
-                    "values(" + manNum + ",'" + fName + "','"
-                    + lName + "','" + 0 + "'," + t + "," + a + "," + c + "," + v + ")";
+                    "values(@param1, @param2, @param3,'" + 0 + "'," + t + "," + a + "," + c + "," + v + ")";
+
+                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 8).Value = manNum;
+                cmd.Parameters.Add("@param2", SqlDbType.NVarChar, 50).Value = fName;
+                cmd.Parameters.Add("@param3", SqlDbType.NVarChar, 50).Value = lName;
+
                 cn.Open();
 
                 if (cmd.ExecuteNonQuery() == 1)
@@ -474,8 +511,10 @@ namespace Manifest
         {
             labelEditDetailsAircraft.Hide();
             labelAircraftName.Hide();
+            textBoxAircraftName.Text = "";
             textBoxAircraftName.Hide();
             labelMaxJumpers.Hide();
+            numericUpDownMaxJumpers.Value = 0;
             numericUpDownMaxJumpers.Hide();
         }
 
@@ -489,14 +528,109 @@ namespace Manifest
 
         private void buttonAddAircraftSubmit_Click(object sender, EventArgs e)
         {
-            hideEditAircraftUI();
-            buttonAddAircraftSubmit.Hide();
-            buttonSaveAircraft.Hide();
-            buttonCancelAircraft.Hide();
+            String name = textBoxAircraftName.Text;
+            int cap = (int)numericUpDownMaxJumpers.Value;
+
+            if (String.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Please enter a name for this aircraft.");
+                return;
+            }
+
+            if (cap < 1)
+            {
+                MessageBox.Show("Max jumpers cannot be less than 1.");
+                return;
+            }
+
+            String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
+            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlCommand cmd = cn.CreateCommand())
+            {
+                cmd.CommandText = "insert into Aircraft(aircraftName, capacity)" +
+                    "values(@param1, @param2)";
+
+                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name;
+                cmd.Parameters.Add("@param2", SqlDbType.Int).Value = cap;
+
+                cn.Open();
+
+                if (cmd.ExecuteNonQuery() == 1)
+                {
+                    // If insert was successful, reload the people in the UI list
+                    loadAircraft();
+
+                    // Hide the edit UI components
+                    hideEditAircraftUI();
+                    buttonAddAircraftSubmit.Hide();
+                    buttonSaveAircraft.Hide();
+                    buttonCancelAircraft.Hide();
+                }
+            }
+        }
+
+        public void loadAircraft()
+        {
+            ObservableCollection<String> aircraft = new ObservableCollection<String>();
+            List<AircraftType> aircraftFromDB = new List<AircraftType>();
+            string connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
+            using (var conn = new SqlConnection(connString))
+            {
+                string sqlString = @"select aircraftName, capacity from Aircraft";
+                using (var command = new SqlCommand(sqlString, conn))
+                {
+                    conn.Open();
+                    var result = command.ExecuteScalar();
+                    System.Diagnostics.Debug.WriteLine(result.ToString());
+                    conn.Close();
+                }
+            }
+
+            String an;
+            int c;
+
+            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlCommand cmd = cn.CreateCommand())
+            {
+                cmd.CommandText = "select aircraftName, capacity from Aircraft";
+                cn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        an = dr.GetString(0);
+                        c = dr.GetInt32(1);
+
+                        AircraftType air = new AircraftType(an, c);
+                        aircraftFromDB.Add(air);
+                    }
+                }
+            }
+
+            foreach (AircraftType plane in aircraftFromDB)
+            {
+                aircraft.Add(plane.getName() + " - Max jumpers " + plane.getCapacity());
+            }
+            listBoxAircraft.DataSource = aircraft;
         }
 
         private void buttonSaveAircraft_Click(object sender, EventArgs e)
         {
+            String name = textBoxAircraftName.Text;
+            int cap = (int)numericUpDownMaxJumpers.Value;
+
+            if (String.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Please enter a name for this aircraft.");
+                return;
+            }
+
+            if (cap < 1)
+            {
+                MessageBox.Show("Max jumpers cannot be less than 1.");
+                return;
+            }
+
             hideEditAircraftUI();
             buttonAddAircraftSubmit.Hide();
             buttonSaveAircraft.Hide();
@@ -509,10 +643,22 @@ namespace Manifest
             buttonAddAircraftSubmit.Show();
             buttonSaveAircraft.Hide();
             buttonCancelAircraft.Show();
+            labelEditDetailsAircraft.Hide();
         }
 
         private void buttonEditAircraft_Click(object sender, EventArgs e)
         {
+            String item = listBoxAircraft.GetItemText(listBoxAircraft.SelectedItem);
+            String[] splitString = item.Split(new string[] { " - Max jumpers " }, StringSplitOptions.None);
+            String name = splitString[0].Trim();
+            String cap = splitString[1].Trim();
+            int capacity = 0;
+            textBoxAircraftName.Text = name;
+            Int32.TryParse(cap, out capacity);
+            numericUpDownMaxJumpers.Value = capacity;
+
+            labelEditDetailsAircraft.Text = "Editing details for " + name + " with max jumpers " + capacity + ".";
+
             showEditAircraftUI();
             buttonAddAircraftSubmit.Hide();
             buttonSaveAircraft.Show();

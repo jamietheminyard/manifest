@@ -59,7 +59,7 @@
             this.textBoxFirstName.Location = new System.Drawing.Point(178, 258);
             this.textBoxFirstName.Name = "textBoxFirstName";
             this.textBoxFirstName.Size = new System.Drawing.Size(386, 31);
-            this.textBoxFirstName.TabIndex = 2;
+            this.textBoxFirstName.TabIndex = 5;
             // 
             // label3
             // 
@@ -108,7 +108,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(27, 44);
+            this.label5.Location = new System.Drawing.Point(27, 110);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(144, 25);
             this.label5.TabIndex = 9;
@@ -116,15 +116,15 @@
             // 
             // textBoxManNum
             // 
-            this.textBoxManNum.Location = new System.Drawing.Point(177, 44);
+            this.textBoxManNum.Location = new System.Drawing.Point(177, 110);
             this.textBoxManNum.Name = "textBoxManNum";
             this.textBoxManNum.Size = new System.Drawing.Size(121, 31);
-            this.textBoxManNum.TabIndex = 10;
+            this.textBoxManNum.TabIndex = 2;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(76, 109);
+            this.label6.Location = new System.Drawing.Point(76, 164);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(84, 25);
             this.label6.TabIndex = 11;
@@ -132,15 +132,15 @@
             // 
             // textBoxAltitude
             // 
-            this.textBoxAltitude.Location = new System.Drawing.Point(177, 103);
+            this.textBoxAltitude.Location = new System.Drawing.Point(177, 158);
             this.textBoxAltitude.Name = "textBoxAltitude";
             this.textBoxAltitude.Size = new System.Drawing.Size(200, 31);
-            this.textBoxAltitude.TabIndex = 12;
+            this.textBoxAltitude.TabIndex = 3;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(92, 156);
+            this.label7.Location = new System.Drawing.Point(100, 47);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(60, 25);
             this.label7.TabIndex = 13;
@@ -149,10 +149,30 @@
             // comboBoxJumpType
             // 
             this.comboBoxJumpType.FormattingEnabled = true;
-            this.comboBoxJumpType.Location = new System.Drawing.Point(177, 156);
+            this.comboBoxJumpType.Items.AddRange(new object[] {
+            "14,500 - $26.00",
+            "PRPAY - $0.00",
+            "COUPON - $0.00",
+            "TAN - $225.00",
+            "TANVST - $325.00",
+            "TANGFT - $0.00",
+            "TANADV - $0.00",
+            "IAFF2 - $200.00",
+            "IAFF1 - $175.00",
+            "GRWTS - $51.00",
+            "COACHJ - $26.00",
+            "COACHI - $0.00",
+            "OBS - $30.00",
+            "AWTS13 - $200.00",
+            "AWTS47 - $175.00",
+            "ADJ 47 - $170.00",
+            "ACW 13 - $195.00",
+            "ACW 47 - $170.00",
+            "GRCW - $48.00"});
+            this.comboBoxJumpType.Location = new System.Drawing.Point(177, 44);
             this.comboBoxJumpType.Name = "comboBoxJumpType";
             this.comboBoxJumpType.Size = new System.Drawing.Size(386, 33);
-            this.comboBoxJumpType.TabIndex = 14;
+            this.comboBoxJumpType.TabIndex = 1;
             // 
             // label2
             // 
@@ -168,7 +188,7 @@
             this.textBoxPrice.Location = new System.Drawing.Point(177, 209);
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(200, 31);
-            this.textBoxPrice.TabIndex = 16;
+            this.textBoxPrice.TabIndex = 4;
             // 
             // FormAddPersonToLoad
             // 
