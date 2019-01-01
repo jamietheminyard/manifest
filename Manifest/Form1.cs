@@ -631,10 +631,30 @@ namespace Manifest
                 return;
             }
 
-            hideEditAircraftUI();
-            buttonAddAircraftSubmit.Hide();
-            buttonSaveAircraft.Hide();
-            buttonCancelAircraft.Hide();
+            String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
+            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlCommand cmd = cn.CreateCommand())
+            {
+                cmd.CommandText = "update Aircraft set capacity = " + cap + " where aircraftName = @param1";
+
+                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name;
+
+                cn.Open();
+
+                if (cmd.ExecuteNonQuery() == 1)
+                {
+                    // If insert was successful, reload the people in the UI list
+                    loadAircraft();
+
+                    // Hide the edit UI components
+                    hideEditAircraftUI();
+                    buttonAddAircraftSubmit.Hide();
+                    buttonSaveAircraft.Hide();
+                    buttonCancelAircraft.Hide();
+                }
+            }
+
+
         }
 
         private void buttonAddAircraft_Click(object sender, EventArgs e)
@@ -644,10 +664,15 @@ namespace Manifest
             buttonSaveAircraft.Hide();
             buttonCancelAircraft.Show();
             labelEditDetailsAircraft.Hide();
+
+            // Make the aircraft name read-write
+            textBoxAircraftName.Enabled = true;
         }
 
         private void buttonEditAircraft_Click(object sender, EventArgs e)
         {
+            // Make the aircraft name read-only
+            textBoxAircraftName.Enabled = false;
             String item = listBoxAircraft.GetItemText(listBoxAircraft.SelectedItem);
             String[] splitString = item.Split(new string[] { " - Max jumpers " }, StringSplitOptions.None);
             String name = splitString[0].Trim();
@@ -670,7 +695,22 @@ namespace Manifest
             DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this aircrafit?\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                MessageBox.Show("Delete");
+                String item = listBoxAircraft.GetItemText(listBoxAircraft.SelectedItem);
+                String[] splitString = item.Split(new string[] { " - Max jumpers " }, StringSplitOptions.None);
+                String name = splitString[0].Trim();
+
+                String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
+                using (SqlConnection cn = new SqlConnection(connString))
+                using (SqlCommand cmd = cn.CreateCommand())
+                {
+                    cmd.CommandText = "delete from aircraft where aircraftName = '" + name + "'";
+                    cn.Open();
+                    if (cmd.ExecuteNonQuery() == 1)
+                    {
+                        // If delete was successful, reload the aircraft in the UI list
+                        loadAircraft();
+                    }
+                }
             }
         }
     }
