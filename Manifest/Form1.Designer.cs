@@ -73,8 +73,6 @@
             this.buttonAddAircraft = new System.Windows.Forms.Button();
             this.tabPageLoads = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.comboBoxLoadAircraft = new System.Windows.Forms.ComboBox();
             this.panelLoads = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonAddFunJumper = new System.Windows.Forms.Button();
@@ -537,8 +535,6 @@
             // tabPageLoads
             // 
             this.tabPageLoads.Controls.Add(this.label3);
-            this.tabPageLoads.Controls.Add(this.label2);
-            this.tabPageLoads.Controls.Add(this.textBox1);
             this.tabPageLoads.Controls.Add(this.comboBoxLoadAircraft);
             this.tabPageLoads.Controls.Add(this.panelLoads);
             this.tabPageLoads.Controls.Add(this.buttonAddFunJumper);
@@ -566,27 +562,9 @@
             this.label3.TabIndex = 14;
             this.label3.Text = "(Reg price, own gear, full altitude only)";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(404, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(134, 25);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "max jumpers";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(298, 40);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 31);
-            this.textBox1.TabIndex = 2;
-            // 
             // comboBoxLoadAircraft
             // 
             this.comboBoxLoadAircraft.FormattingEnabled = true;
-            this.comboBoxLoadAircraft.Items.AddRange(new object[] {
-            "King Air"});
             this.comboBoxLoadAircraft.Location = new System.Drawing.Point(19, 37);
             this.comboBoxLoadAircraft.Name = "comboBoxLoadAircraft";
             this.comboBoxLoadAircraft.Size = new System.Drawing.Size(256, 33);
@@ -613,6 +591,7 @@
             this.buttonAddFunJumper.TabIndex = 6;
             this.buttonAddFunJumper.Text = "Quick Add";
             this.buttonAddFunJumper.UseVisualStyleBackColor = true;
+            this.buttonAddFunJumper.Click += new System.EventHandler(this.buttonAddFunJumper_Click);
             // 
             // textBoxManNum
             // 
@@ -634,7 +613,7 @@
             // 
             // buttonAddTandem
             // 
-            this.buttonAddTandem.Location = new System.Drawing.Point(794, 35);
+            this.buttonAddTandem.Location = new System.Drawing.Point(553, 37);
             this.buttonAddTandem.Name = "buttonAddTandem";
             this.buttonAddTandem.Size = new System.Drawing.Size(257, 41);
             this.buttonAddTandem.TabIndex = 4;
@@ -653,7 +632,7 @@
             // 
             // buttonNewLoad
             // 
-            this.buttonNewLoad.Location = new System.Drawing.Point(544, 37);
+            this.buttonNewLoad.Location = new System.Drawing.Point(300, 35);
             this.buttonNewLoad.Name = "buttonNewLoad";
             this.buttonNewLoad.Size = new System.Drawing.Size(141, 41);
             this.buttonNewLoad.TabIndex = 3;
@@ -746,8 +725,6 @@
         private System.Windows.Forms.FlowLayoutPanel panelLoads;
         private System.Windows.Forms.ComboBox comboBoxLoadAircraft;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox checkBoxVideo;
         private System.Windows.Forms.CheckBox checkBoxCoach;
         private System.Windows.Forms.CheckBox checkBoxAFF;

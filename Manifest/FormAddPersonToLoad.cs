@@ -20,6 +20,7 @@ namespace Manifest
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             MessageBox.Show("added");
+            this.Close();
         }
     }
 }

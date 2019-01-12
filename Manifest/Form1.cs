@@ -18,10 +18,14 @@ namespace Manifest
     {
         public ImageList Imagelist = new ImageList();
         int searchIndex;
+        bool startup;
+        int tmpLoadNum = 1;
+        String selectedLoad = "";
 
         public Form1()
         {
             InitializeComponent();
+            startup = true;
             searchIndex = 0;
 
             // Key event handler for left/right keys
@@ -44,10 +48,18 @@ namespace Manifest
 
             WindowState = FormWindowState.Maximized;
             tabControl.SelectedTab = tabPageLoads;
-            comboBoxLoadAircraft.SelectedIndex = 0;
+
             numericUpDownMaxJumpers.Value = 1;
             loadPeople();
             loadAircraft();
+
+            // Default to the King Air
+            try
+            {
+                comboBoxLoadAircraft.SelectedIndex = comboBoxLoadAircraft.Items.IndexOf("King Air");
+            }
+            catch (Exception e) { }
+            
 
             // Retrieve all image files for logos used to group tandems/AFF
             String[] ImageFiles = Directory.GetFiles(@"C:\test");
@@ -56,6 +68,7 @@ namespace Manifest
                 //Add images to Imagelist
                 Imagelist.Images.Add(Image.FromFile(file));
             }
+            startup = false;
         }
 
         void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -237,6 +250,18 @@ namespace Manifest
 
         private void buttonAddTandem_Click(object sender, EventArgs e)
         {
+            if (panelLoads.Controls.Count == 0)
+            {
+                MessageBox.Show("Please create a load first.");
+                return;
+            }
+
+            if (selectedLoad == "")
+            {
+                MessageBox.Show("Please click a load first to select it.");
+                return;
+            }
+
             Form addTandemWindow = new FormAddPersonToLoad();
             addTandemWindow.ShowDialog();
         }
@@ -254,38 +279,70 @@ namespace Manifest
             loadList.FullRowSelect = true;
             loadList.Columns.Add("", -2);
             String aircraft = comboBoxLoadAircraft.Text;
-            loadList.Items.Add(aircraft);
-            loadList.View = View.Details; // Enables Details view so you can see columns
-            loadList.Items.Add(new ListViewItem { ImageIndex = 0, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 0, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 1, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 1, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 2, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 2, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 3, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 3, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 4, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 4, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 5, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 5, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 6, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 6, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 7, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 7, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 8, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 8, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 9, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 9, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 10, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 10, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 11, Text = "5368 - Jamie Minyard AFF1" });
-            loadList.Items.Add(new ListViewItem { ImageIndex = 11, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add("Load " + tmpLoadNum + " - " + aircraft);
 
+            // Get the number of max jumpers for this aircraft
+            int num = 0;
+            String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
+            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlCommand cmd = cn.CreateCommand())
+            {
+                cmd.CommandText = "select capacity from Aircraft where aircraftName = '" + aircraft + "'";
+                cn.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        num = dr.GetInt32(0);
+                    }
+                }
+            }
+            loadList.Items.Add("Slots left - " + num);
+
+            loadList.View = View.Details; // Enables Details view so you can see columns
+
+/*
+            loadList.Items.Add(new ListViewItem { ImageIndex = 0, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 0, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 1, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 1, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 2, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 2, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 3, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 3, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 4, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 4, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 5, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 5, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 6, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 6, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 7, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 7, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 8, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 8, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 9, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 9, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 10, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 10, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 11, Text = "5368 - Jamie Minyard AFF1" });
+            loadList.Items.Add(new ListViewItem { ImageIndex = 11, Text = "5368 - Jamie Minyard AFF1" });
+*/
             loadList.Width = 200;
             loadList.Height = 500;
             loadList.Columns[0].Width = Width - 50;
 
+            loadList.Click += new EventHandler(load_click);
+
             panelLoads.Controls.Add(loadList);
+            tmpLoadNum++;
+        }
+
+        void load_click(object sender, EventArgs e)
+        {
+            ListView lv = (ListView)sender;
+            String load = lv.Items[0].Text.Split('-')[0];
+            MessageBox.Show("Clicked load " + load);
+            selectedLoad = load;
         }
 
         private void buttonDeletePerson_Click(object sender, EventArgs e)
@@ -572,6 +629,7 @@ namespace Manifest
         public void loadAircraft()
         {
             ObservableCollection<String> aircraft = new ObservableCollection<String>();
+            ObservableCollection<String> aircraftNames = new ObservableCollection<String>();
             List<AircraftType> aircraftFromDB = new List<AircraftType>();
             string connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
             using (var conn = new SqlConnection(connString))
@@ -610,8 +668,10 @@ namespace Manifest
             foreach (AircraftType plane in aircraftFromDB)
             {
                 aircraft.Add(plane.getName() + " - Max jumpers " + plane.getCapacity());
+                aircraftNames.Add(plane.getName());
             }
             listBoxAircraft.DataSource = aircraft;
+            comboBoxLoadAircraft.DataSource = aircraftNames;
         }
 
         private void buttonSaveAircraft_Click(object sender, EventArgs e)
@@ -712,6 +772,23 @@ namespace Manifest
                     }
                 }
             }
+        }
+
+        private void buttonAddFunJumper_Click(object sender, EventArgs e)
+        {
+            if (panelLoads.Controls.Count == 0)
+            {
+                MessageBox.Show("Please create a load first.");
+                return;
+            }
+
+            if (selectedLoad == "")
+            {
+                MessageBox.Show("Please click a load first to select it.");
+                return;
+            }
+
+            MessageBox.Show("The selected load is " + selectedLoad);
         }
     }
 }
