@@ -30,6 +30,7 @@ namespace Manifest
 
             // Key event handler for left/right keys
             // Requested by Mike for scrolling left/right through loads
+            // Also handles insert key
             this.KeyUp += new KeyEventHandler(this.Form1_KeyUp);
 
             textBoxSearchPeople.KeyDown += new KeyEventHandler(searchPeople_KeyDown);
@@ -85,6 +86,35 @@ namespace Manifest
                 Point scrolled = new Point(current.X - 50, current.Y);
                 panelLoads.AutoScrollPosition = scrolled;
             }
+            if (e.KeyCode == Keys.Insert)
+            {
+                handleAddPersonToLoad();
+            }
+            if (e.KeyCode == Keys.F12)
+            {
+                handleAddPersonToLoad();
+            }
+        }
+
+        private void handleAddPersonToLoad()
+        {
+            if (panelLoads.Controls.Count == 0)
+            {
+                MessageBox.Show("Please create a load first.","Create a load",MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
+                return;
+            }
+
+            if (selectedLoad == "")
+            {
+                MessageBox.Show("Please click a load first to select it.", "Select a load", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+
+            FormAddPersonToLoad addTandemWindow = new FormAddPersonToLoad(selectedLoad);
+            addTandemWindow.ShowDialog();
+
+            // Add the person to the selected load
+//            MessageBox.Show(addTandemWindow.jumpType + "\n" + addTandemWindow.altitude + "\n" + addTandemWindow.price + "\n" + addTandemWindow.jumperName + "\n" + addTandemWindow.manNum + "\n" + addTandemWindow.instructor1 + "\n" + addTandemWindow.instructor2orVideo);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -250,20 +280,7 @@ namespace Manifest
 
         private void buttonAddTandem_Click(object sender, EventArgs e)
         {
-            if (panelLoads.Controls.Count == 0)
-            {
-                MessageBox.Show("Please create a load first.");
-                return;
-            }
-
-            if (selectedLoad == "")
-            {
-                MessageBox.Show("Please click a load first to select it.");
-                return;
-            }
-
-            Form addTandemWindow = new FormAddPersonToLoad();
-            addTandemWindow.ShowDialog();
+            handleAddPersonToLoad();
         }
 
         private void buttonNewLoad_Click(object sender, EventArgs e)
@@ -299,6 +316,8 @@ namespace Manifest
             }
             loadList.Items.Add("Slots left - " + num);
 
+            loadList.Scrollable = false;
+
             loadList.View = View.Details; // Enables Details view so you can see columns
 
 /*
@@ -332,7 +351,7 @@ namespace Manifest
             loadList.Columns[0].Width = Width - 50;
 
             loadList.Click += new EventHandler(load_click);
-
+  
             panelLoads.Controls.Add(loadList);
             tmpLoadNum++;
         }
@@ -341,7 +360,6 @@ namespace Manifest
         {
             ListView lv = (ListView)sender;
             String load = lv.Items[0].Text.Split('-')[0];
-            MessageBox.Show("Clicked load " + load);
             selectedLoad = load;
         }
 
@@ -353,7 +371,7 @@ namespace Manifest
                 String[] splitString = item.Split('-');
                 String manNum = splitString[0];
                 String name = splitString[1];
-                DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this person from the database?\n\nManifest Number: " + manNum + "\nName: " + name + "\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this person from the database?\n\nManifest Number: " + manNum + "\nName: " + name + "\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (dialogResult == DialogResult.Yes)
                 {
                     String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
@@ -752,7 +770,7 @@ namespace Manifest
 
         private void buttonDeleteAircraft_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this aircrafit?\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this aircrafit?\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo,MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
             {
                 String item = listBoxAircraft.GetItemText(listBoxAircraft.SelectedItem);
@@ -778,13 +796,13 @@ namespace Manifest
         {
             if (panelLoads.Controls.Count == 0)
             {
-                MessageBox.Show("Please create a load first.");
+                MessageBox.Show("Please create a load first.", "Create a load", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
             if (selectedLoad == "")
             {
-                MessageBox.Show("Please click a load first to select it.");
+                MessageBox.Show("Please click a load first to select it.", "Select a load", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
