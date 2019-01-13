@@ -21,6 +21,7 @@ namespace Manifest
         bool startup;
         int tmpLoadNum = 1;
         String selectedLoad = "";
+        int imageIndex = 0;
 
         public Form1()
         {
@@ -114,7 +115,45 @@ namespace Manifest
             addTandemWindow.ShowDialog();
 
             // Add the person to the selected load
-//            MessageBox.Show(addTandemWindow.jumpType + "\n" + addTandemWindow.altitude + "\n" + addTandemWindow.price + "\n" + addTandemWindow.jumperName + "\n" + addTandemWindow.manNum + "\n" + addTandemWindow.instructor1 + "\n" + addTandemWindow.instructor2orVideo);
+            //            MessageBox.Show(addTandemWindow.jumpType + "\n" + addTandemWindow.altitude + "\n" + addTandemWindow.price + "\n" + addTandemWindow.jumperName + "\n" + addTandemWindow.manNum + "\n" + addTandemWindow.instructor1 + "\n" + addTandemWindow.instructor2orVideo);
+
+
+            foreach(ListView c in panelLoads.Controls)
+            {
+                if (c.Items[0].ToString().Contains(selectedLoad))
+                {
+                    // If tandem, make a separate entry for the TI and video if applicable
+                    if (addTandemWindow.jumpType.Contains("TAN"))
+                    {
+                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor1 });
+                        if (addTandemWindow.instructor2orVideo.Trim() != "")
+                        {
+                            c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor2orVideo });
+                        }
+                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.jumperName });
+                        imageIndex = imageIndex + 1;
+                        if (imageIndex == 12)
+                            imageIndex = 0;
+                        return;
+                    }
+                    // If AFF, make a separate entry for the AFFIs
+                    if (addTandemWindow.jumpType.Contains("AFF"))
+                    {
+                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor1 });
+                        if (addTandemWindow.instructor2orVideo.Trim() != "")
+                        {
+                            c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor2orVideo });
+                        }
+                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.jumperName });
+                        if (imageIndex == 12)
+                            imageIndex = 0;
+                        return;
+                    }
+
+                    // Regular fun jumper
+                    c.Items.Add(new ListViewItem { Text = addTandemWindow.jumperName });
+                }
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -296,7 +335,7 @@ namespace Manifest
             loadList.FullRowSelect = true;
             loadList.Columns.Add("", -2);
             String aircraft = comboBoxLoadAircraft.Text;
-            loadList.Items.Add("Load " + tmpLoadNum + " - " + aircraft);
+            
 
             // Get the number of max jumpers for this aircraft
             int num = 0;
@@ -314,7 +353,7 @@ namespace Manifest
                     }
                 }
             }
-            loadList.Items.Add("Slots left - " + num);
+            loadList.Items.Add("Load " + tmpLoadNum + " - " + aircraft + " - " + num + " slots");
 
             loadList.Scrollable = false;
 

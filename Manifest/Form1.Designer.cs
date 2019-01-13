@@ -83,6 +83,7 @@
             this.buttonNewLoad = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPagePeople.SuspendLayout();
@@ -92,6 +93,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxJumpers)).BeginInit();
             this.tabPageLoads.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -657,6 +659,11 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(412, 32);
             this.toolStripStatusLabel1.Text = "West Tennessee Skydiving - Manifest";
             // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -687,6 +694,7 @@
             this.tabPageLoads.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -748,6 +756,7 @@
         private System.Windows.Forms.Label labelMaxJumpers;
         private System.Windows.Forms.Label labelAircraftName;
         private System.Windows.Forms.Label labelEditDetailsAircraft;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
     }
 }
 

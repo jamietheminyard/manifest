@@ -85,8 +85,6 @@ namespace Manifest
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            //TODO If tandem is selected, ensure jumper name isn't blank and an instructor is selected
-
             jumpType = comboBoxJumpType.Text;
             manNum = textBoxManNum.Text;
             altitude = textBoxAltitude.Text;
@@ -94,6 +92,66 @@ namespace Manifest
             jumperName = textBoxName.Text;
             instructor1 = comboBoxInstructors.Text;
             instructor2orVideo = comboBoxVideo.Text;
+
+            // If tandem is selected, ensure jumper name isn't blank and an instructor is selected
+            if (jumpType.Contains("TAN"))
+            {
+                if (instructor1.Trim() == "")
+                {
+                    MessageBox.Show("This jump type requires a tandem instructor. Please select one to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    return;
+                }
+            }
+
+            // If tandem is selected, ensure there's a name for the tandem student
+            if (jumpType.Contains("TAN"))
+            {
+                if (jumperName.Trim() == "")
+                {
+                    MessageBox.Show("Please enter the tandem student's name.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    return;
+                }
+            }
+
+            // If AFF is selected, ensure manifest number isn't blank
+            if (jumpType.Contains("AFF"))
+            {
+                if (manNum.Trim() == "")
+                {
+                    MessageBox.Show("Please enter the student's manifest number.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    return;
+                }
+            }
+            // If IAFF2 is selected, ensure 2 instructors are selected
+            if (jumpType.Contains("IAFF2"))
+            {
+                if (instructor1.Trim() == "" || instructor2orVideo.Trim() == "")
+                {
+                    MessageBox.Show("IAFF2 requires 2 instructors. Please select two to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    return;
+                }
+            }
+
+            // If IAFF1 is selected, ensure 1 instructor is selected
+            if (jumpType.Contains("IAFF1"))
+            {
+                if (instructor1.Trim() == "")
+                {
+                    MessageBox.Show("IAFF1 requires an AFF instructor. Please select one to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    return;
+                }
+            }
+
+            // If 14500 or GRWTS ensure the manifest number isn't blank
+            if (jumpType == "14,500 - $26.00" || jumpType == "GRWTS - $51.00")
+            {
+                if (manNum.Trim() == "")
+                {
+                    MessageBox.Show("This jump type requires a manifest number. Please enter one to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    return;
+                }
+            }
+
 
             this.Close();
         }
