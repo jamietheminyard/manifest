@@ -22,6 +22,7 @@ namespace Manifest
         int tmpLoadNum = 1;
         String selectedLoad = "";
         int imageIndex = 0;
+        List<String> selectedPeople = new List<String>();
 
         public Form1()
         {
@@ -113,12 +114,14 @@ namespace Manifest
 
             FormAddPersonToLoad addTandemWindow = new FormAddPersonToLoad(selectedLoad);
             addTandemWindow.ShowDialog();
-
+            DialogResult result = addTandemWindow.result;
+            if (result == DialogResult.None)
+                return;
             // Add the person to the selected load
             //            MessageBox.Show(addTandemWindow.jumpType + "\n" + addTandemWindow.altitude + "\n" + addTandemWindow.price + "\n" + addTandemWindow.jumperName + "\n" + addTandemWindow.manNum + "\n" + addTandemWindow.instructor1 + "\n" + addTandemWindow.instructor2orVideo);
 
 
-            foreach(ListView c in panelLoads.Controls)
+            foreach (ListView c in panelLoads.Controls)
             {
                 if (c.Items[0].ToString().Contains(selectedLoad))
                 {
@@ -144,14 +147,15 @@ namespace Manifest
                         {
                             c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor2orVideo });
                         }
-                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.jumperName });
+                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.manNum + " - " + addTandemWindow.jumperName });
+                        imageIndex = imageIndex + 1;
                         if (imageIndex == 12)
                             imageIndex = 0;
                         return;
                     }
 
                     // Regular fun jumper
-                    c.Items.Add(new ListViewItem { Text = addTandemWindow.jumperName });
+                    c.Items.Add(new ListViewItem { Text = addTandemWindow.manNum + " - " + addTandemWindow.jumperName });
                 }
             }
         }
@@ -163,7 +167,7 @@ namespace Manifest
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("West Tennessee Skydiving - Manifest software\nCopyright 2018\nAll rights reserved", "About");
+            MessageBox.Show("West Tennessee Skydiving - Manifest software\nCopyright 2018-"+ DateTime.Now.ToString("yyyy")+"\nAll rights reserved", "About");
         }
 
         public void searchPeople_KeyDown(object sender, KeyEventArgs e)
@@ -358,7 +362,10 @@ namespace Manifest
             loadList.Scrollable = false;
 
             loadList.View = View.Details; // Enables Details view so you can see columns
-
+            loadList.AllowDrop = true;
+            loadList.DragDrop += ListView_DragDrop;
+            loadList.DragEnter += ListView_DragEnter;
+            loadList.ItemDrag += ListView_ItemDrag;
 /*
             loadList.Items.Add(new ListViewItem { ImageIndex = 0, Text = "5368 - Jamie Minyard AFF1" });
             loadList.Items.Add(new ListViewItem { ImageIndex = 0, Text = "5368 - Jamie Minyard AFF1" });
@@ -393,6 +400,39 @@ namespace Manifest
   
             panelLoads.Controls.Add(loadList);
             tmpLoadNum++;
+
+            if (panelLoads.Controls.Count == 1)
+            {
+                selectedLoad = "Load 1";
+                labelSelectedLoad.Text = "Load 1";
+            }
+        }
+
+        private void ListView_DragDrop(object sender, DragEventArgs e)
+        {
+            //Translate the mouse coordinates (screen coords) into control coordinates
+//            Point p = listView1.PointToClient(new Point(e.X, e.Y));
+            //Find the item that the object was dragged onto
+//            var ItemToReplace = listView1.GetItemAt(p.X, p.Y);
+            //extract the listview item from the dragged items IData member
+            var DraggedItem = ((ListViewItem)e.Data.GetData(typeof(ListViewItem)));
+            MessageBox.Show(DraggedItem.ToString());
+        }
+
+        private void ListView_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            //Start the dragdrop operation with the currently dragged listview item as the drag data
+            ListView lv = (ListView)sender;
+            lv.DoDragDrop((ListViewItem)e.Item, DragDropEffects.Move);
+        }
+        private void ListView_DragEnter(object sender, DragEventArgs e)
+        {
+            //If the item being dragged isn't associated with this listview, it's not allowed to be dragged here
+   //         ListView lv = (ListView)sender;
+   //         if (((ListViewItem)e.Data.GetData(typeof(ListViewItem))).ListView == lv)
+                e.Effect = DragDropEffects.Move;
+   //         else
+   //             e.Effect = DragDropEffects.None;
         }
 
         void load_click(object sender, EventArgs e)
@@ -400,6 +440,13 @@ namespace Manifest
             ListView lv = (ListView)sender;
             String load = lv.Items[0].Text.Split('-')[0];
             selectedLoad = load;
+            labelSelectedLoad.Text = selectedLoad;
+            selectedPeople.Clear();
+            for (int i = 0; i < lv.SelectedItems.Count; i++)
+            {
+ //               MessageBox.Show("person is " + lv.SelectedItems[i].Text);
+                selectedPeople.Add(lv.SelectedItems[i].Text);
+            }
         }
 
         private void buttonDeletePerson_Click(object sender, EventArgs e)
@@ -846,6 +893,42 @@ namespace Manifest
             }
 
             MessageBox.Show("The selected load is " + selectedLoad);
+        }
+
+        private void buttonDeletePersonFromLoad_Click(object sender, EventArgs e)
+        {
+            // Delete the selected entries
+
+            // If deleting a tandem, must select all people to delete
+            String load = selectedLoad;
+            String manNum = "";
+            String name = "";
+
+            foreach (ListView c in panelLoads.Controls)
+            {
+                if (c.Items[0].ToString().Contains(selectedLoad)) // For the selected load
+                {
+                    foreach (ListViewItem listitem in c.Items)
+                    {
+                        foreach (String item in selectedPeople) // Delete the selected people
+                        {
+                            if (listitem.ToString().Contains(item))
+                            {
+                                try
+                                {
+                                    manNum = item.Split('-')[0].Trim();
+                                }
+                                catch { } // Tandems don't have a manifest number so naturally this fails
+
+                                c.Items.Remove(listitem);
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
         }
     }
 }

@@ -19,13 +19,19 @@ namespace Manifest
         public string price { get; set; }
         public string jumperName { get; set; }
         public string instructor1 { get; set; }
+        public string instructor1ManNum { get; set; }
         public string instructor2orVideo { get; set; }
+        public string instructor2orVideoManNum { get; set; }
+        public DialogResult result { get; set; }
 
         public FormAddPersonToLoad(String l)
         {
             InitializeComponent();
             // Default to the first item in the price list
             comboBoxJumpType.SelectedIndex = 0;
+
+            // Set the DialogResult to
+            result = DialogResult.None;
 
             // Display which load is selected
             labelLoad.Text = l;
@@ -152,7 +158,7 @@ namespace Manifest
                 }
             }
 
-
+            result = DialogResult.OK;
             this.Close();
         }
 
