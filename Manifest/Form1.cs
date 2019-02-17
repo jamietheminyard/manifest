@@ -908,12 +908,17 @@ namespace Manifest
             {
                 if (c.Items[0].ToString().Contains(selectedLoad)) // For the selected load
                 {
-                    foreach (ListViewItem listitem in c.Items)
+                    foreach (ListViewItem listitem in c.Items) // For each item in the load
                     {
-                        foreach (String item in selectedPeople) // Delete the selected people
+                        foreach (String item in selectedPeople) // For each of the selected people
                         {
-                            if (listitem.ToString().Contains(item))
+                            if (listitem.ToString().Contains(item)) // If they match an entry in the list, remove them
                             {
+                                if (c.Items.IndexOf(listitem) == 0)
+                                {
+                                    continue; // You can't delete the first item with the load info
+                                }
+
                                 try
                                 {
                                     manNum = item.Split('-')[0].Trim();
@@ -921,6 +926,7 @@ namespace Manifest
                                 catch { } // Tandems don't have a manifest number so naturally this fails
 
                                 c.Items.Remove(listitem);
+
                             }
                         }
                     }

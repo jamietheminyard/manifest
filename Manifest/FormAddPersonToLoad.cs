@@ -27,6 +27,7 @@ namespace Manifest
         public FormAddPersonToLoad(String l)
         {
             InitializeComponent();
+            this.KeyUp += new KeyEventHandler(this.KeyPressHandler);
             // Default to the first item in the price list
             comboBoxJumpType.SelectedIndex = 0;
 
@@ -75,6 +76,14 @@ namespace Manifest
                         comboBoxVideo.Items.Add(num + " - " + fname + " " + lname);
                     }
                 }
+            }
+        }
+
+        void KeyPressHandler(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
 
