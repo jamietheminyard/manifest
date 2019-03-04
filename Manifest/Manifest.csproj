@@ -74,6 +74,12 @@
     <Compile Include="FormAddPersonToLoad.Designer.cs">
       <DependentUpon>FormAddPersonToLoad.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPrintCertificate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrintCertificate.Designer.cs">
+      <DependentUpon>FormPrintCertificate.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoadType.cs" />
     <Compile Include="PersonType.cs" />
     <Compile Include="Program.cs" />
@@ -89,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormAddPersonToLoad.resx">
       <DependentUpon>FormAddPersonToLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrintCertificate.resx">
+      <DependentUpon>FormPrintCertificate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

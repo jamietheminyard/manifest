@@ -936,5 +936,51 @@ namespace Manifest
 
 
         }
+
+        private void printToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            printCertificate();
+        }
+
+        private void printCertificate()
+        {
+            String load = selectedLoad;
+            String manNum = "";
+            String name = "";
+
+            foreach (ListView c in panelLoads.Controls)
+            {
+                if (c.Items[0].ToString().Contains(selectedLoad)) // For the selected load
+                {
+                    foreach (ListViewItem listitem in c.Items) // For each item in the load
+                    {
+                        foreach (String item in selectedPeople) // For each of the selected people
+                        {
+                            if (listitem.ToString().Contains(item)) // If selected
+                            {
+                                if (c.Items.IndexOf(listitem) == 0)
+                                {
+                                    continue; // You can't print the first item with the load info
+                                }
+
+                                try
+                                {
+                                    manNum = item.Split('-')[0].Trim();
+                                }
+                                catch { } // Tandems don't have a manifest number so naturally this fails
+
+                                // Print!!
+                                String studentname = "Joe Tandem";
+                                String aircraft = "Super King Air";
+                                String instructor = "TI Jim";
+                                FormPrintCertificate printCert = new FormPrintCertificate(studentname, aircraft, instructor);
+                                printCert.ShowDialog();
+                            }
+                             
+                        }
+                    }
+                }
+            }
+        }
     }
 }

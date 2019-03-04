@@ -72,6 +72,9 @@
             this.buttonEditAircraft = new System.Windows.Forms.Button();
             this.buttonAddAircraft = new System.Windows.Forms.Button();
             this.tabPageLoads = new System.Windows.Forms.TabPage();
+            this.labelSelectedLoad = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.buttonDeletePersonFromLoad = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxLoadAircraft = new System.Windows.Forms.ComboBox();
             this.panelLoads = new System.Windows.Forms.FlowLayoutPanel();
@@ -84,9 +87,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.buttonDeletePersonFromLoad = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.labelSelectedLoad = new System.Windows.Forms.Label();
+            this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPagePeople.SuspendLayout();
@@ -108,22 +109,23 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(12, 4, 0, 4);
-            this.menuStrip1.Size = new System.Drawing.Size(1600, 44);
+            this.menuStrip1.Size = new System.Drawing.Size(1600, 46);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.printToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 36);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 38);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(151, 38);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -132,13 +134,13 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(77, 36);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(77, 38);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(179, 38);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -148,11 +150,11 @@
             this.tabControl.Controls.Add(this.tabPageAircraft);
             this.tabControl.Controls.Add(this.tabPageLoads);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(0, 44);
+            this.tabControl.Location = new System.Drawing.Point(0, 46);
             this.tabControl.Margin = new System.Windows.Forms.Padding(6);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1600, 821);
+            this.tabControl.Size = new System.Drawing.Size(1600, 819);
             this.tabControl.TabIndex = 1;
             // 
             // tabPagePeople
@@ -555,10 +557,37 @@
             this.tabPageLoads.Margin = new System.Windows.Forms.Padding(6);
             this.tabPageLoads.Name = "tabPageLoads";
             this.tabPageLoads.Padding = new System.Windows.Forms.Padding(6);
-            this.tabPageLoads.Size = new System.Drawing.Size(1584, 774);
+            this.tabPageLoads.Size = new System.Drawing.Size(1584, 772);
             this.tabPageLoads.TabIndex = 2;
             this.tabPageLoads.Text = "     Loads     ";
             this.tabPageLoads.UseVisualStyleBackColor = true;
+            // 
+            // labelSelectedLoad
+            // 
+            this.labelSelectedLoad.AutoSize = true;
+            this.labelSelectedLoad.Location = new System.Drawing.Point(737, 98);
+            this.labelSelectedLoad.Name = "labelSelectedLoad";
+            this.labelSelectedLoad.Size = new System.Drawing.Size(0, 25);
+            this.labelSelectedLoad.TabIndex = 17;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(559, 98);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(171, 25);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Selected load is:";
+            // 
+            // buttonDeletePersonFromLoad
+            // 
+            this.buttonDeletePersonFromLoad.Location = new System.Drawing.Point(816, 37);
+            this.buttonDeletePersonFromLoad.Name = "buttonDeletePersonFromLoad";
+            this.buttonDeletePersonFromLoad.Size = new System.Drawing.Size(257, 41);
+            this.buttonDeletePersonFromLoad.TabIndex = 15;
+            this.buttonDeletePersonFromLoad.Text = "Delete from Load";
+            this.buttonDeletePersonFromLoad.UseVisualStyleBackColor = true;
+            this.buttonDeletePersonFromLoad.Click += new System.EventHandler(this.buttonDeletePersonFromLoad_Click);
             // 
             // label3
             // 
@@ -586,7 +615,7 @@
             this.panelLoads.AutoScroll = true;
             this.panelLoads.Location = new System.Drawing.Point(21, 129);
             this.panelLoads.Name = "panelLoads";
-            this.panelLoads.Size = new System.Drawing.Size(1527, 581);
+            this.panelLoads.Size = new System.Drawing.Size(1527, 579);
             this.panelLoads.TabIndex = 10;
             this.panelLoads.WrapContents = false;
             // 
@@ -670,32 +699,12 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // buttonDeletePersonFromLoad
+            // printToolStripMenuItem
             // 
-            this.buttonDeletePersonFromLoad.Location = new System.Drawing.Point(816, 37);
-            this.buttonDeletePersonFromLoad.Name = "buttonDeletePersonFromLoad";
-            this.buttonDeletePersonFromLoad.Size = new System.Drawing.Size(257, 41);
-            this.buttonDeletePersonFromLoad.TabIndex = 15;
-            this.buttonDeletePersonFromLoad.Text = "Delete from Load";
-            this.buttonDeletePersonFromLoad.UseVisualStyleBackColor = true;
-            this.buttonDeletePersonFromLoad.Click += new System.EventHandler(this.buttonDeletePersonFromLoad_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(559, 98);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(171, 25);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Selected load is:";
-            // 
-            // labelSelectedLoad
-            // 
-            this.labelSelectedLoad.AutoSize = true;
-            this.labelSelectedLoad.Location = new System.Drawing.Point(737, 98);
-            this.labelSelectedLoad.Name = "labelSelectedLoad";
-            this.labelSelectedLoad.Size = new System.Drawing.Size(0, 25);
-            this.labelSelectedLoad.TabIndex = 17;
+            this.printToolStripMenuItem.Name = "printToolStripMenuItem";
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(324, 38);
+            this.printToolStripMenuItem.Text = "Print";
+            this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -793,6 +802,7 @@
         private System.Windows.Forms.Button buttonDeletePersonFromLoad;
         private System.Windows.Forms.Label labelSelectedLoad;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
     }
 }
 
