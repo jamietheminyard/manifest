@@ -120,7 +120,8 @@ namespace Manifest
             // Add the person to the selected load
             //            MessageBox.Show(addTandemWindow.jumpType + "\n" + addTandemWindow.altitude + "\n" + addTandemWindow.price + "\n" + addTandemWindow.jumperName + "\n" + addTandemWindow.manNum + "\n" + addTandemWindow.instructor1 + "\n" + addTandemWindow.instructor2orVideo);
 
-
+            ListViewItem loadInfo;
+            String loadInfoText = "";
             foreach (ListView c in panelLoads.Controls)
             {
                 if (c.Items[0].ToString().Contains(selectedLoad))
@@ -128,6 +129,29 @@ namespace Manifest
                     // If tandem, make a separate entry for the TI and video if applicable
                     if (addTandemWindow.jumpType.Contains("TAN"))
                     {
+                        // Update the first item in the list to have correct number of slots left
+                        loadInfo = c.Items[0];
+                        String[] pieces = loadInfo.Text.Split('-');
+                        String slots = pieces[2].Replace("slots", "").Trim();
+                        Int32 num = 0;
+                        Int32.TryParse(slots, out num);
+                        if (addTandemWindow.instructor2orVideo.Trim() != "") // Has video, so subtract 3
+                            num = num - 3;
+                        else
+                            num = num - 2; // just TI and student
+
+                        if (num < 0)
+                        {
+                            MessageBox.Show("Not enough room on this load.");
+                            return;
+                        }
+
+                        if (num == 0) // If load is full, color it red
+                            c.BackColor = Color.Red;
+
+                        c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
+
+                        // Add the people
                         c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor1 });
                         if (addTandemWindow.instructor2orVideo.Trim() != "")
                         {
@@ -140,8 +164,30 @@ namespace Manifest
                         return;
                     }
                     // If AFF, make a separate entry for the AFFIs
-                    if (addTandemWindow.jumpType.Contains("AFF"))
+                    else if (addTandemWindow.jumpType.Contains("AFF"))
                     {
+                        // Update the first item in the list to have correct number of slots left
+                        loadInfo = c.Items[0];
+                        String[] pieces = loadInfo.Text.Split('-');
+                        String slots = pieces[2].Replace("slots", "").Trim();
+                        Int32 num = 0;
+                        Int32.TryParse(slots, out num);
+                        if (addTandemWindow.instructor2orVideo.Trim() != "") // Has 2 instructors, so subtract 3
+                            num = num - 3;
+                        else
+                            num = num - 2; // just 1 instructor
+
+                        if (num < 0)
+                        {
+                            MessageBox.Show("Not enough room on this load.");
+                            return;
+                        }
+
+                        if (num == 0) // If load is full, color it red
+                            c.BackColor = Color.Red;
+
+                        c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
+
                         c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor1 });
                         if (addTandemWindow.instructor2orVideo.Trim() != "")
                         {
@@ -153,9 +199,30 @@ namespace Manifest
                             imageIndex = 0;
                         return;
                     }
+                    else
+                    {
+                        // Regular fun jumper
+                        // Update the first item in the list to have correct number of slots left
+                        loadInfo = c.Items[0];
+                        String[] pieces = loadInfo.Text.Split('-');
+                        String slots = pieces[2].Replace("slots", "").Trim();
+                        Int32 num = 0;
+                        Int32.TryParse(slots, out num);
+                        num = num - 1;
 
-                    // Regular fun jumper
-                    c.Items.Add(new ListViewItem { Text = addTandemWindow.manNum + " - " + addTandemWindow.jumperName });
+                        if (num < 0)
+                        {
+                            MessageBox.Show("Not enough room on this load.");
+                            return;
+                        }
+
+                        if (num == 0) // If load is full, color it red
+                            c.BackColor = Color.Red;
+
+                        c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
+
+                        c.Items.Add(new ListViewItem { Text = addTandemWindow.manNum + " - " + addTandemWindow.jumperName });
+                    }
                 }
             }
         }
@@ -926,6 +993,19 @@ namespace Manifest
                                 catch { } // Tandems don't have a manifest number so naturally this fails
 
                                 c.Items.Remove(listitem);
+
+                                ListViewItem loadInfo = c.Items[0];
+                                String[] pieces = loadInfo.Text.Split('-');
+                                String slots = pieces[2].Replace("slots", "").Trim();
+                                Int32 num = 0;
+                                Int32.TryParse(slots, out num);
+                                num = num + 1;
+
+                                if (num > 0) // If load is full, color it red
+                                    c.BackColor = Color.White;
+
+                                c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
+
 
                             }
                         }
