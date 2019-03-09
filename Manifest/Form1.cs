@@ -122,6 +122,40 @@ namespace Manifest
 
             ListViewItem loadInfo;
             String loadInfoText = "";
+
+            // Check to see if this person's manifest number is already manifested
+            foreach (ListView c in panelLoads.Controls)
+            {
+                foreach (ListViewItem i in c.Items)
+                {
+                    if (i.Text.Contains(addTandemWindow.instructor1ManNum) && addTandemWindow.instructor1ManNum != "")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.instructor1 + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    if ( i.Text.Contains(addTandemWindow.instructor2orVideoManNum) && addTandemWindow.instructor2orVideoManNum != "")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.instructor2orVideo + ".\nClick Yes to allow double manifest.","Double manifest warning", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                    if ( i.Text.Contains(addTandemWindow.manNum) && addTandemWindow.manNum != "")
+                    {
+                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.jumperName + ".\nClick Yes to allow double manifest.","Double manifest warning", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
+
+            // Proceed with adding them to the load
             foreach (ListView c in panelLoads.Controls)
             {
                 if (c.Items[0].ToString().Contains(selectedLoad))
@@ -204,10 +238,13 @@ namespace Manifest
                         // Regular fun jumper
                         // Update the first item in the list to have correct number of slots left
                         loadInfo = c.Items[0];
+
                         String[] pieces = loadInfo.Text.Split('-');
                         String slots = pieces[2].Replace("slots", "").Trim();
+
                         Int32 num = 0;
                         Int32.TryParse(slots, out num);
+
                         num = num - 1;
 
                         if (num < 0)
@@ -778,7 +815,7 @@ namespace Manifest
                 cmd.CommandText = "insert into Aircraft(aircraftName, capacity)" +
                     "values(@param1, @param2)";
 
-                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name;
+                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-","");
                 cmd.Parameters.Add("@param2", SqlDbType.Int).Value = cap;
 
                 cn.Open();
@@ -868,7 +905,7 @@ namespace Manifest
             {
                 cmd.CommandText = "update Aircraft set capacity = " + cap + " where aircraftName = @param1";
 
-                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name;
+                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-","");
 
                 cn.Open();
 
@@ -1059,6 +1096,22 @@ namespace Manifest
                              
                         }
                     }
+                }
+            }
+        }
+
+        private void buttonCompleteLoad_Click(object sender, EventArgs e)
+        {
+            foreach (ListView c in panelLoads.Controls)
+            {
+                if (c.Items[0].ToString().Contains(selectedLoad)) // For the selected load
+                {
+                    foreach (ListViewItem listitem in c.Items) // For each item in the load
+                    {
+                        // For each person on the load, charge them
+                        MessageBox.Show(listitem.Text);
+                    }
+                    panelLoads.Controls.Remove(c); // Delete the load from the view
                 }
             }
         }

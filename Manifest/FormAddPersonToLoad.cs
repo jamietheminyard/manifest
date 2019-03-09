@@ -28,6 +28,17 @@ namespace Manifest
         {
             InitializeComponent();
             this.KeyUp += new KeyEventHandler(this.KeyPressHandler);
+
+            jumpType = "";
+            manNum = "";
+            altitude = "";
+            price = "";
+            jumperName = "";
+            instructor1 = "";
+            instructor1ManNum = "";
+            instructor2orVideo = "";
+            instructor2orVideoManNum = "";
+
             // Default to the first item in the price list
             comboBoxJumpType.SelectedIndex = 0;
 

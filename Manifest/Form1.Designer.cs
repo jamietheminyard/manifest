@@ -409,7 +409,7 @@
             this.tabPageAircraft.Margin = new System.Windows.Forms.Padding(6);
             this.tabPageAircraft.Name = "tabPageAircraft";
             this.tabPageAircraft.Padding = new System.Windows.Forms.Padding(6);
-            this.tabPageAircraft.Size = new System.Drawing.Size(1584, 772);
+            this.tabPageAircraft.Size = new System.Drawing.Size(1584, 774);
             this.tabPageAircraft.TabIndex = 1;
             this.tabPageAircraft.Text = "     Aircraft     ";
             this.tabPageAircraft.UseVisualStyleBackColor = true;
@@ -673,6 +673,7 @@
             this.buttonCompleteLoad.TabIndex = 7;
             this.buttonCompleteLoad.Text = "Complete Load";
             this.buttonCompleteLoad.UseVisualStyleBackColor = true;
+            this.buttonCompleteLoad.Click += new System.EventHandler(this.buttonCompleteLoad_Click);
             // 
             // buttonNewLoad
             // 
