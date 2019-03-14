@@ -23,10 +23,14 @@ namespace Manifest
         String selectedLoad = "";
         int imageIndex = 0;
         List<String> selectedPeople = new List<String>();
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Form1()
         {
             InitializeComponent();
+            log4net.Config.XmlConfigurator.Configure();
+            log.Info("\n---------------------------------------------Application startup " + DateTime.Now.ToString() + "---------------------------------------------");
+
             startup = true;
             searchIndex = 0;
 
