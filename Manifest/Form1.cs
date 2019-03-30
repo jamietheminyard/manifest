@@ -121,9 +121,8 @@ namespace Manifest
             DialogResult result = addTandemWindow.result;
             if (result == DialogResult.None)
                 return;
-            // Add the person to the selected load
-            //            MessageBox.Show(addTandemWindow.jumpType + "\n" + addTandemWindow.altitude + "\n" + addTandemWindow.price + "\n" + addTandemWindow.jumperName + "\n" + addTandemWindow.manNum + "\n" + addTandemWindow.instructor1 + "\n" + addTandemWindow.instructor2orVideo);
 
+            // Add the person to the selected load
             ListViewItem loadInfo;
             String loadInfoText = "";
 
@@ -188,14 +187,17 @@ namespace Manifest
                             c.BackColor = Color.Red;
 
                         c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
-
+                      
                         // Add the people
                         c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor1 });
+                        addLog(selectedLoad, addTandemWindow.instructor1ManNum, " replace this with instructor pay rate");
                         if (addTandemWindow.instructor2orVideo.Trim() != "")
                         {
                             c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor2orVideo });
+                            addLog(selectedLoad, addTandemWindow.instructor2orVideoManNum, " replace this with video pay rate");
                         }
                         c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.jumperName });
+                        addLog(selectedLoad, "TANSTUDENT", " replace this with tandems cost");
                         imageIndex = imageIndex + 1;
                         if (imageIndex == 12)
                             imageIndex = 0;
@@ -227,11 +229,14 @@ namespace Manifest
                         c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
 
                         c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor1 });
+                        addLog(selectedLoad, addTandemWindow.instructor1ManNum, " replace this with instructor pay rate");
                         if (addTandemWindow.instructor2orVideo.Trim() != "")
                         {
                             c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor2orVideo });
+                            addLog(selectedLoad, addTandemWindow.instructor2orVideoManNum, " replace this with instructor pay rate");
                         }
                         c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.manNum + " - " + addTandemWindow.jumperName });
+                        addLog(selectedLoad, addTandemWindow.manNum, " replace this with AFF student rate");
                         imageIndex = imageIndex + 1;
                         if (imageIndex == 12)
                             imageIndex = 0;
@@ -263,6 +268,7 @@ namespace Manifest
                         c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
 
                         c.Items.Add(new ListViewItem { Text = addTandemWindow.manNum + " - " + addTandemWindow.jumperName });
+                        addLog(selectedLoad, addTandemWindow.manNum, " replace this with fun jump pay rate or 0 if beginning of year free jumps");
                     }
                 }
             }
@@ -275,7 +281,7 @@ namespace Manifest
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("West Tennessee Skydiving - Manifest software\nCopyright 2018-"+ DateTime.Now.ToString("yyyy")+"\nAll rights reserved", "About");
+            MessageBox.Show("The Manifest Program\nCopyright 2018-"+ DateTime.Now.ToString("yyyy")+"\nAll rights reserved", "About");
         }
 
         public void searchPeople_KeyDown(object sender, KeyEventArgs e)
@@ -340,10 +346,21 @@ namespace Manifest
                 string sqlString = @"select manifestNumber, firstName, lastName, paid from people";
                 using (var command = new SqlCommand(sqlString, conn))
                 {
-                    conn.Open();
-                    var result = command.ExecuteScalar();
-                    System.Diagnostics.Debug.WriteLine(result.ToString());
-                    conn.Close();
+                    try
+                    {
+                        conn.Open();
+                        var result = command.ExecuteScalar();
+                        System.Diagnostics.Debug.WriteLine(result.ToString());
+                    }
+                    catch(Exception e)
+                    {
+                        MessageBox.Show("Unable to connect to database. Exiting now.\n\nError: " + e.ToString());
+                    }
+                    finally
+                    {
+                        conn.Close();
+                        Application.Exit();
+                    }
                 }
             }
 
@@ -507,6 +524,7 @@ namespace Manifest
             loadList.Click += new EventHandler(load_click);
   
             panelLoads.Controls.Add(loadList);
+            addLog(tmpLoadNum.ToString());
             tmpLoadNum++;
 
             if (panelLoads.Controls.Count == 1)
@@ -1034,6 +1052,7 @@ namespace Manifest
                                 catch { } // Tandems don't have a manifest number so naturally this fails
 
                                 c.Items.Remove(listitem);
+                                addLog(load, manNum);
 
                                 ListViewItem loadInfo = c.Items[0];
                                 String[] pieces = loadInfo.Text.Split('-');
@@ -1118,6 +1137,19 @@ namespace Manifest
                     panelLoads.Controls.Remove(c); // Delete the load from the view
                 }
             }
+        }
+
+        private void addLog(String loadNum, String manifestNum, String price)
+        {
+            log.Info("\nLoad " + loadNum + " added number " + manifestNum + " $" + price);
+        }
+        private void addLog(String loadNum, String manifestNum)
+        {
+            log.Info("\nLoad " + loadNum + " removed number " + manifestNum);
+        }
+        private void addLog(String loadNum)
+        {
+            log.Info("\nLoad " + loadNum + " created.");
         }
     }
 }
