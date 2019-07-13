@@ -719,10 +719,10 @@
         {
             string manNum = this.textBoxManifestNumber.Text;
             manNum = manNum.Replace("'", string.Empty);
-            string fName = this.textBoxFirstName.Text;
-            fName = fName.Replace("'", string.Empty);
-            string lName = this.textBoxLastName.Text;
-            lName = lName.Replace("'", string.Empty);
+            string firstName = this.textBoxFirstName.Text;
+            firstName = firstName.Replace("'", string.Empty);
+            string lastName = this.textBoxLastName.Text;
+            lastName = lastName.Replace("'", string.Empty);
             bool ti = this.checkBoxTI.Checked;
             bool affi = this.checkBoxAFF.Checked;
             bool coach = this.checkBoxCoach.Checked;
@@ -758,8 +758,8 @@
                 cmd.CommandText = "update People set firstName = @param2, lastName = @param3, TI = " + t + ", AFFI = " + a + ", coach = " + c + ", videographer = " + v + " where manifestNumber = @param1";
 
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 8).Value = manNum;
-                cmd.Parameters.Add("@param2", SqlDbType.NVarChar, 50).Value = fName;
-                cmd.Parameters.Add("@param3", SqlDbType.NVarChar, 50).Value = lName;
+                cmd.Parameters.Add("@param2", SqlDbType.NVarChar, 50).Value = firstName;
+                cmd.Parameters.Add("@param3", SqlDbType.NVarChar, 50).Value = lastName;
 
                 cn.Open();
                 if (cmd.ExecuteNonQuery() == 1)
@@ -780,10 +780,10 @@
         {
             string manNum = this.textBoxManifestNumber.Text;
             manNum = manNum.Replace("'", string.Empty);
-            string fName = this.textBoxFirstName.Text;
-            fName = fName.Replace("'", string.Empty);
-            string lName = this.textBoxLastName.Text;
-            lName = lName.Replace("'", string.Empty);
+            string firstName = this.textBoxFirstName.Text;
+            firstName = firstName.Replace("'", string.Empty);
+            string lastName = this.textBoxLastName.Text;
+            lastName = lastName.Replace("'", string.Empty);
             bool ti = this.checkBoxTI.Checked;
             bool affi = this.checkBoxAFF.Checked;
             bool coach = this.checkBoxCoach.Checked;
@@ -820,8 +820,8 @@
                     "values(@param1, @param2, @param3,'" + 0 + "'," + t + "," + a + "," + c + "," + v + ")";
 
                 cmd.Parameters.Add("@param1", SqlDbType.VarChar, 8).Value = manNum;
-                cmd.Parameters.Add("@param2", SqlDbType.NVarChar, 50).Value = fName;
-                cmd.Parameters.Add("@param3", SqlDbType.NVarChar, 50).Value = lName;
+                cmd.Parameters.Add("@param2", SqlDbType.NVarChar, 50).Value = firstName;
+                cmd.Parameters.Add("@param3", SqlDbType.NVarChar, 50).Value = lastName;
 
                 cn.Open();
 
