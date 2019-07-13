@@ -589,7 +589,7 @@
             // Find the item that the object was dragged onto
 //            var ItemToReplace = listView1.GetItemAt(p.X, p.Y);
             // extract the listview item from the dragged items IData member
-            var draggedItem = ((ListViewItem)e.Data.GetData(typeof(ListViewItem)));
+            var draggedItem = (ListViewItem)e.Data.GetData(typeof(ListViewItem));
             MessageBox.Show(draggedItem.ToString());
         }
 
