@@ -16,7 +16,7 @@
 
         private int searchIndex;
         private int tmpLoadNum = 1;
-        private string selectedLoad = "";
+        private string selectedLoad = string.Empty;
         private int imageIndex = 0;
         private List<string> selectedPeople = new List<string>();
 
@@ -122,7 +122,7 @@
                 return;
             }
 
-            if (this.selectedLoad == "")
+            if (this.selectedLoad == string.Empty)
             {
                 MessageBox.Show("Please click a load first to select it.", "Select a load", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
@@ -145,7 +145,7 @@
                 {
                     foreach (ListViewItem i in c.Items)
                     {
-                        if (i.Text.Contains(addTandemWindow.Instructor1ManNum) && addTandemWindow.Instructor1ManNum != "")
+                        if (i.Text.Contains(addTandemWindow.Instructor1ManNum) && addTandemWindow.Instructor1ManNum != string.Empty)
                         {
                             DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor1 + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.No)
@@ -154,7 +154,7 @@
                             }
                         }
 
-                        if (i.Text.Contains(addTandemWindow.Instructor2orVideoManNum) && addTandemWindow.Instructor2orVideoManNum != "")
+                        if (i.Text.Contains(addTandemWindow.Instructor2orVideoManNum) && addTandemWindow.Instructor2orVideoManNum != string.Empty)
                         {
                             DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor2orVideo + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.No)
@@ -163,7 +163,7 @@
                             }
                         }
 
-                        if (i.Text.Contains(addTandemWindow.ManNum) && addTandemWindow.ManNum != "")
+                        if (i.Text.Contains(addTandemWindow.ManNum) && addTandemWindow.ManNum != string.Empty)
                         {
                             DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.JumperName + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.No)
@@ -185,11 +185,11 @@
                             // Update the first item in the list to have correct number of slots left
                             loadInfo = c.Items[0];
                             string[] pieces = loadInfo.Text.Split('-');
-                            string slots = pieces[2].Replace("slots", "").Trim();
+                            string slots = pieces[2].Replace("slots", string.Empty).Trim();
                             int num = 0;
                             int.TryParse(slots, out num);
 
-                            if (addTandemWindow.Instructor2orVideo.Trim() != "")
+                            if (addTandemWindow.Instructor2orVideo.Trim() != string.Empty)
                             {
                                 num = num - 3; // Has video, so subtract 3
                             }
@@ -214,7 +214,7 @@
                             // Add the people
                             c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor1 });
                             AddLog(this.selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
-                            if (addTandemWindow.Instructor2orVideo.Trim() != "")
+                            if (addTandemWindow.Instructor2orVideo.Trim() != string.Empty)
                             {
                                 c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor2orVideo });
                                 AddLog(this.selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with video pay rate");
@@ -237,10 +237,10 @@
                             // Update the first item in the list to have correct number of slots left
                             loadInfo = c.Items[0];
                             string[] pieces = loadInfo.Text.Split('-');
-                            string slots = pieces[2].Replace("slots", "").Trim();
+                            string slots = pieces[2].Replace("slots", string.Empty).Trim();
                             int num = 0;
                             int.TryParse(slots, out num);
-                            if (addTandemWindow.Instructor2orVideo.Trim() != "")
+                            if (addTandemWindow.Instructor2orVideo.Trim() != string.Empty)
                             {
                                 num = num - 3; // Has 2 instructors, so subtract 3
                             }
@@ -264,7 +264,7 @@
 
                             c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor1 });
                             AddLog(this.selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
-                            if (addTandemWindow.Instructor2orVideo.Trim() != "")
+                            if (addTandemWindow.Instructor2orVideo.Trim() != string.Empty)
                             {
                                 c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor2orVideo });
                                 AddLog(this.selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with instructor pay rate");
@@ -287,7 +287,7 @@
                             loadInfo = c.Items[0];
 
                             string[] pieces = loadInfo.Text.Split('-');
-                            string slots = pieces[2].Replace("slots", "").Trim();
+                            string slots = pieces[2].Replace("slots", string.Empty).Trim();
 
                             int num = 0;
                             int.TryParse(slots, out num);
@@ -463,13 +463,13 @@
         private void HideEditPersonUI()
         {
             this.labelManifestNumber.Hide();
-            this.textBoxManifestNumber.Text = "";
+            this.textBoxManifestNumber.Text = string.Empty;
             this.textBoxManifestNumber.Hide();
             this.labelFirstName.Hide();
-            this.textBoxFirstName.Text = "";
+            this.textBoxFirstName.Text = string.Empty;
             this.textBoxFirstName.Hide();
             this.labelLastName.Hide();
-            this.textBoxLastName.Text = "";
+            this.textBoxLastName.Text = string.Empty;
             this.textBoxLastName.Hide();
             this.checkBoxTI.Checked = false;
             this.checkBoxTI.Hide();
@@ -490,9 +490,9 @@
             this.buttonSavePerson.Hide();
 
             // Clear the edit UI components
-            this.textBoxManifestNumber.Text = "";
-            this.textBoxFirstName.Text = "";
-            this.textBoxLastName.Text = "";
+            this.textBoxManifestNumber.Text = string.Empty;
+            this.textBoxFirstName.Text = string.Empty;
+            this.textBoxLastName.Text = string.Empty;
         }
 
         private void ButtonAddTandem_Click(object sender, EventArgs e)
@@ -511,7 +511,7 @@
 
             loadList.HeaderStyle = ColumnHeaderStyle.None;
             loadList.FullRowSelect = true;
-            loadList.Columns.Add("", -2);
+            loadList.Columns.Add(string.Empty, -2);
             string aircraft = this.comboBoxLoadAircraft.Text;
 
             // Get the number of max jumpers for this aircraft
@@ -718,11 +718,11 @@
         private void ButtonSavePerson_Click(object sender, EventArgs e)
         {
             string manNum = this.textBoxManifestNumber.Text;
-            manNum = manNum.Replace("'", "");
+            manNum = manNum.Replace("'", string.Empty);
             string fName = this.textBoxFirstName.Text;
-            fName = fName.Replace("'", "");
+            fName = fName.Replace("'", string.Empty);
             string lName = this.textBoxLastName.Text;
-            lName = lName.Replace("'", "");
+            lName = lName.Replace("'", string.Empty);
             bool ti = this.checkBoxTI.Checked;
             bool affi = this.checkBoxAFF.Checked;
             bool coach = this.checkBoxCoach.Checked;
@@ -779,11 +779,11 @@
         private void ButtonAddPerson_Click(object sender, EventArgs e)
         {
             string manNum = this.textBoxManifestNumber.Text;
-            manNum = manNum.Replace("'", "");
+            manNum = manNum.Replace("'", string.Empty);
             string fName = this.textBoxFirstName.Text;
-            fName = fName.Replace("'", "");
+            fName = fName.Replace("'", string.Empty);
             string lName = this.textBoxLastName.Text;
-            lName = lName.Replace("'", "");
+            lName = lName.Replace("'", string.Empty);
             bool ti = this.checkBoxTI.Checked;
             bool affi = this.checkBoxAFF.Checked;
             bool coach = this.checkBoxCoach.Checked;
@@ -865,7 +865,7 @@
         {
             this.labelEditDetailsAircraft.Hide();
             this.labelAircraftName.Hide();
-            this.textBoxAircraftName.Text = "";
+            this.textBoxAircraftName.Text = string.Empty;
             this.textBoxAircraftName.Hide();
             this.labelMaxJumpers.Hide();
             this.numericUpDownMaxJumpers.Value = 0;
@@ -903,7 +903,7 @@
                 cmd.CommandText = "insert into Aircraft(aircraftName, capacity)" +
                     "values(@param1, @param2)";
 
-                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-", "");
+                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-", string.Empty);
                 cmd.Parameters.Add("@param2", SqlDbType.Int).Value = cap;
 
                 cn.Open();
@@ -993,7 +993,7 @@
             {
                 cmd.CommandText = "update Aircraft set capacity = " + cap + " where aircraftName = @param1";
 
-                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-", "");
+                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-", string.Empty);
 
                 cn.Open();
 
@@ -1075,7 +1075,7 @@
                 return;
             }
 
-            if (this.selectedLoad == "")
+            if (this.selectedLoad == string.Empty)
             {
                 MessageBox.Show("Please click a load first to select it.", "Select a load", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
@@ -1090,7 +1090,7 @@
 
             // If deleting a tandem, must select all people to delete
             string load = this.selectedLoad;
-            string manNum = "";
+            string manNum = string.Empty;
 
             foreach (ListView c in this.panelLoads.Controls)
             {
@@ -1120,7 +1120,7 @@
 
                                 ListViewItem loadInfo = c.Items[0];
                                 string[] pieces = loadInfo.Text.Split('-');
-                                string slots = pieces[2].Replace("slots", "").Trim();
+                                string slots = pieces[2].Replace("slots", string.Empty).Trim();
                                 int num = 0;
                                 int.TryParse(slots, out num);
                                 num = num + 1;
@@ -1146,7 +1146,7 @@
         private void PrintCertificate()
         {
             string load = this.selectedLoad;
-            string manNum = "";
+            string manNum = string.Empty;
 
             foreach (ListView c in this.panelLoads.Controls)
             {
