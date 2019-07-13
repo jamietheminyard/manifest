@@ -2,7 +2,7 @@
 {
     using System;
 
-    class PersonType : IComparable<PersonType>
+    internal class PersonType : IComparable<PersonType>
     {
         private string manifestNumber;
         private string firstName;

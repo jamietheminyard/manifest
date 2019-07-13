@@ -7,9 +7,9 @@
 
     public partial class FormPrintCertificate : Form
     {
-        string studentname;
-        string aircraft;
-        string instructor;
+        private string studentname;
+        private string aircraft;
+        private string instructor;
         private PrintDocument pd;
 
         public FormPrintCertificate(string sn, string a, string i)

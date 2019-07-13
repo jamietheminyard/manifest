@@ -2,7 +2,7 @@
 {
     using System;
 
-    class AircraftType
+    internal class AircraftType
     {
         private string name;
         private int capacity;

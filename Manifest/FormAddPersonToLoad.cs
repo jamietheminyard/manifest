@@ -93,7 +93,7 @@
             }
         }
 
-        void KeyPressHandler(object sender, KeyEventArgs e)
+        private void KeyPressHandler(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
@@ -101,7 +101,7 @@
             }
         }
 
-        void FormAddPersonToLoad_KeyDown(object sender, KeyEventArgs e)
+        private void FormAddPersonToLoad_KeyDown(object sender, KeyEventArgs e)
         {
             // Lets you hit the enter key instead of tab to go through the input fields
             if (e.KeyCode == Keys.Enter)

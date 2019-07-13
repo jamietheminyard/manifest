@@ -13,11 +13,11 @@
     public partial class Form1 : Form
     {
         public ImageList Imagelist = new ImageList();
-        int searchIndex;
-        int tmpLoadNum = 1;
-        string selectedLoad = "";
-        int imageIndex = 0;
-        List<string> selectedPeople = new List<string>();
+        private int searchIndex;
+        private int tmpLoadNum = 1;
+        private string selectedLoad = "";
+        private int imageIndex = 0;
+        private List<string> selectedPeople = new List<string>();
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Form1()
@@ -72,7 +72,7 @@
             }
         }
 
-        void Form1_KeyUp(object sender, KeyEventArgs e)
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Right)
             {
@@ -593,7 +593,7 @@
    //             e.Effect = DragDropEffects.None;
         }
 
-        void Load_click(object sender, EventArgs e)
+        private void Load_click(object sender, EventArgs e)
         {
             ListView lv = (ListView)sender;
             string load = lv.Items[0].Text.Split('-')[0];
