@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -81,9 +81,7 @@ namespace Manifest
             e.Graphics.DrawString(texto,
                                      font,
                                      new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF)
-                                    //new StringFormat { Alignment = StringAlignment.Center }
-                                    );
+                                     new RectangleF(new PointF(x, y), sizeF));
             y = y + 120;
 
             float center = availableWidth / 2.0f;
@@ -97,9 +95,7 @@ namespace Manifest
             e.Graphics.DrawString(texto,
                                      font,
                                      new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x + center - centername, y), sizeF)
-                                     //new StringFormat { Alignment = StringAlignment.Center }
-                                    );
+                                     new RectangleF(new PointF(x + center - centername, y), sizeF));
 
             y = y + 120;
 
@@ -109,9 +105,7 @@ namespace Manifest
             e.Graphics.DrawString(texto,
                                      font,
                                      new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF)
-                                    //new StringFormat { Alignment = StringAlignment.Center }
-                                    );
+                                     new RectangleF(new PointF(x, y), sizeF));
 
             y = y + 40;
 
@@ -121,9 +115,7 @@ namespace Manifest
             e.Graphics.DrawString(texto,
                                      font,
                                      new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF)
-                                    //new StringFormat { Alignment = StringAlignment.Center }
-                                    );
+                                     new RectangleF(new PointF(x, y), sizeF));
 
             y = y + 40;
 
@@ -133,9 +125,7 @@ namespace Manifest
             e.Graphics.DrawString(texto,
                                      font,
                                      new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF)
-                                    //new StringFormat { Alignment = StringAlignment.Center }
-                                    );
+                                     new RectangleF(new PointF(x, y), sizeF));
 
             y = y + 40;
 
@@ -145,9 +135,7 @@ namespace Manifest
             e.Graphics.DrawString(texto,
                                      font,
                                      new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF)
-                                    //new StringFormat { Alignment = StringAlignment.Center }
-                                    );
+                                     new RectangleF(new PointF(x, y), sizeF));
 
             y = y + 170;
 
@@ -157,9 +145,7 @@ namespace Manifest
             e.Graphics.DrawString(texto,
                                      font,
                                      new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF)
-                                    //new StringFormat { Alignment = StringAlignment.Center }
-                                    );
+                                     new RectangleF(new PointF(x, y), sizeF));
 
             y = y + 70;
 
@@ -169,9 +155,7 @@ namespace Manifest
             e.Graphics.DrawString(texto,
                                      font,
                                      new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF)
-                                    //new StringFormat { Alignment = StringAlignment.Center }
-                                    );
+                                     new RectangleF(new PointF(x, y), sizeF));
 
             y = y + 70;
 
@@ -181,9 +165,7 @@ namespace Manifest
             e.Graphics.DrawString(texto,
                                      font,
                                      new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF)
-                                    //new StringFormat { Alignment = StringAlignment.Center }
-                                    );
+                                     new RectangleF(new PointF(x, y), sizeF));
 
             y = y + 200;
 
@@ -193,9 +175,7 @@ namespace Manifest
             e.Graphics.DrawString(texto,
                                      font,
                                      new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF)
-                                    //new StringFormat { Alignment = StringAlignment.Center }
-                                    );
+                                     new RectangleF(new PointF(x, y), sizeF));
         }
     }
 }
