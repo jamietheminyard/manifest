@@ -122,7 +122,7 @@
                 return;
             }
 
-            if (this.selectedLoad == string.Empty)
+            if (string.IsNullOrEmpty(this.selectedLoad))
             {
                 MessageBox.Show("Please click a load first to select it.", "Select a load", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
@@ -145,7 +145,7 @@
                 {
                     foreach (ListViewItem i in c.Items)
                     {
-                        if (i.Text.Contains(addTandemWindow.Instructor1ManNum) && addTandemWindow.Instructor1ManNum != string.Empty)
+                        if (i.Text.Contains(addTandemWindow.Instructor1ManNum) && string.IsNullOrEmpty(addTandemWindow.Instructor1ManNum) == false)
                         {
                             DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor1 + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.No)
@@ -154,7 +154,7 @@
                             }
                         }
 
-                        if (i.Text.Contains(addTandemWindow.Instructor2orVideoManNum) && addTandemWindow.Instructor2orVideoManNum != string.Empty)
+                        if (i.Text.Contains(addTandemWindow.Instructor2orVideoManNum) && string.IsNullOrEmpty(addTandemWindow.Instructor2orVideoManNum) == false)
                         {
                             DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor2orVideo + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.No)
@@ -163,7 +163,7 @@
                             }
                         }
 
-                        if (i.Text.Contains(addTandemWindow.ManNum) && addTandemWindow.ManNum != string.Empty)
+                        if (i.Text.Contains(addTandemWindow.ManNum) && string.IsNullOrEmpty(addTandemWindow.ManNum) == false)
                         {
                             DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.JumperName + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.No)
@@ -189,7 +189,7 @@
                             int num = 0;
                             int.TryParse(slots, out num);
 
-                            if (addTandemWindow.Instructor2orVideo.Trim() != string.Empty)
+                            if (string.IsNullOrEmpty(addTandemWindow.Instructor2orVideo.Trim()) == false)
                             {
                                 num = num - 3; // Has video, so subtract 3
                             }
@@ -214,7 +214,7 @@
                             // Add the people
                             c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor1 });
                             AddLog(this.selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
-                            if (addTandemWindow.Instructor2orVideo.Trim() != string.Empty)
+                            if (string.IsNullOrEmpty(addTandemWindow.Instructor2orVideo.Trim()) == false)
                             {
                                 c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor2orVideo });
                                 AddLog(this.selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with video pay rate");
@@ -240,7 +240,7 @@
                             string slots = pieces[2].Replace("slots", string.Empty).Trim();
                             int num = 0;
                             int.TryParse(slots, out num);
-                            if (addTandemWindow.Instructor2orVideo.Trim() != string.Empty)
+                            if (string.IsNullOrEmpty(addTandemWindow.Instructor2orVideo.Trim()) == false)
                             {
                                 num = num - 3; // Has 2 instructors, so subtract 3
                             }
@@ -264,7 +264,7 @@
 
                             c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor1 });
                             AddLog(this.selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
-                            if (addTandemWindow.Instructor2orVideo.Trim() != string.Empty)
+                            if (string.IsNullOrEmpty(addTandemWindow.Instructor2orVideo.Trim()) == false)
                             {
                                 c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor2orVideo });
                                 AddLog(this.selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with instructor pay rate");
@@ -1075,7 +1075,7 @@
                 return;
             }
 
-            if (this.selectedLoad == string.Empty)
+            if (string.IsNullOrEmpty(this.selectedLoad))
             {
                 MessageBox.Show("Please click a load first to select it.", "Select a load", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;

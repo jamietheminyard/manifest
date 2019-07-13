@@ -124,7 +124,7 @@
             // If tandem is selected, ensure jumper name isn't blank and an instructor is selected
             if (this.JumpType.Contains("TAN"))
             {
-                if (this.Instructor1.Trim() == string.Empty)
+                if (string.IsNullOrEmpty(this.Instructor1.Trim()))
                 {
                     MessageBox.Show("This jump type requires a tandem instructor. Please select one to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
@@ -134,7 +134,7 @@
             // If tandem is selected, ensure there's a name for the tandem student
             if (this.JumpType.Contains("TAN"))
             {
-                if (this.JumperName.Trim() == string.Empty)
+                if (string.IsNullOrEmpty(this.JumperName.Trim()))
                 {
                     MessageBox.Show("Please enter the tandem student's name.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
@@ -144,7 +144,7 @@
             // If AFF is selected, ensure manifest number isn't blank
             if (this.JumpType.Contains("AFF"))
             {
-                if (this.ManNum.Trim() == string.Empty)
+                if (string.IsNullOrEmpty(this.ManNum.Trim()))
                 {
                     MessageBox.Show("Please enter the student's manifest number.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
@@ -154,7 +154,7 @@
             // If IAFF2 is selected, ensure 2 instructors are selected
             if (this.JumpType.Contains("IAFF2"))
             {
-                if (this.Instructor1.Trim() == string.Empty || this.Instructor2orVideo.Trim() == string.Empty)
+                if (string.IsNullOrEmpty(this.Instructor1.Trim()) || string.IsNullOrEmpty(this.Instructor2orVideo.Trim()))
                 {
                     MessageBox.Show("IAFF2 requires 2 instructors. Please select two to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
@@ -164,7 +164,7 @@
             // If IAFF1 is selected, ensure 1 instructor is selected
             if (this.JumpType.Contains("IAFF1"))
             {
-                if (this.Instructor1.Trim() == string.Empty)
+                if (string.IsNullOrEmpty(this.Instructor1.Trim()))
                 {
                     MessageBox.Show("IAFF1 requires an AFF instructor. Please select one to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
@@ -174,7 +174,7 @@
             // If 14500 or GRWTS ensure the manifest number isn't blank
             if (this.JumpType == "14,500 - $26.00" || this.JumpType == "GRWTS - $51.00")
             {
-                if (this.ManNum.Trim() == string.Empty)
+                if (string.IsNullOrEmpty(this.ManNum.Trim()))
                 {
                     MessageBox.Show("This jump type requires a manifest number. Please enter one to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
@@ -202,7 +202,7 @@
             string fname = string.Empty;
             string lname = string.Empty;
 
-            if (num == string.Empty)
+            if (string.IsNullOrEmpty(num))
             {
                 return;
             }
