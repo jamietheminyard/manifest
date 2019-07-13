@@ -25,12 +25,12 @@
 
         public string GetName()
         {
-            return name;
+            return this.name;
         }
 
         public int GetCapacity()
         {
-            return capacity;
+            return this.capacity;
         }
     }
 }

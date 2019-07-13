@@ -14,37 +14,37 @@
 
         public FormPrintCertificate(string sn, string a, string i)
         {
-            InitializeComponent();
-            studentname = sn;
-            aircraft = a;
-            instructor = i;
+            this.InitializeComponent();
+            this.studentname = sn;
+            this.aircraft = a;
+            this.instructor = i;
 
-            textBoxName.Text = studentname;
-            textBoxAircraft.Text = aircraft;
-            textBoxInstructor.Text = instructor;
-            textBoxAltitude.Text = "14,500";
-            textBoxFreefall.Text = "60";
-            textBoxDate.Text = DateTime.Today.ToString("dd MMMM yyyy");
+            this.textBoxName.Text = this.studentname;
+            this.textBoxAircraft.Text = this.aircraft;
+            this.textBoxInstructor.Text = this.instructor;
+            this.textBoxAltitude.Text = "14,500";
+            this.textBoxFreefall.Text = "60";
+            this.textBoxDate.Text = DateTime.Today.ToString("dd MMMM yyyy");
         }
 
         private void ButtonPrint_Click(object sender, EventArgs e)
         {
-            pd = new PrintDocument();
-            pd.PrintPage += Pd_PrintPage;
+            this.pd = new PrintDocument();
+            this.pd.PrintPage += this.Pd_PrintPage;
 
-            pd.Print();
+            this.pd.Print();
 
             this.Close();
         }
 
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)
         {
-            string n = textBoxName.Text;
-            string a = textBoxAircraft.Text;
-            string i = textBoxInstructor.Text;
-            string alt = textBoxAltitude.Text;
-            string f = textBoxFreefall.Text;
-            string d = textBoxDate.Text;
+            string n = this.textBoxName.Text;
+            string a = this.textBoxAircraft.Text;
+            string i = this.textBoxInstructor.Text;
+            string alt = this.textBoxAltitude.Text;
+            string f = this.textBoxFreefall.Text;
+            string d = this.textBoxDate.Text;
             float x = 0.1f;
             float y = 20f;
 
