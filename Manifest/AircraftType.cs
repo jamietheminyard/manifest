@@ -11,12 +11,12 @@
         {
             if (string.IsNullOrWhiteSpace(n))
             {
-                throw new Exception("Aircraft name cannot be blank or null.");
+                throw new ArgumentException("Aircraft name cannot be blank or null.");
             }
 
             if (c < 1)
             {
-                throw new Exception("Aircraft capacity cannot be less than 1.");
+                throw new ArgumentException("Aircraft capacity cannot be less than 1.");
             }
 
             this.name = n;

@@ -13,12 +13,12 @@
         {
             if (string.IsNullOrWhiteSpace(manNum))
             {
-                throw new Exception("Person manifest number cannot be empty.");
+                throw new ArgumentException("Person manifest number cannot be empty.");
             }
 
             if (p < 0)
             {
-                throw new Exception("Person paid amount cannot be less than 0.");
+                throw new ArgumentException("Person paid amount cannot be less than 0.");
             }
 
             this.manifestNumber = manNum;
