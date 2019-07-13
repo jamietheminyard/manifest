@@ -77,7 +77,9 @@
             float center = availableWidth / 2.0f;
             float centername = (n.Length / 2.0f) * 35;
             if (centername > center)
+            {
                 centername = center;
+            }
 
             texto = "\n" + n;
             font = new Font("Arial", 32, FontStyle.Bold);

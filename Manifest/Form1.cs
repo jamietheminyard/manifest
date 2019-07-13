@@ -117,7 +117,9 @@
             addTandemWindow.ShowDialog();
             DialogResult result = addTandemWindow.result;
             if (result == DialogResult.None)
+            {
                 return;
+            }
 
             // Add the person to the selected load
             ListViewItem loadInfo;
@@ -171,9 +173,13 @@
                         int num = 0;
                         int.TryParse(slots, out num);
                         if (addTandemWindow.instructor2orVideo.Trim() != "") // Has video, so subtract 3
+                        {
                             num = num - 3;
+                        }
                         else
+                        {
                             num = num - 2; // just TI and student
+                        }
 
                         if (num < 0)
                         {
@@ -182,7 +188,9 @@
                         }
 
                         if (num == 0) // If load is full, color it red
+                        {
                             c.BackColor = Color.Red;
+                        }
 
                         c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
 
@@ -199,7 +207,10 @@
                         addLog(selectedLoad, "TANSTUDENT", " replace this with tandems cost");
                         imageIndex = imageIndex + 1;
                         if (imageIndex == 12)
+                        {
                             imageIndex = 0;
+                        }
+
                         return;
                     }
 
@@ -213,9 +224,13 @@
                         int num = 0;
                         int.TryParse(slots, out num);
                         if (addTandemWindow.instructor2orVideo.Trim() != "") // Has 2 instructors, so subtract 3
+                        {
                             num = num - 3;
+                        }
                         else
+                        {
                             num = num - 2; // just 1 instructor
+                        }
 
                         if (num < 0)
                         {
@@ -224,7 +239,9 @@
                         }
 
                         if (num == 0) // If load is full, color it red
+                        {
                             c.BackColor = Color.Red;
+                        }
 
                         c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
 
@@ -240,7 +257,10 @@
                         addLog(selectedLoad, addTandemWindow.manNum, " replace this with AFF student rate");
                         imageIndex = imageIndex + 1;
                         if (imageIndex == 12)
+                        {
                             imageIndex = 0;
+                        }
+
                         return;
                     }
                     else
@@ -264,7 +284,9 @@
                         }
 
                         if (num == 0) // If load is full, color it red
+                        {
                             c.BackColor = Color.Red;
+                        }
 
                         c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
 
@@ -314,7 +336,9 @@
                 listBoxPeople.SelectedIndex = 0;
             }
             else
+            {
                 searchIndex = selectedIndex + 1;
+            }
 
             // Starting at the search index, look for the next instance of the search text
             for (int i = searchIndex; i < listBoxPeople.Items.Count; i++)
@@ -380,9 +404,14 @@
                         f = dr.GetString(1);
                         l = dr.GetString(2);
                         if (dr["paid"] != DBNull.Value)
+                        {
                             double.TryParse(dr.GetString(3), out p);
+                        }
                         else
+                        {
                             p = 0;
+                        }
+
                         PersonType per = new PersonType(m, f, l, p);
                         peopleFromDB.Add(per);
                     }
@@ -683,16 +712,27 @@
 
             string t = "0";
             if (ti)
+            {
                 t = "1";
+            }
+
             string a = "0";
             if (affi)
+            {
                 a = "1";
+            }
+
             string c = "0";
             if (coach)
+            {
                 c = "1";
+            }
+
             string v = "0";
             if (video)
+            {
                 v = "1";
+            }
 
             using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
@@ -733,16 +773,27 @@
 
             string t = "0";
             if (ti)
+            {
                 t = "1";
+            }
+
             string a = "0";
             if (affi)
+            {
                 a = "1";
+            }
+
             string c = "0";
             if (coach)
+            {
                 c = "1";
+            }
+
             string v = "0";
             if (video)
+            {
                 v = "1";
+            }
 
             using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
@@ -1057,7 +1108,9 @@
                                 num = num + 1;
 
                                 if (num > 0) // If load is full, color it red
+                                {
                                     c.BackColor = Color.White;
+                                }
 
                                 c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
                             }

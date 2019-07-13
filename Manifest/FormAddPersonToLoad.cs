@@ -203,7 +203,9 @@
             string lname = "";
 
             if (num == "")
+            {
                 return;
+            }
 
             using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
