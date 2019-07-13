@@ -7,46 +7,46 @@
 
     public partial class FormAddPersonToLoad : Form
     {
-        public string jumpType { get; set; }
+        public string JumpType { get; set; }
 
-        public string manNum { get; set; }
+        public string ManNum { get; set; }
 
-        public string altitude { get; set; }
+        public string Altitude { get; set; }
 
-        public string price { get; set; }
+        public string Price { get; set; }
 
-        public string jumperName { get; set; }
+        public string JumperName { get; set; }
 
-        public string instructor1 { get; set; }
+        public string Instructor1 { get; set; }
 
-        public string instructor1ManNum { get; set; }
+        public string Instructor1ManNum { get; set; }
 
-        public string instructor2orVideo { get; set; }
+        public string Instructor2orVideo { get; set; }
 
-        public string instructor2orVideoManNum { get; set; }
+        public string Instructor2orVideoManNum { get; set; }
 
-        public DialogResult result { get; set; }
+        public DialogResult Result { get; set; }
 
         public FormAddPersonToLoad(string l)
         {
             InitializeComponent();
             this.KeyUp += new KeyEventHandler(this.KeyPressHandler);
 
-            jumpType = "";
-            manNum = "";
-            altitude = "";
-            price = "";
-            jumperName = "";
-            instructor1 = "";
-            instructor1ManNum = "";
-            instructor2orVideo = "";
-            instructor2orVideoManNum = "";
+            JumpType = "";
+            ManNum = "";
+            Altitude = "";
+            Price = "";
+            JumperName = "";
+            Instructor1 = "";
+            Instructor1ManNum = "";
+            Instructor2orVideo = "";
+            Instructor2orVideoManNum = "";
 
             // Default to the first item in the price list
             comboBoxJumpType.SelectedIndex = 0;
 
             // Set the DialogResult to
-            result = DialogResult.None;
+            Result = DialogResult.None;
 
             // Display which load is selected
             labelLoad.Text = l;
@@ -111,20 +111,20 @@
             }
         }
 
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            jumpType = comboBoxJumpType.Text;
-            manNum = textBoxManNum.Text;
-            altitude = textBoxAltitude.Text;
-            price = textBoxPrice.Text;
-            jumperName = textBoxName.Text;
-            instructor1 = comboBoxInstructors.Text;
-            instructor2orVideo = comboBoxVideo.Text;
+            JumpType = comboBoxJumpType.Text;
+            ManNum = textBoxManNum.Text;
+            Altitude = textBoxAltitude.Text;
+            Price = textBoxPrice.Text;
+            JumperName = textBoxName.Text;
+            Instructor1 = comboBoxInstructors.Text;
+            Instructor2orVideo = comboBoxVideo.Text;
 
             // If tandem is selected, ensure jumper name isn't blank and an instructor is selected
-            if (jumpType.Contains("TAN"))
+            if (JumpType.Contains("TAN"))
             {
-                if (instructor1.Trim() == "")
+                if (Instructor1.Trim() == "")
                 {
                     MessageBox.Show("This jump type requires a tandem instructor. Please select one to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
@@ -132,9 +132,9 @@
             }
 
             // If tandem is selected, ensure there's a name for the tandem student
-            if (jumpType.Contains("TAN"))
+            if (JumpType.Contains("TAN"))
             {
-                if (jumperName.Trim() == "")
+                if (JumperName.Trim() == "")
                 {
                     MessageBox.Show("Please enter the tandem student's name.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
@@ -142,9 +142,9 @@
             }
 
             // If AFF is selected, ensure manifest number isn't blank
-            if (jumpType.Contains("AFF"))
+            if (JumpType.Contains("AFF"))
             {
-                if (manNum.Trim() == "")
+                if (ManNum.Trim() == "")
                 {
                     MessageBox.Show("Please enter the student's manifest number.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
@@ -152,9 +152,9 @@
             }
 
             // If IAFF2 is selected, ensure 2 instructors are selected
-            if (jumpType.Contains("IAFF2"))
+            if (JumpType.Contains("IAFF2"))
             {
-                if (instructor1.Trim() == "" || instructor2orVideo.Trim() == "")
+                if (Instructor1.Trim() == "" || Instructor2orVideo.Trim() == "")
                 {
                     MessageBox.Show("IAFF2 requires 2 instructors. Please select two to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
@@ -162,9 +162,9 @@
             }
 
             // If IAFF1 is selected, ensure 1 instructor is selected
-            if (jumpType.Contains("IAFF1"))
+            if (JumpType.Contains("IAFF1"))
             {
-                if (instructor1.Trim() == "")
+                if (Instructor1.Trim() == "")
                 {
                     MessageBox.Show("IAFF1 requires an AFF instructor. Please select one to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
@@ -172,20 +172,20 @@
             }
 
             // If 14500 or GRWTS ensure the manifest number isn't blank
-            if (jumpType == "14,500 - $26.00" || jumpType == "GRWTS - $51.00")
+            if (JumpType == "14,500 - $26.00" || JumpType == "GRWTS - $51.00")
             {
-                if (manNum.Trim() == "")
+                if (ManNum.Trim() == "")
                 {
                     MessageBox.Show("This jump type requires a manifest number. Please enter one to continue.", "Alert", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     return;
                 }
             }
 
-            result = DialogResult.OK;
+            Result = DialogResult.OK;
             this.Close();
         }
 
-        private void comboBoxJumpType_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxJumpType_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Populate the other fields
             textBoxAltitude.Text = "14500";
@@ -195,7 +195,7 @@
             textBoxPrice.Text = price.Trim();
         }
 
-        private void textBoxManNum_Leave(object sender, EventArgs e)
+        private void TextBoxManNum_Leave(object sender, EventArgs e)
         {
             // Pull up this manifest number's name
             string num = textBoxManNum.Text.Trim();

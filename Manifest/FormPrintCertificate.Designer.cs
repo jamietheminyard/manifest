@@ -53,7 +53,7 @@
             this.buttonPrint.TabIndex = 0;
             this.buttonPrint.Text = "Print";
             this.buttonPrint.UseVisualStyleBackColor = true;
-            this.buttonPrint.Click += new System.EventHandler(this.buttonPrint_Click);
+            this.buttonPrint.Click += new System.EventHandler(this.ButtonPrint_Click);
             // 
             // label1
             // 

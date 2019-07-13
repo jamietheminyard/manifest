@@ -127,14 +127,14 @@
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
             this.printToolStripMenuItem.Size = new System.Drawing.Size(163, 38);
             this.printToolStripMenuItem.Text = "Print";
-            this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
+            this.printToolStripMenuItem.Click += new System.EventHandler(this.PrintToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(163, 38);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -149,7 +149,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(179, 38);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // tabControl
             // 
@@ -225,7 +225,7 @@
             this.buttonCancel.TabIndex = 23;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // buttonAddPerson
             // 
@@ -235,7 +235,7 @@
             this.buttonAddPerson.TabIndex = 22;
             this.buttonAddPerson.Text = "Add";
             this.buttonAddPerson.UseVisualStyleBackColor = true;
-            this.buttonAddPerson.Click += new System.EventHandler(this.buttonAddPerson_Click);
+            this.buttonAddPerson.Click += new System.EventHandler(this.ButtonAddPerson_Click);
             // 
             // checkBoxVideo
             // 
@@ -312,7 +312,7 @@
             this.buttonSavePerson.TabIndex = 14;
             this.buttonSavePerson.Text = "Save";
             this.buttonSavePerson.UseVisualStyleBackColor = true;
-            this.buttonSavePerson.Click += new System.EventHandler(this.buttonSavePerson_Click);
+            this.buttonSavePerson.Click += new System.EventHandler(this.ButtonSavePerson_Click);
             // 
             // textBoxManifestNumber
             // 
@@ -343,7 +343,7 @@
             this.buttonDeletePerson.TabIndex = 5;
             this.buttonDeletePerson.Text = "Delete person";
             this.buttonDeletePerson.UseVisualStyleBackColor = true;
-            this.buttonDeletePerson.Click += new System.EventHandler(this.buttonDeletePerson_Click);
+            this.buttonDeletePerson.Click += new System.EventHandler(this.ButtonDeletePerson_Click);
             // 
             // buttonEditPerson
             // 
@@ -353,7 +353,7 @@
             this.buttonEditPerson.TabIndex = 4;
             this.buttonEditPerson.Text = "Edit person";
             this.buttonEditPerson.UseVisualStyleBackColor = true;
-            this.buttonEditPerson.Click += new System.EventHandler(this.buttonEditPerson_Click);
+            this.buttonEditPerson.Click += new System.EventHandler(this.ButtonEditPerson_Click);
             // 
             // buttonAddNewPerson
             // 
@@ -364,7 +364,7 @@
             this.buttonAddNewPerson.TabIndex = 3;
             this.buttonAddNewPerson.Text = "Add new person";
             this.buttonAddNewPerson.UseVisualStyleBackColor = true;
-            this.buttonAddNewPerson.Click += new System.EventHandler(this.buttonAddNewPerson_Click);
+            this.buttonAddNewPerson.Click += new System.EventHandler(this.ButtonAddNewPerson_Click);
             // 
             // buttonSearchPeople
             // 
@@ -375,7 +375,7 @@
             this.buttonSearchPeople.TabIndex = 2;
             this.buttonSearchPeople.Text = "Search People";
             this.buttonSearchPeople.UseVisualStyleBackColor = true;
-            this.buttonSearchPeople.Click += new System.EventHandler(this.buttonSearchPeople_Click);
+            this.buttonSearchPeople.Click += new System.EventHandler(this.ButtonSearchPeople_Click);
             // 
             // textBoxSearchPeople
             // 
@@ -442,7 +442,7 @@
             this.buttonCancelAircraft.TabIndex = 7;
             this.buttonCancelAircraft.Text = "Cancel";
             this.buttonCancelAircraft.UseVisualStyleBackColor = true;
-            this.buttonCancelAircraft.Click += new System.EventHandler(this.buttonCancelAircraft_Click);
+            this.buttonCancelAircraft.Click += new System.EventHandler(this.ButtonCancelAircraft_Click);
             // 
             // buttonSaveAircraft
             // 
@@ -452,7 +452,7 @@
             this.buttonSaveAircraft.TabIndex = 6;
             this.buttonSaveAircraft.Text = "Save";
             this.buttonSaveAircraft.UseVisualStyleBackColor = true;
-            this.buttonSaveAircraft.Click += new System.EventHandler(this.buttonSaveAircraft_Click);
+            this.buttonSaveAircraft.Click += new System.EventHandler(this.ButtonSaveAircraft_Click);
             // 
             // buttonAddAircraftSubmit
             // 
@@ -462,7 +462,7 @@
             this.buttonAddAircraftSubmit.TabIndex = 5;
             this.buttonAddAircraftSubmit.Text = "Add";
             this.buttonAddAircraftSubmit.UseVisualStyleBackColor = true;
-            this.buttonAddAircraftSubmit.Click += new System.EventHandler(this.buttonAddAircraftSubmit_Click);
+            this.buttonAddAircraftSubmit.Click += new System.EventHandler(this.ButtonAddAircraftSubmit_Click);
             // 
             // textBoxAircraftName
             // 
@@ -524,7 +524,7 @@
             this.buttonDeleteAircraft.TabIndex = 2;
             this.buttonDeleteAircraft.Text = "Delete Aircraft";
             this.buttonDeleteAircraft.UseVisualStyleBackColor = true;
-            this.buttonDeleteAircraft.Click += new System.EventHandler(this.buttonDeleteAircraft_Click);
+            this.buttonDeleteAircraft.Click += new System.EventHandler(this.ButtonDeleteAircraft_Click);
             // 
             // buttonEditAircraft
             // 
@@ -534,7 +534,7 @@
             this.buttonEditAircraft.TabIndex = 1;
             this.buttonEditAircraft.Text = "Edit Aircraft";
             this.buttonEditAircraft.UseVisualStyleBackColor = true;
-            this.buttonEditAircraft.Click += new System.EventHandler(this.buttonEditAircraft_Click);
+            this.buttonEditAircraft.Click += new System.EventHandler(this.ButtonEditAircraft_Click);
             // 
             // buttonAddAircraft
             // 
@@ -544,7 +544,7 @@
             this.buttonAddAircraft.TabIndex = 0;
             this.buttonAddAircraft.Text = "Add Aircraft";
             this.buttonAddAircraft.UseVisualStyleBackColor = true;
-            this.buttonAddAircraft.Click += new System.EventHandler(this.buttonAddAircraft_Click);
+            this.buttonAddAircraft.Click += new System.EventHandler(this.ButtonAddAircraft_Click);
             // 
             // tabPageLoads
             // 
@@ -594,7 +594,7 @@
             this.buttonDeletePersonFromLoad.TabIndex = 15;
             this.buttonDeletePersonFromLoad.Text = "Delete from Load";
             this.buttonDeletePersonFromLoad.UseVisualStyleBackColor = true;
-            this.buttonDeletePersonFromLoad.Click += new System.EventHandler(this.buttonDeletePersonFromLoad_Click);
+            this.buttonDeletePersonFromLoad.Click += new System.EventHandler(this.ButtonDeletePersonFromLoad_Click);
             // 
             // label3
             // 
@@ -635,7 +635,7 @@
             this.buttonAddFunJumper.TabIndex = 6;
             this.buttonAddFunJumper.Text = "Quick Add";
             this.buttonAddFunJumper.UseVisualStyleBackColor = true;
-            this.buttonAddFunJumper.Click += new System.EventHandler(this.buttonAddFunJumper_Click);
+            this.buttonAddFunJumper.Click += new System.EventHandler(this.ButtonAddFunJumper_Click);
             // 
             // textBoxManNum
             // 
@@ -663,7 +663,7 @@
             this.buttonAddTandem.TabIndex = 4;
             this.buttonAddTandem.Text = "Add Person to Load";
             this.buttonAddTandem.UseVisualStyleBackColor = true;
-            this.buttonAddTandem.Click += new System.EventHandler(this.buttonAddTandem_Click);
+            this.buttonAddTandem.Click += new System.EventHandler(this.ButtonAddTandem_Click);
             // 
             // buttonCompleteLoad
             // 
@@ -673,7 +673,7 @@
             this.buttonCompleteLoad.TabIndex = 7;
             this.buttonCompleteLoad.Text = "Complete Load";
             this.buttonCompleteLoad.UseVisualStyleBackColor = true;
-            this.buttonCompleteLoad.Click += new System.EventHandler(this.buttonCompleteLoad_Click);
+            this.buttonCompleteLoad.Click += new System.EventHandler(this.ButtonCompleteLoad_Click);
             // 
             // buttonNewLoad
             // 
@@ -683,7 +683,7 @@
             this.buttonNewLoad.TabIndex = 3;
             this.buttonNewLoad.Text = "New Load";
             this.buttonNewLoad.UseVisualStyleBackColor = true;
-            this.buttonNewLoad.Click += new System.EventHandler(this.buttonNewLoad_Click);
+            this.buttonNewLoad.Click += new System.EventHandler(this.ButtonNewLoad_Click);
             // 
             // statusStrip1
             // 

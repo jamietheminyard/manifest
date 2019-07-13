@@ -27,7 +27,7 @@
             textBoxDate.Text = DateTime.Today.ToString("dd MMMM yyyy");
         }
 
-        private void buttonPrint_Click(object sender, EventArgs e)
+        private void ButtonPrint_Click(object sender, EventArgs e)
         {
             pd = new PrintDocument();
             pd.PrintPage += Pd_PrintPage;

@@ -37,21 +37,21 @@
 
         public int CompareTo(PersonType otherPerson)
         {
-            int result = this.manifestNumber.CompareTo(otherPerson.getManifestNumber());
+            int result = this.manifestNumber.CompareTo(otherPerson.GetManifestNumber());
             return result;
         }
 
-        public string getFirstName()
+        public string GetFirstName()
         {
             return this.firstName;
         }
 
-        public string getLastName()
+        public string GetLastName()
         {
             return this.lastName;
         }
 
-        public string getManifestNumber()
+        public string GetManifestNumber()
         {
             return this.manifestNumber;
         }

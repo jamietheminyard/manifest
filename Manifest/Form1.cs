@@ -18,13 +18,13 @@
         string selectedLoad = "";
         int imageIndex = 0;
         List<string> selectedPeople = new List<string>();
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Form1()
         {
             InitializeComponent();
             log4net.Config.XmlConfigurator.Configure();
-            log.Info("\n---------------------------------------------Application startup " + DateTime.Now.ToString() + "---------------------------------------------");
+            Log.Info("\n---------------------------------------------Application startup " + DateTime.Now.ToString() + "---------------------------------------------");
 
             searchIndex = 0;
 
@@ -33,16 +33,16 @@
             // Also handles insert key
             this.KeyUp += new KeyEventHandler(this.Form1_KeyUp);
 
-            textBoxSearchPeople.KeyDown += new KeyEventHandler(searchPeople_KeyDown);
+            textBoxSearchPeople.KeyDown += new KeyEventHandler(SearchPeople_KeyDown);
 
             // show/hide UI components
-            hideEditPersonUI();
+            HideEditPersonUI();
             buttonSavePerson.Hide();
             buttonAddPerson.Hide();
             buttonCancel.Hide();
             labelEditDetails.Hide();
 
-            hideEditAircraftUI();
+            HideEditAircraftUI();
             buttonAddAircraftSubmit.Hide();
             buttonSaveAircraft.Hide();
             buttonCancelAircraft.Hide();
@@ -51,8 +51,8 @@
             tabControl.SelectedTab = tabPageLoads;
 
             numericUpDownMaxJumpers.Value = 1;
-            loadPeople();
-            loadAircraft();
+            LoadPeople();
+            LoadAircraft();
 
             // Default to the King Air
             try
@@ -64,8 +64,8 @@
             }
 
             // Retrieve all image files for logos used to group tandems/AFF
-            string[] ImageFiles = Directory.GetFiles(@"C:\test");
-            foreach (var file in ImageFiles)
+            string[] imageFiles = Directory.GetFiles(@"C:\test");
+            foreach (var file in imageFiles)
             {
                 // Add images to Imagelist
                 Imagelist.Images.Add(Image.FromFile(file));
@@ -90,16 +90,16 @@
 
             if (e.KeyCode == Keys.Insert)
             {
-                handleAddPersonToLoad();
+                HandleAddPersonToLoad();
             }
 
             if (e.KeyCode == Keys.F12)
             {
-                handleAddPersonToLoad();
+                HandleAddPersonToLoad();
             }
         }
 
-        private void handleAddPersonToLoad()
+        private void HandleAddPersonToLoad()
         {
             if (panelLoads.Controls.Count == 0)
             {
@@ -115,7 +115,7 @@
 
             FormAddPersonToLoad addTandemWindow = new FormAddPersonToLoad(selectedLoad);
             addTandemWindow.ShowDialog();
-            DialogResult result = addTandemWindow.result;
+            DialogResult result = addTandemWindow.Result;
             if (result == DialogResult.None)
             {
                 return;
@@ -129,27 +129,27 @@
             {
                 foreach (ListViewItem i in c.Items)
                 {
-                    if (i.Text.Contains(addTandemWindow.instructor1ManNum) && addTandemWindow.instructor1ManNum != "")
+                    if (i.Text.Contains(addTandemWindow.Instructor1ManNum) && addTandemWindow.Instructor1ManNum != "")
                     {
-                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.instructor1 + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
+                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor1 + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.No)
                         {
                             return;
                         }
                     }
 
-                    if (i.Text.Contains(addTandemWindow.instructor2orVideoManNum) && addTandemWindow.instructor2orVideoManNum != "")
+                    if (i.Text.Contains(addTandemWindow.Instructor2orVideoManNum) && addTandemWindow.Instructor2orVideoManNum != "")
                     {
-                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.instructor2orVideo + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
+                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor2orVideo + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.No)
                         {
                             return;
                         }
                     }
 
-                    if (i.Text.Contains(addTandemWindow.manNum) && addTandemWindow.manNum != "")
+                    if (i.Text.Contains(addTandemWindow.ManNum) && addTandemWindow.ManNum != "")
                     {
-                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.jumperName + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
+                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.JumperName + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.No)
                         {
                             return;
@@ -164,7 +164,7 @@
                 if (c.Items[0].ToString().Contains(selectedLoad))
                 {
                     // If tandem, make a separate entry for the TI and video if applicable
-                    if (addTandemWindow.jumpType.Contains("TAN"))
+                    if (addTandemWindow.JumpType.Contains("TAN"))
                     {
                         // Update the first item in the list to have correct number of slots left
                         loadInfo = c.Items[0];
@@ -172,7 +172,7 @@
                         string slots = pieces[2].Replace("slots", "").Trim();
                         int num = 0;
                         int.TryParse(slots, out num);
-                        if (addTandemWindow.instructor2orVideo.Trim() != "") // Has video, so subtract 3
+                        if (addTandemWindow.Instructor2orVideo.Trim() != "") // Has video, so subtract 3
                         {
                             num = num - 3;
                         }
@@ -195,16 +195,16 @@
                         c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
 
                         // Add the people
-                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor1 });
-                        addLog(selectedLoad, addTandemWindow.instructor1ManNum, " replace this with instructor pay rate");
-                        if (addTandemWindow.instructor2orVideo.Trim() != "")
+                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.Instructor1 });
+                        AddLog(selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
+                        if (addTandemWindow.Instructor2orVideo.Trim() != "")
                         {
-                            c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor2orVideo });
-                            addLog(selectedLoad, addTandemWindow.instructor2orVideoManNum, " replace this with video pay rate");
+                            c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.Instructor2orVideo });
+                            AddLog(selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with video pay rate");
                         }
 
-                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.jumperName });
-                        addLog(selectedLoad, "TANSTUDENT", " replace this with tandems cost");
+                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.JumperName });
+                        AddLog(selectedLoad, "TANSTUDENT", " replace this with tandems cost");
                         imageIndex = imageIndex + 1;
                         if (imageIndex == 12)
                         {
@@ -215,7 +215,7 @@
                     }
 
                     // If AFF, make a separate entry for the AFFIs
-                    else if (addTandemWindow.jumpType.Contains("AFF"))
+                    else if (addTandemWindow.JumpType.Contains("AFF"))
                     {
                         // Update the first item in the list to have correct number of slots left
                         loadInfo = c.Items[0];
@@ -223,7 +223,7 @@
                         string slots = pieces[2].Replace("slots", "").Trim();
                         int num = 0;
                         int.TryParse(slots, out num);
-                        if (addTandemWindow.instructor2orVideo.Trim() != "") // Has 2 instructors, so subtract 3
+                        if (addTandemWindow.Instructor2orVideo.Trim() != "") // Has 2 instructors, so subtract 3
                         {
                             num = num - 3;
                         }
@@ -245,16 +245,16 @@
 
                         c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
 
-                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor1 });
-                        addLog(selectedLoad, addTandemWindow.instructor1ManNum, " replace this with instructor pay rate");
-                        if (addTandemWindow.instructor2orVideo.Trim() != "")
+                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.Instructor1 });
+                        AddLog(selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
+                        if (addTandemWindow.Instructor2orVideo.Trim() != "")
                         {
-                            c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor2orVideo });
-                            addLog(selectedLoad, addTandemWindow.instructor2orVideoManNum, " replace this with instructor pay rate");
+                            c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.Instructor2orVideo });
+                            AddLog(selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with instructor pay rate");
                         }
 
-                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.manNum + " - " + addTandemWindow.jumperName });
-                        addLog(selectedLoad, addTandemWindow.manNum, " replace this with AFF student rate");
+                        c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.ManNum + " - " + addTandemWindow.JumperName });
+                        AddLog(selectedLoad, addTandemWindow.ManNum, " replace this with AFF student rate");
                         imageIndex = imageIndex + 1;
                         if (imageIndex == 12)
                         {
@@ -290,32 +290,32 @@
 
                         c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
 
-                        c.Items.Add(new ListViewItem { Text = addTandemWindow.manNum + " - " + addTandemWindow.jumperName });
-                        addLog(selectedLoad, addTandemWindow.manNum, " replace this with fun jump pay rate or 0 if beginning of year free jumps");
+                        c.Items.Add(new ListViewItem { Text = addTandemWindow.ManNum + " - " + addTandemWindow.JumperName });
+                        AddLog(selectedLoad, addTandemWindow.ManNum, " replace this with fun jump pay rate or 0 if beginning of year free jumps");
                     }
                 }
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("The Manifest Program\nCopyright 2018-" + DateTime.Now.ToString("yyyy") + "\nAll rights reserved", "About");
         }
 
-        public void searchPeople_KeyDown(object sender, KeyEventArgs e)
+        public void SearchPeople_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                searchForPeople();
+                SearchForPeople();
             }
         }
 
-        public void searchForPeople()
+        public void SearchForPeople()
         {
             string searchText = textBoxSearchPeople.Text.ToLower();
             bool found = false;
@@ -360,7 +360,7 @@
             }
         }
 
-        public void loadPeople()
+        public void LoadPeople()
         {
             ObservableCollection<string> people = new ObservableCollection<string>();
             List<PersonType> peopleFromDB = new List<PersonType>();
@@ -422,13 +422,13 @@
 
             foreach (PersonType pt in peopleFromDB)
             {
-                people.Add(pt.getManifestNumber() + " - " + pt.getFirstName() + " " + pt.getLastName());
+                people.Add(pt.GetManifestNumber() + " - " + pt.GetFirstName() + " " + pt.GetLastName());
             }
 
             listBoxPeople.DataSource = people;
         }
 
-        private void showEditPersonUI()
+        private void ShowEditPersonUI()
         {
             labelManifestNumber.Show();
             textBoxManifestNumber.Show();
@@ -442,7 +442,7 @@
             checkBoxVideo.Show();
         }
 
-        private void hideEditPersonUI()
+        private void HideEditPersonUI()
         {
             labelManifestNumber.Hide();
             textBoxManifestNumber.Text = "";
@@ -463,10 +463,10 @@
             checkBoxVideo.Hide();
         }
 
-        private void buttonAddNewPerson_Click(object sender, EventArgs e)
+        private void ButtonAddNewPerson_Click(object sender, EventArgs e)
         {
             // Display the edit UI components
-            showEditPersonUI();
+            ShowEditPersonUI();
             buttonAddPerson.Show();
             buttonCancel.Show();
             buttonSavePerson.Hide();
@@ -477,12 +477,12 @@
             textBoxLastName.Text = "";
         }
 
-        private void buttonAddTandem_Click(object sender, EventArgs e)
+        private void ButtonAddTandem_Click(object sender, EventArgs e)
         {
-            handleAddPersonToLoad();
+            HandleAddPersonToLoad();
         }
 
-        private void buttonNewLoad_Click(object sender, EventArgs e)
+        private void ButtonNewLoad_Click(object sender, EventArgs e)
         {
             ListView loadList = new ListView();
 
@@ -551,10 +551,10 @@
             loadList.Height = 500;
             loadList.Columns[0].Width = Width - 50;
 
-            loadList.Click += new EventHandler(load_click);
+            loadList.Click += new EventHandler(Load_click);
 
             panelLoads.Controls.Add(loadList);
-            addLog(tmpLoadNum.ToString());
+            AddLog(tmpLoadNum.ToString());
             tmpLoadNum++;
 
             if (panelLoads.Controls.Count == 1)
@@ -571,8 +571,8 @@
             // Find the item that the object was dragged onto
 //            var ItemToReplace = listView1.GetItemAt(p.X, p.Y);
             // extract the listview item from the dragged items IData member
-            var DraggedItem = ((ListViewItem)e.Data.GetData(typeof(ListViewItem)));
-            MessageBox.Show(DraggedItem.ToString());
+            var draggedItem = ((ListViewItem)e.Data.GetData(typeof(ListViewItem)));
+            MessageBox.Show(draggedItem.ToString());
         }
 
         private void ListView_ItemDrag(object sender, ItemDragEventArgs e)
@@ -593,7 +593,7 @@
    //             e.Effect = DragDropEffects.None;
         }
 
-        void load_click(object sender, EventArgs e)
+        void Load_click(object sender, EventArgs e)
         {
             ListView lv = (ListView)sender;
             string load = lv.Items[0].Text.Split('-')[0];
@@ -607,7 +607,7 @@
             }
         }
 
-        private void buttonDeletePerson_Click(object sender, EventArgs e)
+        private void ButtonDeletePerson_Click(object sender, EventArgs e)
         {
             try
             {
@@ -626,10 +626,10 @@
                         if (cmd.ExecuteNonQuery() == 1)
                         {
                             // If delete was successful, reload the people in the UI list
-                            loadPeople();
+                            LoadPeople();
 
                             // Hide the edit UI components
-                            hideEditPersonUI();
+                            HideEditPersonUI();
                             buttonSavePerson.Hide();
                         }
                     }
@@ -641,10 +641,10 @@
             }
         }
 
-        private void buttonEditPerson_Click(object sender, EventArgs e)
+        private void ButtonEditPerson_Click(object sender, EventArgs e)
         {
             // Display the edit UI components
-            showEditPersonUI();
+            ShowEditPersonUI();
             buttonSavePerson.Show();
             buttonCancel.Show();
             buttonAddPerson.Hide();
@@ -697,7 +697,7 @@
             }
         }
 
-        private void buttonSavePerson_Click(object sender, EventArgs e)
+        private void ButtonSavePerson_Click(object sender, EventArgs e)
         {
             string manNum = textBoxManifestNumber.Text;
             manNum = manNum.Replace("'", "");
@@ -747,10 +747,10 @@
                 if (cmd.ExecuteNonQuery() == 1)
                 {
                     // If insert was successful, reload the people in the UI list
-                    loadPeople();
+                    LoadPeople();
 
                     // Hide the edit UI components
-                    hideEditPersonUI();
+                    HideEditPersonUI();
                     buttonSavePerson.Hide();
                     buttonCancel.Hide();
                     labelEditDetails.Hide();
@@ -758,7 +758,7 @@
             }
         }
 
-        private void buttonAddPerson_Click(object sender, EventArgs e)
+        private void ButtonAddPerson_Click(object sender, EventArgs e)
         {
             string manNum = textBoxManifestNumber.Text;
             manNum = manNum.Replace("'", "");
@@ -810,31 +810,31 @@
                 if (cmd.ExecuteNonQuery() == 1)
                 {
                     // If insert was successful, reload the people in the UI list
-                    loadPeople();
+                    LoadPeople();
 
                     // Hide the edit UI components
-                    hideEditPersonUI();
+                    HideEditPersonUI();
                     buttonCancel.Hide();
                     buttonAddPerson.Hide();
                 }
             }
         }
 
-        private void buttonSearchPeople_Click(object sender, EventArgs e)
+        private void ButtonSearchPeople_Click(object sender, EventArgs e)
         {
-            searchForPeople();
+            SearchForPeople();
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
-            hideEditPersonUI();
+            HideEditPersonUI();
             buttonSavePerson.Hide();
             buttonAddPerson.Hide();
             buttonCancel.Hide();
             labelEditDetails.Hide();
         }
 
-        private void showEditAircraftUI()
+        private void ShowEditAircraftUI()
         {
             labelEditDetailsAircraft.Show();
             labelAircraftName.Show();
@@ -843,7 +843,7 @@
             numericUpDownMaxJumpers.Show();
         }
 
-        private void hideEditAircraftUI()
+        private void HideEditAircraftUI()
         {
             labelEditDetailsAircraft.Hide();
             labelAircraftName.Hide();
@@ -854,15 +854,15 @@
             numericUpDownMaxJumpers.Hide();
         }
 
-        private void buttonCancelAircraft_Click(object sender, EventArgs e)
+        private void ButtonCancelAircraft_Click(object sender, EventArgs e)
         {
-            hideEditAircraftUI();
+            HideEditAircraftUI();
             buttonAddAircraftSubmit.Hide();
             buttonSaveAircraft.Hide();
             buttonCancelAircraft.Hide();
         }
 
-        private void buttonAddAircraftSubmit_Click(object sender, EventArgs e)
+        private void ButtonAddAircraftSubmit_Click(object sender, EventArgs e)
         {
             string name = textBoxAircraftName.Text;
             int cap = (int)numericUpDownMaxJumpers.Value;
@@ -893,10 +893,10 @@
                 if (cmd.ExecuteNonQuery() == 1)
                 {
                     // If insert was successful, reload the people in the UI list
-                    loadAircraft();
+                    LoadAircraft();
 
                     // Hide the edit UI components
-                    hideEditAircraftUI();
+                    HideEditAircraftUI();
                     buttonAddAircraftSubmit.Hide();
                     buttonSaveAircraft.Hide();
                     buttonCancelAircraft.Hide();
@@ -904,7 +904,7 @@
             }
         }
 
-        public void loadAircraft()
+        public void LoadAircraft()
         {
             ObservableCollection<string> aircraft = new ObservableCollection<string>();
             ObservableCollection<string> aircraftNames = new ObservableCollection<string>();
@@ -945,15 +945,15 @@
 
             foreach (AircraftType plane in aircraftFromDB)
             {
-                aircraft.Add(plane.getName() + " - Max jumpers " + plane.getCapacity());
-                aircraftNames.Add(plane.getName());
+                aircraft.Add(plane.GetName() + " - Max jumpers " + plane.GetCapacity());
+                aircraftNames.Add(plane.GetName());
             }
 
             listBoxAircraft.DataSource = aircraft;
             comboBoxLoadAircraft.DataSource = aircraftNames;
         }
 
-        private void buttonSaveAircraft_Click(object sender, EventArgs e)
+        private void ButtonSaveAircraft_Click(object sender, EventArgs e)
         {
             string name = textBoxAircraftName.Text;
             int cap = (int)numericUpDownMaxJumpers.Value;
@@ -982,10 +982,10 @@
                 if (cmd.ExecuteNonQuery() == 1)
                 {
                     // If insert was successful, reload the people in the UI list
-                    loadAircraft();
+                    LoadAircraft();
 
                     // Hide the edit UI components
-                    hideEditAircraftUI();
+                    HideEditAircraftUI();
                     buttonAddAircraftSubmit.Hide();
                     buttonSaveAircraft.Hide();
                     buttonCancelAircraft.Hide();
@@ -993,9 +993,9 @@
             }
         }
 
-        private void buttonAddAircraft_Click(object sender, EventArgs e)
+        private void ButtonAddAircraft_Click(object sender, EventArgs e)
         {
-            showEditAircraftUI();
+            ShowEditAircraftUI();
             buttonAddAircraftSubmit.Show();
             buttonSaveAircraft.Hide();
             buttonCancelAircraft.Show();
@@ -1005,7 +1005,7 @@
             textBoxAircraftName.Enabled = true;
         }
 
-        private void buttonEditAircraft_Click(object sender, EventArgs e)
+        private void ButtonEditAircraft_Click(object sender, EventArgs e)
         {
             // Make the aircraft name read-only
             textBoxAircraftName.Enabled = false;
@@ -1020,13 +1020,13 @@
 
             labelEditDetailsAircraft.Text = "Editing details for " + name + " with max jumpers " + capacity + ".";
 
-            showEditAircraftUI();
+            ShowEditAircraftUI();
             buttonAddAircraftSubmit.Hide();
             buttonSaveAircraft.Show();
             buttonCancelAircraft.Show();
         }
 
-        private void buttonDeleteAircraft_Click(object sender, EventArgs e)
+        private void ButtonDeleteAircraft_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this aircrafit?\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
@@ -1043,13 +1043,13 @@
                     if (cmd.ExecuteNonQuery() == 1)
                     {
                         // If delete was successful, reload the aircraft in the UI list
-                        loadAircraft();
+                        LoadAircraft();
                     }
                 }
             }
         }
 
-        private void buttonAddFunJumper_Click(object sender, EventArgs e)
+        private void ButtonAddFunJumper_Click(object sender, EventArgs e)
         {
             if (panelLoads.Controls.Count == 0)
             {
@@ -1066,7 +1066,7 @@
             MessageBox.Show("The selected load is " + selectedLoad);
         }
 
-        private void buttonDeletePersonFromLoad_Click(object sender, EventArgs e)
+        private void ButtonDeletePersonFromLoad_Click(object sender, EventArgs e)
         {
             // Delete the selected entries
 
@@ -1098,7 +1098,7 @@
                                 } // Tandems don't have a manifest number so naturally this fails
 
                                 c.Items.Remove(listitem);
-                                addLog(load, manNum);
+                                AddLog(load, manNum);
 
                                 ListViewItem loadInfo = c.Items[0];
                                 string[] pieces = loadInfo.Text.Split('-');
@@ -1120,12 +1120,12 @@
             }
         }
 
-        private void printToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            printCertificate();
+            PrintCertificate();
         }
 
-        private void printCertificate()
+        private void PrintCertificate()
         {
             string load = selectedLoad;
             string manNum = "";
@@ -1166,7 +1166,7 @@
             }
         }
 
-        private void buttonCompleteLoad_Click(object sender, EventArgs e)
+        private void ButtonCompleteLoad_Click(object sender, EventArgs e)
         {
             foreach (ListView c in panelLoads.Controls)
             {
@@ -1183,19 +1183,19 @@
             }
         }
 
-        private void addLog(string loadNum, string manifestNum, string price)
+        private void AddLog(string loadNum, string manifestNum, string price)
         {
-            log.Info("\nLoad " + loadNum + " added number " + manifestNum + " $" + price);
+            Log.Info("\nLoad " + loadNum + " added number " + manifestNum + " $" + price);
         }
 
-        private void addLog(string loadNum, string manifestNum)
+        private void AddLog(string loadNum, string manifestNum)
         {
-            log.Info("\nLoad " + loadNum + " removed number " + manifestNum);
+            Log.Info("\nLoad " + loadNum + " removed number " + manifestNum);
         }
 
-        private void addLog(string loadNum)
+        private void AddLog(string loadNum)
         {
-            log.Info("\nLoad " + loadNum + " created.");
+            Log.Info("\nLoad " + loadNum + " created.");
         }
     }
 }

@@ -107,7 +107,7 @@
             this.buttonAdd.TabIndex = 8;
             this.buttonAdd.Text = "Add Person";
             this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // label5
             // 
@@ -124,7 +124,7 @@
             this.textBoxManNum.Name = "textBoxManNum";
             this.textBoxManNum.Size = new System.Drawing.Size(121, 31);
             this.textBoxManNum.TabIndex = 2;
-            this.textBoxManNum.Leave += new System.EventHandler(this.textBoxManNum_Leave);
+            this.textBoxManNum.Leave += new System.EventHandler(this.TextBoxManNum_Leave);
             // 
             // label6
             // 
@@ -178,7 +178,7 @@
             this.comboBoxJumpType.Name = "comboBoxJumpType";
             this.comboBoxJumpType.Size = new System.Drawing.Size(386, 33);
             this.comboBoxJumpType.TabIndex = 1;
-            this.comboBoxJumpType.SelectedIndexChanged += new System.EventHandler(this.comboBoxJumpType_SelectedIndexChanged);
+            this.comboBoxJumpType.SelectedIndexChanged += new System.EventHandler(this.ComboBoxJumpType_SelectedIndexChanged);
             // 
             // label2
             // 

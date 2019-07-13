@@ -23,12 +23,12 @@
             this.capacity = c;
         }
 
-        public string getName()
+        public string GetName()
         {
             return name;
         }
 
-        public int getCapacity()
+        public int GetCapacity()
         {
             return capacity;
         }
