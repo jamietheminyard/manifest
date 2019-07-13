@@ -71,10 +71,11 @@
                 string texto = "                  West Tennessee Skydiving";
                 SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
 
-                e.Graphics.DrawString(texto,
-                                         font,
-                                         Brushes.Black,
-                                         new RectangleF(new PointF(x, y), sizeF));
+                e.Graphics.DrawString(
+                    texto,
+                    font,
+                    Brushes.Black,
+                    new RectangleF(new PointF(x, y), sizeF));
             }
 
             y = y + 120;
@@ -91,10 +92,11 @@
                 string texto = "\n" + n;
                 SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
 
-                e.Graphics.DrawString(texto,
-                                         font,
-                                         Brushes.Black,
-                                         new RectangleF(new PointF(x + center - centername, y), sizeF));
+                e.Graphics.DrawString(
+                    texto,
+                    font,
+                    Brushes.Black,
+                    new RectangleF(new PointF(x + center - centername, y), sizeF));
             }
 
             y = y + 120;
@@ -104,10 +106,11 @@
                 string texto = "\n\n          Completed a Tandem Skydive";
                 SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
 
-                e.Graphics.DrawString(texto,
-                                         font,
-                                         Brushes.Black,
-                                         new RectangleF(new PointF(x, y), sizeF));
+                e.Graphics.DrawString(
+                    texto,
+                    font,
+                    Brushes.Black,
+                    new RectangleF(new PointF(x, y), sizeF));
             }
 
             y = y + 40;
@@ -117,10 +120,11 @@
                 string texto = "\n\n             from an altitude of " + alt + "'";
                 SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
 
-                e.Graphics.DrawString(texto,
-                                         font,
-                                         Brushes.Black,
-                                         new RectangleF(new PointF(x, y), sizeF));
+                e.Graphics.DrawString(
+                    texto,
+                    font,
+                    Brushes.Black,
+                    new RectangleF(new PointF(x, y), sizeF));
             }
 
             y = y + 40;
@@ -130,10 +134,11 @@
                 string texto = "\n\n            with a freefall of " + f + " seconds";
                 SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
 
-                e.Graphics.DrawString(texto,
-                                         font,
-                                         Brushes.Black,
-                                         new RectangleF(new PointF(x, y), sizeF));
+                e.Graphics.DrawString(
+                    texto,
+                    font,
+                    Brushes.Black,
+                    new RectangleF(new PointF(x, y), sizeF));
             }
 
             y = y + 40;
@@ -143,10 +148,11 @@
                 string texto = "\n\n          at West Tennessee Skydiving";
                 SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
 
-                e.Graphics.DrawString(texto,
-                                         font,
-                                         Brushes.Black,
-                                         new RectangleF(new PointF(x, y), sizeF));
+                e.Graphics.DrawString(
+                    texto,
+                    font,
+                    Brushes.Black,
+                    new RectangleF(new PointF(x, y), sizeF));
             }
 
             y = y + 170;
@@ -156,10 +162,11 @@
                 string texto = "\n                 Date: " + d;
                 SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
 
-                e.Graphics.DrawString(texto,
-                                         font,
-                                         Brushes.Black,
-                                         new RectangleF(new PointF(x, y), sizeF));
+                e.Graphics.DrawString(
+                    texto,
+                    font,
+                    Brushes.Black,
+                    new RectangleF(new PointF(x, y), sizeF));
             }
 
             y = y + 70;
@@ -169,10 +176,11 @@
                 string texto = "\n                 Aircraft: " + a;
                 SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
 
-                e.Graphics.DrawString(texto,
-                                         font,
-                                         Brushes.Black,
-                                         new RectangleF(new PointF(x, y), sizeF));
+                e.Graphics.DrawString(
+                    texto,
+                    font,
+                    Brushes.Black,
+                    new RectangleF(new PointF(x, y), sizeF));
             }
 
             y = y + 70;
@@ -182,10 +190,11 @@
                 string texto = "\n                 Instructor: " + i;
                 SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
 
-                e.Graphics.DrawString(texto,
-                                         font,
-                                         Brushes.Black,
-                                         new RectangleF(new PointF(x, y), sizeF));
+                e.Graphics.DrawString(
+                    texto,
+                    font,
+                    Brushes.Black,
+                    new RectangleF(new PointF(x, y), sizeF));
             }
 
             y = y + 200;
@@ -195,10 +204,11 @@
                 string texto = "\n                        West Tennessee Skydiving\n               Wings Field, Memphis, TN 901-SKY-DIVE\n                         www.SkydiveKingAir.com";
                 SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
 
-                e.Graphics.DrawString(texto,
-                                         font,
-                                         Brushes.Black,
-                                         new RectangleF(new PointF(x, y), sizeF));
+                e.Graphics.DrawString(
+                    texto,
+                    font,
+                    Brushes.Black,
+                    new RectangleF(new PointF(x, y), sizeF));
             }
         }
     }
