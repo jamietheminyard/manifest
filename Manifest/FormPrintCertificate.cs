@@ -10,7 +10,6 @@
         private string studentname;
         private string aircraft;
         private string instructor;
-        private PrintDocument pd;
 
         public FormPrintCertificate(string sn, string a, string i)
         {
@@ -29,10 +28,12 @@
 
         private void ButtonPrint_Click(object sender, EventArgs e)
         {
-            this.pd = new PrintDocument();
-            this.pd.PrintPage += this.Pd_PrintPage;
+            using (PrintDocument pd = new PrintDocument())
+            {
+                pd.PrintPage += this.Pd_PrintPage;
 
-            this.pd.Print();
+                pd.Print();
+            }
 
             this.Close();
         }
@@ -60,18 +61,22 @@
                     ? e.PageSettings.PrintableArea.Width
                     : e.PageSettings.PrintableArea.Height));
 
-            string texto = string.Empty;
-            Font font = new Font("Arial", 26);
-            SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
+            using (Pen pen = new Pen(Color.Black, .5F))
+            {
+                e.Graphics.DrawRectangle(pen, 0, 0, availableWidth - 2, availableHeight - 2);
+            }
 
-            e.Graphics.DrawRectangle(new Pen(Color.Black, .5F), 0, 0, availableWidth - 2, availableHeight - 2);
+            using (Font font = new Font("Arial", 26))
+            {
+                string texto = "                  West Tennessee Skydiving";
+                SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
 
-            texto = "                  West Tennessee Skydiving";
-            sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
-            e.Graphics.DrawString(texto,
-                                     font,
-                                     new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF));
+                e.Graphics.DrawString(texto,
+                                         font,
+                                         Brushes.Black,
+                                         new RectangleF(new PointF(x, y), sizeF));
+            }
+
             y = y + 120;
 
             float center = availableWidth / 2.0f;
@@ -81,93 +86,120 @@
                 centername = center;
             }
 
-            texto = "\n" + n;
-            font = new Font("Arial", 32, FontStyle.Bold);
-            sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
-            e.Graphics.DrawString(texto,
-                                     font,
-                                     new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x + center - centername, y), sizeF));
+            using (Font font = new Font("Arial", 32, FontStyle.Bold))
+            {
+                string texto = "\n" + n;
+                SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
+
+                e.Graphics.DrawString(texto,
+                                         font,
+                                         Brushes.Black,
+                                         new RectangleF(new PointF(x + center - centername, y), sizeF));
+            }
 
             y = y + 120;
 
-            texto = "\n\n          Completed a Tandem Skydive";
-            font = new Font("Arial", 26);
-            sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
-            e.Graphics.DrawString(texto,
-                                     font,
-                                     new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF));
+            using (Font font = new Font("Arial", 26))
+            {
+                string texto = "\n\n          Completed a Tandem Skydive";
+                SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
+
+                e.Graphics.DrawString(texto,
+                                         font,
+                                         Brushes.Black,
+                                         new RectangleF(new PointF(x, y), sizeF));
+            }
 
             y = y + 40;
 
-            texto = "\n\n             from an altitude of " + alt + "'";
-            font = new Font("Arial", 26);
-            sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
-            e.Graphics.DrawString(texto,
-                                     font,
-                                     new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF));
+            using (Font font = new Font("Arial", 26))
+            {
+                string texto = "\n\n             from an altitude of " + alt + "'";
+                SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
+
+                e.Graphics.DrawString(texto,
+                                         font,
+                                         Brushes.Black,
+                                         new RectangleF(new PointF(x, y), sizeF));
+            }
 
             y = y + 40;
 
-            texto = "\n\n            with a freefall of " + f + " seconds";
-            font = new Font("Arial", 26);
-            sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
-            e.Graphics.DrawString(texto,
-                                     font,
-                                     new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF));
+            using (Font font = new Font("Arial", 26))
+            {
+                string texto = "\n\n            with a freefall of " + f + " seconds";
+                SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
+
+                e.Graphics.DrawString(texto,
+                                         font,
+                                         Brushes.Black,
+                                         new RectangleF(new PointF(x, y), sizeF));
+            }
 
             y = y + 40;
 
-            texto = "\n\n          at West Tennessee Skydiving";
-            font = new Font("Arial", 26);
-            sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
-            e.Graphics.DrawString(texto,
-                                     font,
-                                     new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF));
+            using (Font font = new Font("Arial", 26))
+            {
+                string texto = "\n\n          at West Tennessee Skydiving";
+                SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
+
+                e.Graphics.DrawString(texto,
+                                         font,
+                                         Brushes.Black,
+                                         new RectangleF(new PointF(x, y), sizeF));
+            }
 
             y = y + 170;
 
-            texto = "\n                 Date: " + d;
-            font = new Font("Arial", 26);
-            sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
-            e.Graphics.DrawString(texto,
-                                     font,
-                                     new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF));
+            using (Font font = new Font("Arial", 26))
+            {
+                string texto = "\n                 Date: " + d;
+                SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
+
+                e.Graphics.DrawString(texto,
+                                         font,
+                                         Brushes.Black,
+                                         new RectangleF(new PointF(x, y), sizeF));
+            }
 
             y = y + 70;
 
-            texto = "\n                 Aircraft: " + a;
-            font = new Font("Arial", 26);
-            sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
-            e.Graphics.DrawString(texto,
-                                     font,
-                                     new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF));
+            using (Font font = new Font("Arial", 26))
+            {
+                string texto = "\n                 Aircraft: " + a;
+                SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
+
+                e.Graphics.DrawString(texto,
+                                         font,
+                                         Brushes.Black,
+                                         new RectangleF(new PointF(x, y), sizeF));
+            }
 
             y = y + 70;
 
-            texto = "\n                 Instructor: " + i;
-            font = new Font("Arial", 26);
-            sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
-            e.Graphics.DrawString(texto,
-                                     font,
-                                     new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF));
+            using (Font font = new Font("Arial", 26))
+            {
+                string texto = "\n                 Instructor: " + i;
+                SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
+
+                e.Graphics.DrawString(texto,
+                                         font,
+                                         Brushes.Black,
+                                         new RectangleF(new PointF(x, y), sizeF));
+            }
 
             y = y + 200;
 
-            texto = "\n                        West Tennessee Skydiving\n               Wings Field, Memphis, TN 901-SKY-DIVE\n                         www.SkydiveKingAir.com";
-            font = new Font("Arial", 20);
-            sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
-            e.Graphics.DrawString(texto,
-                                     font,
-                                     new SolidBrush(Color.Black),
-                                     new RectangleF(new PointF(x, y), sizeF));
+            using (Font font = new Font("Arial", 20))
+            {
+                string texto = "\n                        West Tennessee Skydiving\n               Wings Field, Memphis, TN 901-SKY-DIVE\n                         www.SkydiveKingAir.com";
+                SizeF sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
+
+                e.Graphics.DrawString(texto,
+                                         font,
+                                         Brushes.Black,
+                                         new RectangleF(new PointF(x, y), sizeF));
+            }
         }
     }
 }

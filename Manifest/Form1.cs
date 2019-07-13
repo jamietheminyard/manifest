@@ -112,185 +112,187 @@
                 return;
             }
 
-            FormAddPersonToLoad addTandemWindow = new FormAddPersonToLoad(this.selectedLoad);
-            addTandemWindow.ShowDialog();
-            DialogResult result = addTandemWindow.Result;
-            if (result == DialogResult.None)
+            using (FormAddPersonToLoad addTandemWindow = new FormAddPersonToLoad(this.selectedLoad))
             {
-                return;
-            }
-
-            // Add the person to the selected load
-            ListViewItem loadInfo;
-
-            // Check to see if this person's manifest number is already manifested
-            foreach (ListView c in this.panelLoads.Controls)
-            {
-                foreach (ListViewItem i in c.Items)
+                addTandemWindow.ShowDialog();
+                DialogResult result = addTandemWindow.Result;
+                if (result == DialogResult.None)
                 {
-                    if (i.Text.Contains(addTandemWindow.Instructor1ManNum) && addTandemWindow.Instructor1ManNum != "")
-                    {
-                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor1 + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
-                        if (dialogResult == DialogResult.No)
-                        {
-                            return;
-                        }
-                    }
+                    return;
+                }
 
-                    if (i.Text.Contains(addTandemWindow.Instructor2orVideoManNum) && addTandemWindow.Instructor2orVideoManNum != "")
-                    {
-                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor2orVideo + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
-                        if (dialogResult == DialogResult.No)
-                        {
-                            return;
-                        }
-                    }
+                // Add the person to the selected load
+                ListViewItem loadInfo;
 
-                    if (i.Text.Contains(addTandemWindow.ManNum) && addTandemWindow.ManNum != "")
+                // Check to see if this person's manifest number is already manifested
+                foreach (ListView c in this.panelLoads.Controls)
+                {
+                    foreach (ListViewItem i in c.Items)
                     {
-                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.JumperName + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
-                        if (dialogResult == DialogResult.No)
+                        if (i.Text.Contains(addTandemWindow.Instructor1ManNum) && addTandemWindow.Instructor1ManNum != "")
                         {
-                            return;
+                            DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor1 + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.No)
+                            {
+                                return;
+                            }
+                        }
+
+                        if (i.Text.Contains(addTandemWindow.Instructor2orVideoManNum) && addTandemWindow.Instructor2orVideoManNum != "")
+                        {
+                            DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor2orVideo + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.No)
+                            {
+                                return;
+                            }
+                        }
+
+                        if (i.Text.Contains(addTandemWindow.ManNum) && addTandemWindow.ManNum != "")
+                        {
+                            DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.JumperName + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.No)
+                            {
+                                return;
+                            }
                         }
                     }
                 }
-            }
 
-            // Proceed with adding them to the load
-            foreach (ListView c in this.panelLoads.Controls)
-            {
-                if (c.Items[0].ToString().Contains(this.selectedLoad))
+                // Proceed with adding them to the load
+                foreach (ListView c in this.panelLoads.Controls)
                 {
-                    // If tandem, make a separate entry for the TI and video if applicable
-                    if (addTandemWindow.JumpType.Contains("TAN"))
+                    if (c.Items[0].ToString().Contains(this.selectedLoad))
                     {
-                        // Update the first item in the list to have correct number of slots left
-                        loadInfo = c.Items[0];
-                        string[] pieces = loadInfo.Text.Split('-');
-                        string slots = pieces[2].Replace("slots", "").Trim();
-                        int num = 0;
-                        int.TryParse(slots, out num);
-                        if (addTandemWindow.Instructor2orVideo.Trim() != "") // Has video, so subtract 3
+                        // If tandem, make a separate entry for the TI and video if applicable
+                        if (addTandemWindow.JumpType.Contains("TAN"))
                         {
-                            num = num - 3;
+                            // Update the first item in the list to have correct number of slots left
+                            loadInfo = c.Items[0];
+                            string[] pieces = loadInfo.Text.Split('-');
+                            string slots = pieces[2].Replace("slots", "").Trim();
+                            int num = 0;
+                            int.TryParse(slots, out num);
+                            if (addTandemWindow.Instructor2orVideo.Trim() != "") // Has video, so subtract 3
+                            {
+                                num = num - 3;
+                            }
+                            else
+                            {
+                                num = num - 2; // just TI and student
+                            }
+
+                            if (num < 0)
+                            {
+                                MessageBox.Show("Not enough room on this load.");
+                                return;
+                            }
+
+                            if (num == 0) // If load is full, color it red
+                            {
+                                c.BackColor = Color.Red;
+                            }
+
+                            c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
+
+                            // Add the people
+                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor1 });
+                            AddLog(this.selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
+                            if (addTandemWindow.Instructor2orVideo.Trim() != "")
+                            {
+                                c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor2orVideo });
+                                AddLog(this.selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with video pay rate");
+                            }
+
+                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.JumperName });
+                            AddLog(this.selectedLoad, "TANSTUDENT", " replace this with tandems cost");
+                            this.imageIndex = this.imageIndex + 1;
+                            if (this.imageIndex == 12)
+                            {
+                                this.imageIndex = 0;
+                            }
+
+                            return;
+                        }
+
+                        // If AFF, make a separate entry for the AFFIs
+                        else if (addTandemWindow.JumpType.Contains("AFF"))
+                        {
+                            // Update the first item in the list to have correct number of slots left
+                            loadInfo = c.Items[0];
+                            string[] pieces = loadInfo.Text.Split('-');
+                            string slots = pieces[2].Replace("slots", "").Trim();
+                            int num = 0;
+                            int.TryParse(slots, out num);
+                            if (addTandemWindow.Instructor2orVideo.Trim() != "") // Has 2 instructors, so subtract 3
+                            {
+                                num = num - 3;
+                            }
+                            else
+                            {
+                                num = num - 2; // just 1 instructor
+                            }
+
+                            if (num < 0)
+                            {
+                                MessageBox.Show("Not enough room on this load.");
+                                return;
+                            }
+
+                            if (num == 0) // If load is full, color it red
+                            {
+                                c.BackColor = Color.Red;
+                            }
+
+                            c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
+
+                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor1 });
+                            AddLog(this.selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
+                            if (addTandemWindow.Instructor2orVideo.Trim() != "")
+                            {
+                                c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor2orVideo });
+                                AddLog(this.selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with instructor pay rate");
+                            }
+
+                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.ManNum + " - " + addTandemWindow.JumperName });
+                            AddLog(this.selectedLoad, addTandemWindow.ManNum, " replace this with AFF student rate");
+                            this.imageIndex = this.imageIndex + 1;
+                            if (this.imageIndex == 12)
+                            {
+                                this.imageIndex = 0;
+                            }
+
+                            return;
                         }
                         else
                         {
-                            num = num - 2; // just TI and student
+                            // Regular fun jumper
+                            // Update the first item in the list to have correct number of slots left
+                            loadInfo = c.Items[0];
+
+                            string[] pieces = loadInfo.Text.Split('-');
+                            string slots = pieces[2].Replace("slots", "").Trim();
+
+                            int num = 0;
+                            int.TryParse(slots, out num);
+
+                            num = num - 1;
+
+                            if (num < 0)
+                            {
+                                MessageBox.Show("Not enough room on this load.");
+                                return;
+                            }
+
+                            if (num == 0) // If load is full, color it red
+                            {
+                                c.BackColor = Color.Red;
+                            }
+
+                            c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
+
+                            c.Items.Add(new ListViewItem { Text = addTandemWindow.ManNum + " - " + addTandemWindow.JumperName });
+                            AddLog(this.selectedLoad, addTandemWindow.ManNum, " replace this with fun jump pay rate or 0 if beginning of year free jumps");
                         }
-
-                        if (num < 0)
-                        {
-                            MessageBox.Show("Not enough room on this load.");
-                            return;
-                        }
-
-                        if (num == 0) // If load is full, color it red
-                        {
-                            c.BackColor = Color.Red;
-                        }
-
-                        c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
-
-                        // Add the people
-                        c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor1 });
-                        AddLog(this.selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
-                        if (addTandemWindow.Instructor2orVideo.Trim() != "")
-                        {
-                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor2orVideo });
-                            AddLog(this.selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with video pay rate");
-                        }
-
-                        c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.JumperName });
-                        AddLog(this.selectedLoad, "TANSTUDENT", " replace this with tandems cost");
-                        this.imageIndex = this.imageIndex + 1;
-                        if (this.imageIndex == 12)
-                        {
-                            this.imageIndex = 0;
-                        }
-
-                        return;
-                    }
-
-                    // If AFF, make a separate entry for the AFFIs
-                    else if (addTandemWindow.JumpType.Contains("AFF"))
-                    {
-                        // Update the first item in the list to have correct number of slots left
-                        loadInfo = c.Items[0];
-                        string[] pieces = loadInfo.Text.Split('-');
-                        string slots = pieces[2].Replace("slots", "").Trim();
-                        int num = 0;
-                        int.TryParse(slots, out num);
-                        if (addTandemWindow.Instructor2orVideo.Trim() != "") // Has 2 instructors, so subtract 3
-                        {
-                            num = num - 3;
-                        }
-                        else
-                        {
-                            num = num - 2; // just 1 instructor
-                        }
-
-                        if (num < 0)
-                        {
-                            MessageBox.Show("Not enough room on this load.");
-                            return;
-                        }
-
-                        if (num == 0) // If load is full, color it red
-                        {
-                            c.BackColor = Color.Red;
-                        }
-
-                        c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
-
-                        c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor1 });
-                        AddLog(this.selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
-                        if (addTandemWindow.Instructor2orVideo.Trim() != "")
-                        {
-                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor2orVideo });
-                            AddLog(this.selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with instructor pay rate");
-                        }
-
-                        c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.ManNum + " - " + addTandemWindow.JumperName });
-                        AddLog(this.selectedLoad, addTandemWindow.ManNum, " replace this with AFF student rate");
-                        this.imageIndex = this.imageIndex + 1;
-                        if (this.imageIndex == 12)
-                        {
-                            this.imageIndex = 0;
-                        }
-
-                        return;
-                    }
-                    else
-                    {
-                        // Regular fun jumper
-                        // Update the first item in the list to have correct number of slots left
-                        loadInfo = c.Items[0];
-
-                        string[] pieces = loadInfo.Text.Split('-');
-                        string slots = pieces[2].Replace("slots", "").Trim();
-
-                        int num = 0;
-                        int.TryParse(slots, out num);
-
-                        num = num - 1;
-
-                        if (num < 0)
-                        {
-                            MessageBox.Show("Not enough room on this load.");
-                            return;
-                        }
-
-                        if (num == 0) // If load is full, color it red
-                        {
-                            c.BackColor = Color.Red;
-                        }
-
-                        c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
-
-                        c.Items.Add(new ListViewItem { Text = addTandemWindow.ManNum + " - " + addTandemWindow.JumperName });
-                        AddLog(this.selectedLoad, addTandemWindow.ManNum, " replace this with fun jump pay rate or 0 if beginning of year free jumps");
                     }
                 }
             }
@@ -1156,8 +1158,11 @@
                                 string studentname = "Joe Tandem";
                                 string aircraft = "Super King Air";
                                 string instructor = "TI Jim";
-                                FormPrintCertificate printCert = new FormPrintCertificate(studentname, aircraft, instructor);
-                                printCert.ShowDialog();
+
+                                using (FormPrintCertificate printCert = new FormPrintCertificate(studentname, aircraft, instructor))
+                                {
+                                    printCert.ShowDialog();
+                                }
                             }
                         }
                     }
