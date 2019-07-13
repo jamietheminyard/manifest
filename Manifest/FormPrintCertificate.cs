@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Drawing;
-
-namespace Manifest
+﻿namespace Manifest
 {
+    using System;
+    using System.Drawing;
+    using System.Drawing.Printing;
+    using System.Windows.Forms;
+
     public partial class FormPrintCertificate : Form
     {
         string studentname;

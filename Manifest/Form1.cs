@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.Threading;
-using System.Collections.ObjectModel;
-using System.IO;
-using Manifest.Properties;
-
-namespace Manifest
+﻿namespace Manifest
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Drawing;
+    using System.IO;
+    using System.Windows.Forms;
+    using Manifest.Properties;
+
     public partial class Form1 : Form
     {
         public ImageList Imagelist = new ImageList();

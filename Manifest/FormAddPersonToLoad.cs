@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Data.SqlClient;
-using Manifest.Properties;
-
-namespace Manifest
+﻿namespace Manifest
 {
+    using System;
+    using System.Data.SqlClient;
+    using System.Windows.Forms;
+    using Manifest.Properties;
+
     public partial class FormAddPersonToLoad : Form
     {
         public string jumpType { get; set; }
