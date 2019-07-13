@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Threading;
 using System.Collections.ObjectModel;
 using System.IO;
+using Manifest.Properties;
 
 namespace Manifest
 {
@@ -340,8 +341,8 @@ namespace Manifest
         {
             ObservableCollection<String> people = new ObservableCollection<String>();
             List<PersonType> peopleFromDB = new List<PersonType>();
-            string connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-            using (var conn = new SqlConnection(connString))
+            
+            using (var conn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             {
                 string sqlString = @"select manifestNumber, firstName, lastName, paid from people";
                 using (var command = new SqlCommand(sqlString, conn))
@@ -367,7 +368,7 @@ namespace Manifest
             String m, f, l;
             double p;
 
-            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "select manifestNumber, firstName, lastName, paid from people";
@@ -468,8 +469,7 @@ namespace Manifest
 
             // Get the number of max jumpers for this aircraft
             int num = 0;
-            String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "select capacity from Aircraft where aircraftName = '" + aircraft + "'";
@@ -586,8 +586,7 @@ namespace Manifest
                 DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this person from the database?\n\nManifest Number: " + manNum + "\nName: " + name + "\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-                    using (SqlConnection cn = new SqlConnection(connString))
+                    using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
                     using (SqlCommand cmd = cn.CreateCommand())
                     {
                         cmd.CommandText = "delete from People where manifestNumber = '" + manNum + "'";
@@ -634,8 +633,8 @@ namespace Manifest
                 Boolean a = false;
                 Boolean c = false;
                 Boolean v = false;
-                String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-                using (SqlConnection cn = new SqlConnection(connString))
+
+                using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
                 using (SqlCommand cmd = cn.CreateCommand())
                 {
                     cmd.CommandText = "select TI, AFFI, coach, videographer from people where manifestNumber = '" + manNum + "'";
@@ -692,8 +691,7 @@ namespace Manifest
             if (video)
                 v = "1";
 
-            String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "update People set firstName = @param2, lastName = @param3, TI = " + t + ", AFFI = " + a + ", coach = " + c + ", videographer = " + v + " where manifestNumber = @param1";
@@ -743,10 +741,7 @@ namespace Manifest
             if (video)
                 v = "1";
 
-
-
-            String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "insert into People(manifestNumber, firstName, lastName, paid, TI, AFFI, coach, videographer)" +
@@ -830,8 +825,7 @@ namespace Manifest
                 return;
             }
 
-            String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "insert into Aircraft(aircraftName, capacity)" +
@@ -861,8 +855,8 @@ namespace Manifest
             ObservableCollection<String> aircraft = new ObservableCollection<String>();
             ObservableCollection<String> aircraftNames = new ObservableCollection<String>();
             List<AircraftType> aircraftFromDB = new List<AircraftType>();
-            string connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-            using (var conn = new SqlConnection(connString))
+            
+            using (var conn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             {
                 string sqlString = @"select aircraftName, capacity from Aircraft";
                 using (var command = new SqlCommand(sqlString, conn))
@@ -877,7 +871,7 @@ namespace Manifest
             String an;
             int c;
 
-            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "select aircraftName, capacity from Aircraft";
@@ -921,8 +915,7 @@ namespace Manifest
                 return;
             }
 
-            String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "update Aircraft set capacity = " + cap + " where aircraftName = @param1";
@@ -989,8 +982,7 @@ namespace Manifest
                 String[] splitString = item.Split(new string[] { " - Max jumpers " }, StringSplitOptions.None);
                 String name = splitString[0].Trim();
 
-                String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-                using (SqlConnection cn = new SqlConnection(connString))
+                using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
                 using (SqlCommand cmd = cn.CreateCommand())
                 {
                     cmd.CommandText = "delete from aircraft where aircraftName = '" + name + "'";

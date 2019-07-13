@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Manifest.Properties;
 
 namespace Manifest
 {
@@ -54,8 +55,8 @@ namespace Manifest
             String num;
             String fname;
             String lname;
-            String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-            using (SqlConnection cn = new SqlConnection(connString))
+
+            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "select manifestNumber, firstName, lastName from People where TI = 1 or AFFI = 1";
@@ -72,7 +73,7 @@ namespace Manifest
                 }
             }
 
-            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "select manifestNumber, firstName, lastName from People where AFFI = 1 or videographer = 1";
@@ -202,8 +203,7 @@ namespace Manifest
             if (num == "")
                 return;
 
-            String connString = @"Data Source=(localdb)\MSSQLLocalDB; AttachDbFilename=C:\Users\jamie\source\repos\Manifest\Manifest\WTSDatabase.mdf; Integrated Security=True;";
-            using (SqlConnection cn = new SqlConnection(connString))
+            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
             {
                 cmd.CommandText = "select firstName, lastName from People where manifestNumber = '" + num + "'";
