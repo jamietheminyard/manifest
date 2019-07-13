@@ -188,9 +188,10 @@
                             string slots = pieces[2].Replace("slots", "").Trim();
                             int num = 0;
                             int.TryParse(slots, out num);
-                            if (addTandemWindow.Instructor2orVideo.Trim() != "") // Has video, so subtract 3
+
+                            if (addTandemWindow.Instructor2orVideo.Trim() != "")
                             {
-                                num = num - 3;
+                                num = num - 3; // Has video, so subtract 3
                             }
                             else
                             {
@@ -203,9 +204,9 @@
                                 return;
                             }
 
-                            if (num == 0) // If load is full, color it red
+                            if (num == 0)
                             {
-                                c.BackColor = Color.Red;
+                                c.BackColor = Color.Red; // If load is full, color it red
                             }
 
                             c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
@@ -239,9 +240,9 @@
                             string slots = pieces[2].Replace("slots", "").Trim();
                             int num = 0;
                             int.TryParse(slots, out num);
-                            if (addTandemWindow.Instructor2orVideo.Trim() != "") // Has 2 instructors, so subtract 3
+                            if (addTandemWindow.Instructor2orVideo.Trim() != "")
                             {
-                                num = num - 3;
+                                num = num - 3; // Has 2 instructors, so subtract 3
                             }
                             else
                             {
@@ -254,9 +255,9 @@
                                 return;
                             }
 
-                            if (num == 0) // If load is full, color it red
+                            if (num == 0)
                             {
-                                c.BackColor = Color.Red;
+                                c.BackColor = Color.Red; // If load is full, color it red
                             }
 
                             c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
@@ -299,9 +300,9 @@
                                 return;
                             }
 
-                            if (num == 0) // If load is full, color it red
+                            if (num == 0)
                             {
-                                c.BackColor = Color.Red;
+                                c.BackColor = Color.Red; // If load is full, color it red
                             }
 
                             c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
@@ -1093,13 +1094,13 @@
 
             foreach (ListView c in this.panelLoads.Controls)
             {
-                if (c.Items[0].ToString().Contains(this.selectedLoad)) // For the selected load
+                if (c.Items[0].ToString().Contains(this.selectedLoad))
                 {
-                    foreach (ListViewItem listitem in c.Items) // For each item in the load
+                    foreach (ListViewItem listitem in c.Items)
                     {
-                        foreach (string item in this.selectedPeople) // For each of the selected people
+                        foreach (string item in this.selectedPeople)
                         {
-                            if (listitem.ToString().Contains(item)) // If they match an entry in the list, remove them
+                            if (listitem.ToString().Contains(item))
                             {
                                 if (c.Items.IndexOf(listitem) == 0)
                                 {
@@ -1124,9 +1125,9 @@
                                 int.TryParse(slots, out num);
                                 num = num + 1;
 
-                                if (num > 0) // If load is full, color it red
+                                if (num > 0)
                                 {
-                                    c.BackColor = Color.White;
+                                    c.BackColor = Color.White; // If load is full, color it red
                                 }
 
                                 c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
@@ -1149,13 +1150,13 @@
 
             foreach (ListView c in this.panelLoads.Controls)
             {
-                if (c.Items[0].ToString().Contains(this.selectedLoad)) // For the selected load
+                if (c.Items[0].ToString().Contains(this.selectedLoad))
                 {
-                    foreach (ListViewItem listitem in c.Items) // For each item in the load
+                    foreach (ListViewItem listitem in c.Items)
                     {
-                        foreach (string item in this.selectedPeople) // For each of the selected people
+                        foreach (string item in this.selectedPeople)
                         {
-                            if (listitem.ToString().Contains(item)) // If selected
+                            if (listitem.ToString().Contains(item))
                             {
                                 if (c.Items.IndexOf(listitem) == 0)
                                 {
@@ -1190,9 +1191,9 @@
         {
             foreach (ListView c in this.panelLoads.Controls)
             {
-                if (c.Items[0].ToString().Contains(this.selectedLoad)) // For the selected load
+                if (c.Items[0].ToString().Contains(this.selectedLoad))
                 {
-                    foreach (ListViewItem listitem in c.Items) // For each item in the load
+                    foreach (ListViewItem listitem in c.Items)
                     {
                         // For each person on the load, charge them
                         MessageBox.Show(listitem.Text);
