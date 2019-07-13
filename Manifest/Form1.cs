@@ -307,7 +307,7 @@
             MessageBox.Show("The Manifest Program\nCopyright 2018-" + DateTime.Now.ToString("yyyy") + "\nAll rights reserved", "About");
         }
 
-        public void SearchPeople_KeyDown(object sender, KeyEventArgs e)
+        private void SearchPeople_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -315,7 +315,7 @@
             }
         }
 
-        public void SearchForPeople()
+        private void SearchForPeople()
         {
             string searchText = textBoxSearchPeople.Text.ToLower();
             bool found = false;
@@ -360,7 +360,7 @@
             }
         }
 
-        public void LoadPeople()
+        private void LoadPeople()
         {
             ObservableCollection<string> people = new ObservableCollection<string>();
             List<PersonType> peopleFromDB = new List<PersonType>();
@@ -904,7 +904,7 @@
             }
         }
 
-        public void LoadAircraft()
+        private void LoadAircraft()
         {
             ObservableCollection<string> aircraft = new ObservableCollection<string>();
             ObservableCollection<string> aircraftNames = new ObservableCollection<string>();
