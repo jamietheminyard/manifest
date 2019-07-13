@@ -12,12 +12,13 @@
 
     public partial class Form1 : Form
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private int searchIndex;
         private int tmpLoadNum = 1;
         private string selectedLoad = "";
         private int imageIndex = 0;
         private List<string> selectedPeople = new List<string>();
-        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Form1()
         {
@@ -69,6 +70,21 @@
                 // Add images to Imagelist
                 this.imageList.Images.Add(Image.FromFile(file));
             }
+        }
+
+        private static void AddLog(string loadNum, string manifestNum, string price)
+        {
+            Log.Info("\nLoad " + loadNum + " added number " + manifestNum + " $" + price);
+        }
+
+        private static void AddLog(string loadNum, string manifestNum)
+        {
+            Log.Info("\nLoad " + loadNum + " removed number " + manifestNum);
+        }
+
+        private static void AddLog(string loadNum)
+        {
+            Log.Info("\nLoad " + loadNum + " created.");
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -1185,21 +1201,6 @@
                     this.panelLoads.Controls.Remove(c); // Delete the load from the view
                 }
             }
-        }
-
-        private static void AddLog(string loadNum, string manifestNum, string price)
-        {
-            Log.Info("\nLoad " + loadNum + " added number " + manifestNum + " $" + price);
-        }
-
-        private static void AddLog(string loadNum, string manifestNum)
-        {
-            Log.Info("\nLoad " + loadNum + " removed number " + manifestNum);
-        }
-
-        private static void AddLog(string loadNum)
-        {
-            Log.Info("\nLoad " + loadNum + " created.");
         }
     }
 }

@@ -7,26 +7,6 @@
 
     public partial class FormAddPersonToLoad : Form
     {
-        public string JumpType { get; set; }
-
-        public string ManNum { get; set; }
-
-        public string Altitude { get; set; }
-
-        public string Price { get; set; }
-
-        public string JumperName { get; set; }
-
-        public string Instructor1 { get; set; }
-
-        public string Instructor1ManNum { get; set; }
-
-        public string Instructor2orVideo { get; set; }
-
-        public string Instructor2orVideoManNum { get; set; }
-
-        public DialogResult Result { get; set; }
-
         public FormAddPersonToLoad(string l)
         {
             this.InitializeComponent();
@@ -92,6 +72,26 @@
                 }
             }
         }
+
+        public string JumpType { get; set; }
+
+        public string ManNum { get; set; }
+
+        public string Altitude { get; set; }
+
+        public string Price { get; set; }
+
+        public string JumperName { get; set; }
+
+        public string Instructor1 { get; set; }
+
+        public string Instructor1ManNum { get; set; }
+
+        public string Instructor2orVideo { get; set; }
+
+        public string Instructor2orVideoManNum { get; set; }
+
+        public DialogResult Result { get; set; }
 
         private void KeyPressHandler(object sender, KeyEventArgs e)
         {
