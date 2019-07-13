@@ -64,14 +64,15 @@ namespace Manifest
             {
                 comboBoxLoadAircraft.SelectedIndex = comboBoxLoadAircraft.Items.IndexOf("King Air");
             }
-            catch (Exception) { }
-            
+            catch (Exception)
+            {
+            }
 
             // Retrieve all image files for logos used to group tandems/AFF
             String[] ImageFiles = Directory.GetFiles(@"C:\test");
             foreach (var file in ImageFiles)
             {
-                //Add images to Imagelist
+                // Add images to Imagelist
                 Imagelist.Images.Add(Image.FromFile(file));
             }
         }
@@ -84,16 +85,19 @@ namespace Manifest
                 Point scrolled = new Point(current.X + 50, current.Y);
                 panelLoads.AutoScrollPosition = scrolled;
             }
+
             if (e.KeyCode == Keys.Left)
             {
                 Point current = panelLoads.AutoScrollPosition;
                 Point scrolled = new Point(current.X - 50, current.Y);
                 panelLoads.AutoScrollPosition = scrolled;
             }
+
             if (e.KeyCode == Keys.Insert)
             {
                 handleAddPersonToLoad();
             }
+
             if (e.KeyCode == Keys.F12)
             {
                 handleAddPersonToLoad();
@@ -104,7 +108,7 @@ namespace Manifest
         {
             if (panelLoads.Controls.Count == 0)
             {
-                MessageBox.Show("Please create a load first.","Create a load",MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
+                MessageBox.Show("Please create a load first.", "Create a load", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
 
@@ -136,17 +140,19 @@ namespace Manifest
                             return;
                         }
                     }
-                    if ( i.Text.Contains(addTandemWindow.instructor2orVideoManNum) && addTandemWindow.instructor2orVideoManNum != "")
+
+                    if (i.Text.Contains(addTandemWindow.instructor2orVideoManNum) && addTandemWindow.instructor2orVideoManNum != "")
                     {
-                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.instructor2orVideo + ".\nClick Yes to allow double manifest.","Double manifest warning", MessageBoxButtons.YesNo);
+                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.instructor2orVideo + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.No)
                         {
                             return;
                         }
                     }
-                    if ( i.Text.Contains(addTandemWindow.manNum) && addTandemWindow.manNum != "")
+
+                    if (i.Text.Contains(addTandemWindow.manNum) && addTandemWindow.manNum != "")
                     {
-                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.jumperName + ".\nClick Yes to allow double manifest.","Double manifest warning", MessageBoxButtons.YesNo);
+                        DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.jumperName + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                         if (dialogResult == DialogResult.No)
                         {
                             return;
@@ -184,7 +190,7 @@ namespace Manifest
                             c.BackColor = Color.Red;
 
                         c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
-                      
+
                         // Add the people
                         c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor1 });
                         addLog(selectedLoad, addTandemWindow.instructor1ManNum, " replace this with instructor pay rate");
@@ -193,6 +199,7 @@ namespace Manifest
                             c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor2orVideo });
                             addLog(selectedLoad, addTandemWindow.instructor2orVideoManNum, " replace this with video pay rate");
                         }
+
                         c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.jumperName });
                         addLog(selectedLoad, "TANSTUDENT", " replace this with tandems cost");
                         imageIndex = imageIndex + 1;
@@ -200,6 +207,7 @@ namespace Manifest
                             imageIndex = 0;
                         return;
                     }
+
                     // If AFF, make a separate entry for the AFFIs
                     else if (addTandemWindow.jumpType.Contains("AFF"))
                     {
@@ -232,6 +240,7 @@ namespace Manifest
                             c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.instructor2orVideo });
                             addLog(selectedLoad, addTandemWindow.instructor2orVideoManNum, " replace this with instructor pay rate");
                         }
+
                         c.Items.Add(new ListViewItem { ImageIndex = imageIndex, Text = addTandemWindow.manNum + " - " + addTandemWindow.jumperName });
                         addLog(selectedLoad, addTandemWindow.manNum, " replace this with AFF student rate");
                         imageIndex = imageIndex + 1;
@@ -278,7 +287,7 @@ namespace Manifest
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("The Manifest Program\nCopyright 2018-"+ DateTime.Now.ToString("yyyy")+"\nAll rights reserved", "About");
+            MessageBox.Show("The Manifest Program\nCopyright 2018-" + DateTime.Now.ToString("yyyy") + "\nAll rights reserved", "About");
         }
 
         public void searchPeople_KeyDown(object sender, KeyEventArgs e)
@@ -303,13 +312,12 @@ namespace Manifest
                 return;
             }
 
-
             if (selectedIndex + 1 == numItems)
             {
                 searchIndex = 0;
                 selectedIndex = 0;
                 listBoxPeople.SelectedIndex = 0;
-            }    
+            }
             else
                 searchIndex = selectedIndex + 1;
 
@@ -337,7 +345,7 @@ namespace Manifest
         {
             ObservableCollection<String> people = new ObservableCollection<String>();
             List<PersonType> peopleFromDB = new List<PersonType>();
-            
+
             using (var conn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             {
                 string sqlString = @"select manifestNumber, firstName, lastName, paid from people";
@@ -349,7 +357,7 @@ namespace Manifest
                         var result = command.ExecuteScalar();
                         System.Diagnostics.Debug.WriteLine(result.ToString());
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         MessageBox.Show("Unable to connect to database. Exiting now.\n\nError: " + e.ToString());
                     }
@@ -385,12 +393,14 @@ namespace Manifest
                     }
                 }
             }
+
             peopleFromDB.Sort();
 
             foreach (PersonType pt in peopleFromDB)
             {
                 people.Add(pt.getManifestNumber() + " - " + pt.getFirstName() + " " + pt.getLastName());
             }
+
             listBoxPeople.DataSource = people;
         }
 
@@ -461,7 +471,6 @@ namespace Manifest
             loadList.FullRowSelect = true;
             loadList.Columns.Add("", -2);
             String aircraft = comboBoxLoadAircraft.Text;
-            
 
             // Get the number of max jumpers for this aircraft
             int num = 0;
@@ -478,6 +487,7 @@ namespace Manifest
                     }
                 }
             }
+
             loadList.Items.Add("Load " + tmpLoadNum + " - " + aircraft + " - " + num + " slots");
 
             loadList.Scrollable = false;
@@ -518,7 +528,7 @@ namespace Manifest
             loadList.Columns[0].Width = Width - 50;
 
             loadList.Click += new EventHandler(load_click);
-  
+
             panelLoads.Controls.Add(loadList);
             addLog(tmpLoadNum.ToString());
             tmpLoadNum++;
@@ -532,28 +542,30 @@ namespace Manifest
 
         private void ListView_DragDrop(object sender, DragEventArgs e)
         {
-            //Translate the mouse coordinates (screen coords) into control coordinates
+            // Translate the mouse coordinates (screen coords) into control coordinates
 //            Point p = listView1.PointToClient(new Point(e.X, e.Y));
-            //Find the item that the object was dragged onto
+            // Find the item that the object was dragged onto
 //            var ItemToReplace = listView1.GetItemAt(p.X, p.Y);
-            //extract the listview item from the dragged items IData member
+            // extract the listview item from the dragged items IData member
             var DraggedItem = ((ListViewItem)e.Data.GetData(typeof(ListViewItem)));
             MessageBox.Show(DraggedItem.ToString());
         }
 
         private void ListView_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            //Start the dragdrop operation with the currently dragged listview item as the drag data
+            // Start the dragdrop operation with the currently dragged listview item as the drag data
             ListView lv = (ListView)sender;
             lv.DoDragDrop((ListViewItem)e.Item, DragDropEffects.Move);
         }
+
         private void ListView_DragEnter(object sender, DragEventArgs e)
         {
-            //If the item being dragged isn't associated with this listview, it's not allowed to be dragged here
+            // If the item being dragged isn't associated with this listview, it's not allowed to be dragged here
    //         ListView lv = (ListView)sender;
    //         if (((ListViewItem)e.Data.GetData(typeof(ListViewItem))).ListView == lv)
                 e.Effect = DragDropEffects.Move;
-   //         else
+
+   // else
    //             e.Effect = DragDropEffects.None;
         }
 
@@ -566,7 +578,7 @@ namespace Manifest
             selectedPeople.Clear();
             for (int i = 0; i < lv.SelectedItems.Count; i++)
             {
- //               MessageBox.Show("person is " + lv.SelectedItems[i].Text);
+ // MessageBox.Show("person is " + lv.SelectedItems[i].Text);
                 selectedPeople.Add(lv.SelectedItems[i].Text);
             }
         }
@@ -714,7 +726,7 @@ namespace Manifest
         private void buttonAddPerson_Click(object sender, EventArgs e)
         {
             String manNum = textBoxManifestNumber.Text;
-            manNum = manNum.Replace("'","");
+            manNum = manNum.Replace("'", "");
             String fName = textBoxFirstName.Text;
             fName = fName.Replace("'", "");
             String lName = textBoxLastName.Text;
@@ -827,7 +839,7 @@ namespace Manifest
                 cmd.CommandText = "insert into Aircraft(aircraftName, capacity)" +
                     "values(@param1, @param2)";
 
-                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-","");
+                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-", "");
                 cmd.Parameters.Add("@param2", SqlDbType.Int).Value = cap;
 
                 cn.Open();
@@ -851,7 +863,7 @@ namespace Manifest
             ObservableCollection<String> aircraft = new ObservableCollection<String>();
             ObservableCollection<String> aircraftNames = new ObservableCollection<String>();
             List<AircraftType> aircraftFromDB = new List<AircraftType>();
-            
+
             using (var conn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             {
                 string sqlString = @"select aircraftName, capacity from Aircraft";
@@ -890,6 +902,7 @@ namespace Manifest
                 aircraft.Add(plane.getName() + " - Max jumpers " + plane.getCapacity());
                 aircraftNames.Add(plane.getName());
             }
+
             listBoxAircraft.DataSource = aircraft;
             comboBoxLoadAircraft.DataSource = aircraftNames;
         }
@@ -916,7 +929,7 @@ namespace Manifest
             {
                 cmd.CommandText = "update Aircraft set capacity = " + cap + " where aircraftName = @param1";
 
-                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-","");
+                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-", "");
 
                 cn.Open();
 
@@ -932,8 +945,6 @@ namespace Manifest
                     buttonCancelAircraft.Hide();
                 }
             }
-
-
         }
 
         private void buttonAddAircraft_Click(object sender, EventArgs e)
@@ -971,7 +982,7 @@ namespace Manifest
 
         private void buttonDeleteAircraft_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this aircrafit?\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo,MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this aircrafit?\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
             {
                 String item = listBoxAircraft.GetItemText(listBoxAircraft.SelectedItem);
@@ -1036,7 +1047,9 @@ namespace Manifest
                                 {
                                     manNum = item.Split('-')[0].Trim();
                                 }
-                                catch { } // Tandems don't have a manifest number so naturally this fails
+                                catch
+                                {
+                                } // Tandems don't have a manifest number so naturally this fails
 
                                 c.Items.Remove(listitem);
                                 addLog(load, manNum);
@@ -1052,16 +1065,11 @@ namespace Manifest
                                     c.BackColor = Color.White;
 
                                 c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
-
-
                             }
                         }
                     }
                 }
             }
-
-
-
         }
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1093,7 +1101,9 @@ namespace Manifest
                                 {
                                     manNum = item.Split('-')[0].Trim();
                                 }
-                                catch { } // Tandems don't have a manifest number so naturally this fails
+                                catch
+                                {
+                                } // Tandems don't have a manifest number so naturally this fails
 
                                 // Print!!
                                 String studentname = "Joe Tandem";
@@ -1102,7 +1112,6 @@ namespace Manifest
                                 FormPrintCertificate printCert = new FormPrintCertificate(studentname, aircraft, instructor);
                                 printCert.ShowDialog();
                             }
-                             
                         }
                     }
                 }
@@ -1120,6 +1129,7 @@ namespace Manifest
                         // For each person on the load, charge them
                         MessageBox.Show(listitem.Text);
                     }
+
                     panelLoads.Controls.Remove(c); // Delete the load from the view
                 }
             }
@@ -1129,10 +1139,12 @@ namespace Manifest
         {
             log.Info("\nLoad " + loadNum + " added number " + manifestNum + " $" + price);
         }
+
         private void addLog(String loadNum, String manifestNum)
         {
             log.Info("\nLoad " + loadNum + " removed number " + manifestNum);
         }
+
         private void addLog(String loadNum)
         {
             log.Info("\nLoad " + loadNum + " created.");

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Manifest
 {
-    class PersonType: IComparable<PersonType>
+    class PersonType : IComparable<PersonType>
     {
         private String manifestNumber;
         private String firstName;
@@ -30,8 +30,6 @@ namespace Manifest
         public int CompareTo(PersonType otherPerson)
         {
             int result = this.manifestNumber.CompareTo(otherPerson.getManifestNumber());
-//            if (result == 0)
- //               result = this.Forname.CompareTo(other.Forname);
             return result;
         }
 

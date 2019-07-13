@@ -15,14 +15,23 @@ namespace Manifest
     public partial class FormAddPersonToLoad : Form
     {
         public string jumpType { get; set; }
+
         public string manNum { get; set; }
+
         public string altitude { get; set; }
+
         public string price { get; set; }
+
         public string jumperName { get; set; }
+
         public string instructor1 { get; set; }
+
         public string instructor1ManNum { get; set; }
+
         public string instructor2orVideo { get; set; }
+
         public string instructor2orVideoManNum { get; set; }
+
         public DialogResult result { get; set; }
 
         public FormAddPersonToLoad(String l)
@@ -109,7 +118,6 @@ namespace Manifest
             }
         }
 
-
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             jumpType = comboBoxJumpType.Text;
@@ -149,6 +157,7 @@ namespace Manifest
                     return;
                 }
             }
+
             // If IAFF2 is selected, ensure 2 instructors are selected
             if (jumpType.Contains("IAFF2"))
             {
@@ -189,7 +198,7 @@ namespace Manifest
             textBoxAltitude.Text = "14500";
 
             String selected = comboBoxJumpType.Items[comboBoxJumpType.SelectedIndex].ToString();
-            String price = selected.Split('-')[1].Replace("$","");
+            String price = selected.Split('-')[1].Replace("$", "");
             textBoxPrice.Text = price.Trim();
         }
 

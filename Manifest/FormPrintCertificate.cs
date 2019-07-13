@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,7 +32,6 @@ namespace Manifest
             textBoxAltitude.Text = "14,500";
             textBoxFreefall.Text = "60";
             textBoxDate.Text = DateTime.Today.ToString("dd MMMM yyyy");
-
         }
 
         private void buttonPrint_Click(object sender, EventArgs e)
@@ -56,7 +55,6 @@ namespace Manifest
             float x = 0.1f;
             float y = 20f;
 
-
             float availableWidth = (float)Math.Floor(((PrintDocument)sender).OriginAtMargins
                 ? e.MarginBounds.Width
                 : (e.PageSettings.Landscape
@@ -75,7 +73,6 @@ namespace Manifest
 
             e.Graphics.DrawRectangle(new Pen(Color.Black, .5F), 0, 0, availableWidth - 2, availableHeight - 2);
 
-
             texto = "                  West Tennessee Skydiving";
             sizeF = e.Graphics.MeasureString(texto, font, (int)availableWidth);
             e.Graphics.DrawString(texto,
@@ -85,7 +82,7 @@ namespace Manifest
             y = y + 120;
 
             float center = availableWidth / 2.0f;
-            float centername = (n.Length / 2.0f)*35;
+            float centername = (n.Length / 2.0f) * 35;
             if (centername > center)
                 centername = center;
 
