@@ -10,7 +10,6 @@
         public FormAddPersonToLoad(string l)
         {
             this.InitializeComponent();
-            this.KeyUp += new KeyEventHandler(this.KeyPressHandler);
 
             this.JumpType = string.Empty;
             this.ManNum = string.Empty;
@@ -30,8 +29,6 @@
 
             // Display which load is selected
             this.labelLoad.Text = l;
-
-            this.KeyDown += new KeyEventHandler(this.FormAddPersonToLoad_KeyDown);
 
             // Load the instructors and videographers
             string num;
@@ -93,7 +90,7 @@
 
         public DialogResult Result { get; set; }
 
-        private void KeyPressHandler(object sender, KeyEventArgs e)
+        private void FormAddPersonToLoad_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {

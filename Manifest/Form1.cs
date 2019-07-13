@@ -28,13 +28,6 @@
 
             this.searchIndex = 0;
 
-            // Key event handler for left/right keys
-            // Requested by Mike for scrolling left/right through loads
-            // Also handles insert key
-            this.KeyUp += new KeyEventHandler(this.Form1_KeyUp);
-
-            this.textBoxSearchPeople.KeyDown += new KeyEventHandler(this.SearchPeople_KeyDown);
-
             // show/hide UI components
             this.HideEditPersonUI();
             this.buttonSavePerson.Hide();

@@ -175,7 +175,7 @@
             this.tabPagePeople.Controls.Add(this.listBoxPeople);
             this.tabPagePeople.Location = new System.Drawing.Point(4, 22);
             this.tabPagePeople.Name = "tabPagePeople";
-            this.tabPagePeople.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPagePeople.Padding = new System.Windows.Forms.Padding(3);
             this.tabPagePeople.Size = new System.Drawing.Size(797, 416);
             this.tabPagePeople.TabIndex = 0;
             this.tabPagePeople.Text = "Fun Jumpers & Staff  ";
@@ -201,9 +201,9 @@
             this.groupBoxPersonDetails.Controls.Add(this.textBoxLastName);
             this.groupBoxPersonDetails.Controls.Add(this.textBoxFirstName);
             this.groupBoxPersonDetails.Location = new System.Drawing.Point(262, 71);
-            this.groupBoxPersonDetails.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxPersonDetails.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxPersonDetails.Name = "groupBoxPersonDetails";
-            this.groupBoxPersonDetails.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBoxPersonDetails.Padding = new System.Windows.Forms.Padding(2);
             this.groupBoxPersonDetails.Size = new System.Drawing.Size(484, 317);
             this.groupBoxPersonDetails.TabIndex = 6;
             this.groupBoxPersonDetails.TabStop = false;
@@ -222,7 +222,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Location = new System.Drawing.Point(121, 212);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(86, 24);
             this.buttonCancel.TabIndex = 23;
@@ -233,7 +233,7 @@
             // buttonAddPerson
             // 
             this.buttonAddPerson.Location = new System.Drawing.Point(121, 157);
-            this.buttonAddPerson.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAddPerson.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAddPerson.Name = "buttonAddPerson";
             this.buttonAddPerson.Size = new System.Drawing.Size(86, 24);
             this.buttonAddPerson.TabIndex = 22;
@@ -245,7 +245,7 @@
             // 
             this.checkBoxVideo.AutoSize = true;
             this.checkBoxVideo.Location = new System.Drawing.Point(258, 149);
-            this.checkBoxVideo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxVideo.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxVideo.Name = "checkBoxVideo";
             this.checkBoxVideo.Size = new System.Drawing.Size(89, 17);
             this.checkBoxVideo.TabIndex = 21;
@@ -256,7 +256,7 @@
             // 
             this.checkBoxCoach.AutoSize = true;
             this.checkBoxCoach.Location = new System.Drawing.Point(258, 122);
-            this.checkBoxCoach.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxCoach.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxCoach.Name = "checkBoxCoach";
             this.checkBoxCoach.Size = new System.Drawing.Size(57, 17);
             this.checkBoxCoach.TabIndex = 20;
@@ -267,7 +267,7 @@
             // 
             this.checkBoxAFF.AutoSize = true;
             this.checkBoxAFF.Location = new System.Drawing.Point(258, 96);
-            this.checkBoxAFF.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxAFF.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxAFF.Name = "checkBoxAFF";
             this.checkBoxAFF.Size = new System.Drawing.Size(92, 17);
             this.checkBoxAFF.TabIndex = 19;
@@ -278,7 +278,7 @@
             // 
             this.checkBoxTI.AutoSize = true;
             this.checkBoxTI.Location = new System.Drawing.Point(258, 69);
-            this.checkBoxTI.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxTI.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxTI.Name = "checkBoxTI";
             this.checkBoxTI.Size = new System.Drawing.Size(112, 17);
             this.checkBoxTI.TabIndex = 18;
@@ -318,7 +318,7 @@
             // buttonSavePerson
             // 
             this.buttonSavePerson.Location = new System.Drawing.Point(121, 185);
-            this.buttonSavePerson.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSavePerson.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSavePerson.Name = "buttonSavePerson";
             this.buttonSavePerson.Size = new System.Drawing.Size(86, 24);
             this.buttonSavePerson.TabIndex = 14;
@@ -329,7 +329,7 @@
             // textBoxManifestNumber
             // 
             this.textBoxManifestNumber.Location = new System.Drawing.Point(94, 69);
-            this.textBoxManifestNumber.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxManifestNumber.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxManifestNumber.Name = "textBoxManifestNumber";
             this.textBoxManifestNumber.Size = new System.Drawing.Size(52, 20);
             this.textBoxManifestNumber.TabIndex = 11;
@@ -337,7 +337,7 @@
             // textBoxLastName
             // 
             this.textBoxLastName.Location = new System.Drawing.Point(94, 122);
-            this.textBoxLastName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxLastName.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxLastName.Name = "textBoxLastName";
             this.textBoxLastName.Size = new System.Drawing.Size(116, 20);
             this.textBoxLastName.TabIndex = 13;
@@ -345,7 +345,7 @@
             // textBoxFirstName
             // 
             this.textBoxFirstName.Location = new System.Drawing.Point(94, 96);
-            this.textBoxFirstName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxFirstName.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxFirstName.Name = "textBoxFirstName";
             this.textBoxFirstName.Size = new System.Drawing.Size(116, 20);
             this.textBoxFirstName.TabIndex = 12;
@@ -353,7 +353,7 @@
             // buttonDeletePerson
             // 
             this.buttonDeletePerson.Location = new System.Drawing.Point(262, 38);
-            this.buttonDeletePerson.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonDeletePerson.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDeletePerson.Name = "buttonDeletePerson";
             this.buttonDeletePerson.Size = new System.Drawing.Size(109, 22);
             this.buttonDeletePerson.TabIndex = 5;
@@ -364,7 +364,7 @@
             // buttonEditPerson
             // 
             this.buttonEditPerson.Location = new System.Drawing.Point(131, 37);
-            this.buttonEditPerson.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonEditPerson.Margin = new System.Windows.Forms.Padding(2);
             this.buttonEditPerson.Name = "buttonEditPerson";
             this.buttonEditPerson.Size = new System.Drawing.Size(109, 23);
             this.buttonEditPerson.TabIndex = 4;
@@ -398,6 +398,7 @@
             this.textBoxSearchPeople.Name = "textBoxSearchPeople";
             this.textBoxSearchPeople.Size = new System.Drawing.Size(203, 20);
             this.textBoxSearchPeople.TabIndex = 1;
+            this.textBoxSearchPeople.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchPeople_KeyDown);
             // 
             // listBoxPeople
             // 
@@ -419,8 +420,8 @@
             this.tabPageAircraft.Controls.Add(this.buttonAddAircraft);
             this.tabPageAircraft.Location = new System.Drawing.Point(4, 22);
             this.tabPageAircraft.Name = "tabPageAircraft";
-            this.tabPageAircraft.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPageAircraft.Size = new System.Drawing.Size(792, 401);
+            this.tabPageAircraft.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAircraft.Size = new System.Drawing.Size(797, 416);
             this.tabPageAircraft.TabIndex = 1;
             this.tabPageAircraft.Text = "     Aircraft     ";
             this.tabPageAircraft.UseVisualStyleBackColor = true;
@@ -439,9 +440,9 @@
             this.groupBox1.Controls.Add(this.labelAircraftName);
             this.groupBox1.Controls.Add(this.labelEditDetailsAircraft);
             this.groupBox1.Location = new System.Drawing.Point(316, 58);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(466, 301);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
@@ -450,7 +451,7 @@
             // buttonCancelAircraft
             // 
             this.buttonCancelAircraft.Location = new System.Drawing.Point(94, 178);
-            this.buttonCancelAircraft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonCancelAircraft.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCancelAircraft.Name = "buttonCancelAircraft";
             this.buttonCancelAircraft.Size = new System.Drawing.Size(64, 22);
             this.buttonCancelAircraft.TabIndex = 7;
@@ -461,7 +462,7 @@
             // buttonSaveAircraft
             // 
             this.buttonSaveAircraft.Location = new System.Drawing.Point(94, 152);
-            this.buttonSaveAircraft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSaveAircraft.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSaveAircraft.Name = "buttonSaveAircraft";
             this.buttonSaveAircraft.Size = new System.Drawing.Size(64, 22);
             this.buttonSaveAircraft.TabIndex = 6;
@@ -472,7 +473,7 @@
             // buttonAddAircraftSubmit
             // 
             this.buttonAddAircraftSubmit.Location = new System.Drawing.Point(94, 127);
-            this.buttonAddAircraftSubmit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAddAircraftSubmit.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAddAircraftSubmit.Name = "buttonAddAircraftSubmit";
             this.buttonAddAircraftSubmit.Size = new System.Drawing.Size(64, 22);
             this.buttonAddAircraftSubmit.TabIndex = 5;
@@ -483,7 +484,7 @@
             // textBoxAircraftName
             // 
             this.textBoxAircraftName.Location = new System.Drawing.Point(72, 60);
-            this.textBoxAircraftName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxAircraftName.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAircraftName.Name = "textBoxAircraftName";
             this.textBoxAircraftName.Size = new System.Drawing.Size(145, 20);
             this.textBoxAircraftName.TabIndex = 4;
@@ -491,7 +492,7 @@
             // numericUpDownMaxJumpers
             // 
             this.numericUpDownMaxJumpers.Location = new System.Drawing.Point(98, 89);
-            this.numericUpDownMaxJumpers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericUpDownMaxJumpers.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDownMaxJumpers.Name = "numericUpDownMaxJumpers";
             this.numericUpDownMaxJumpers.Size = new System.Drawing.Size(60, 20);
             this.numericUpDownMaxJumpers.TabIndex = 3;
@@ -532,7 +533,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxAircraft.FormattingEnabled = true;
             this.listBoxAircraft.Location = new System.Drawing.Point(15, 58);
-            this.listBoxAircraft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBoxAircraft.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxAircraft.Name = "listBoxAircraft";
             this.listBoxAircraft.Size = new System.Drawing.Size(288, 303);
             this.listBoxAircraft.TabIndex = 3;
@@ -540,7 +541,7 @@
             // buttonDeleteAircraft
             // 
             this.buttonDeleteAircraft.Location = new System.Drawing.Point(204, 19);
-            this.buttonDeleteAircraft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonDeleteAircraft.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDeleteAircraft.Name = "buttonDeleteAircraft";
             this.buttonDeleteAircraft.Size = new System.Drawing.Size(82, 24);
             this.buttonDeleteAircraft.TabIndex = 2;
@@ -551,7 +552,7 @@
             // buttonEditAircraft
             // 
             this.buttonEditAircraft.Location = new System.Drawing.Point(116, 19);
-            this.buttonEditAircraft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonEditAircraft.Margin = new System.Windows.Forms.Padding(2);
             this.buttonEditAircraft.Name = "buttonEditAircraft";
             this.buttonEditAircraft.Size = new System.Drawing.Size(76, 24);
             this.buttonEditAircraft.TabIndex = 1;
@@ -562,7 +563,7 @@
             // buttonAddAircraft
             // 
             this.buttonAddAircraft.Location = new System.Drawing.Point(27, 19);
-            this.buttonAddAircraft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAddAircraft.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAddAircraft.Name = "buttonAddAircraft";
             this.buttonAddAircraft.Size = new System.Drawing.Size(77, 24);
             this.buttonAddAircraft.TabIndex = 0;
@@ -586,8 +587,8 @@
             this.tabPageLoads.Controls.Add(this.buttonNewLoad);
             this.tabPageLoads.Location = new System.Drawing.Point(4, 22);
             this.tabPageLoads.Name = "tabPageLoads";
-            this.tabPageLoads.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPageLoads.Size = new System.Drawing.Size(792, 401);
+            this.tabPageLoads.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageLoads.Size = new System.Drawing.Size(797, 416);
             this.tabPageLoads.TabIndex = 2;
             this.tabPageLoads.Text = "     Loads     ";
             this.tabPageLoads.UseVisualStyleBackColor = true;
@@ -614,7 +615,7 @@
             // buttonDeletePersonFromLoad
             // 
             this.buttonDeletePersonFromLoad.Location = new System.Drawing.Point(408, 19);
-            this.buttonDeletePersonFromLoad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonDeletePersonFromLoad.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDeletePersonFromLoad.Name = "buttonDeletePersonFromLoad";
             this.buttonDeletePersonFromLoad.Size = new System.Drawing.Size(128, 21);
             this.buttonDeletePersonFromLoad.TabIndex = 15;
@@ -637,7 +638,7 @@
             // 
             this.comboBoxLoadAircraft.FormattingEnabled = true;
             this.comboBoxLoadAircraft.Location = new System.Drawing.Point(10, 19);
-            this.comboBoxLoadAircraft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxLoadAircraft.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxLoadAircraft.Name = "comboBoxLoadAircraft";
             this.comboBoxLoadAircraft.Size = new System.Drawing.Size(130, 21);
             this.comboBoxLoadAircraft.TabIndex = 1;
@@ -649,7 +650,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelLoads.AutoScroll = true;
             this.panelLoads.Location = new System.Drawing.Point(10, 67);
-            this.panelLoads.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelLoads.Margin = new System.Windows.Forms.Padding(2);
             this.panelLoads.Name = "panelLoads";
             this.panelLoads.Size = new System.Drawing.Size(764, 302);
             this.panelLoads.TabIndex = 10;
@@ -659,7 +660,7 @@
             // 
             this.buttonAddFunJumper.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddFunJumper.Location = new System.Drawing.Point(676, 15);
-            this.buttonAddFunJumper.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAddFunJumper.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAddFunJumper.Name = "buttonAddFunJumper";
             this.buttonAddFunJumper.Size = new System.Drawing.Size(72, 21);
             this.buttonAddFunJumper.TabIndex = 6;
@@ -671,7 +672,7 @@
             // 
             this.textBoxManNum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxManNum.Location = new System.Drawing.Point(618, 18);
-            this.textBoxManNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxManNum.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxManNum.Name = "textBoxManNum";
             this.textBoxManNum.Size = new System.Drawing.Size(52, 20);
             this.textBoxManNum.TabIndex = 5;
@@ -690,7 +691,7 @@
             // buttonAddTandem
             // 
             this.buttonAddTandem.Location = new System.Drawing.Point(276, 19);
-            this.buttonAddTandem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAddTandem.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAddTandem.Name = "buttonAddTandem";
             this.buttonAddTandem.Size = new System.Drawing.Size(128, 21);
             this.buttonAddTandem.TabIndex = 4;
@@ -701,7 +702,7 @@
             // buttonCompleteLoad
             // 
             this.buttonCompleteLoad.Location = new System.Drawing.Point(10, 43);
-            this.buttonCompleteLoad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonCompleteLoad.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCompleteLoad.Name = "buttonCompleteLoad";
             this.buttonCompleteLoad.Size = new System.Drawing.Size(83, 21);
             this.buttonCompleteLoad.TabIndex = 7;
@@ -712,7 +713,7 @@
             // buttonNewLoad
             // 
             this.buttonNewLoad.Location = new System.Drawing.Point(150, 18);
-            this.buttonNewLoad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonNewLoad.Margin = new System.Windows.Forms.Padding(2);
             this.buttonNewLoad.Name = "buttonNewLoad";
             this.buttonNewLoad.Size = new System.Drawing.Size(70, 21);
             this.buttonNewLoad.TabIndex = 3;
@@ -763,6 +764,7 @@
             this.MinimumSize = new System.Drawing.Size(821, 505);
             this.Name = "Form1";
             this.Text = "West Tennessee Skydiving";
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl.ResumeLayout(false);
