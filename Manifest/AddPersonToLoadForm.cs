@@ -5,9 +5,9 @@
     using System.Windows.Forms;
     using Manifest.Properties;
 
-    public partial class FormAddPersonToLoad : Form
+    public partial class AddPersonToLoadForm : Form
     {
-        public FormAddPersonToLoad(string l)
+        public AddPersonToLoadForm(string l)
         {
             this.InitializeComponent();
 
@@ -90,7 +90,7 @@
 
         public DialogResult Result { get; set; }
 
-        private void FormAddPersonToLoad_KeyUp(object sender, KeyEventArgs e)
+        private void AddPersonToLoadForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
@@ -98,7 +98,7 @@
             }
         }
 
-        private void FormAddPersonToLoad_KeyDown(object sender, KeyEventArgs e)
+        private void AddPersonToLoadForm_KeyDown(object sender, KeyEventArgs e)
         {
             // Lets you hit the enter key instead of tab to go through the input fields
             if (e.KeyCode == Keys.Enter)

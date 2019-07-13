@@ -14,9 +14,9 @@
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            using (Form1 form = new Form1())
+            using (MainForm mainForm = new MainForm())
             {
-                Application.Run(form);
+                Application.Run(mainForm);
             }
         }
     }

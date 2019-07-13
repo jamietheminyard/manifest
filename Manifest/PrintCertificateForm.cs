@@ -5,13 +5,13 @@
     using System.Drawing.Printing;
     using System.Windows.Forms;
 
-    public partial class FormPrintCertificate : Form
+    public partial class PrintCertificateForm : Form
     {
         private string studentname;
         private string aircraft;
         private string instructor;
 
-        public FormPrintCertificate(string sn, string a, string i)
+        public PrintCertificateForm(string sn, string a, string i)
         {
             this.InitializeComponent();
             this.studentname = sn;

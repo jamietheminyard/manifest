@@ -1,6 +1,6 @@
 ﻿namespace Manifest
 {
-    partial class FormPrintCertificate
+    partial class PrintCertificateForm
     {
         /// <summary>
         /// Required designer variable.
@@ -169,7 +169,7 @@
             this.label8.TabIndex = 14;
             this.label8.Text = "seconds";
             // 
-            // FormPrintCertificate
+            // PrintCertificateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -189,7 +189,7 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonPrint);
-            this.Name = "FormPrintCertificate";
+            this.Name = "PrintCertificateForm";
             this.Text = "Print Certificate";
             this.ResumeLayout(false);
             this.PerformLayout();

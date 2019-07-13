@@ -10,7 +10,7 @@
     using System.Windows.Forms;
     using Manifest.Properties;
 
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -20,7 +20,7 @@
         private int imageIndex = 0;
         private List<string> selectedPeople = new List<string>();
 
-        public Form1()
+        public MainForm()
         {
             this.InitializeComponent();
             log4net.Config.XmlConfigurator.Configure();
@@ -80,7 +80,7 @@
             Log.Info("\nLoad " + loadNum + " created.");
         }
 
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Right)
             {
@@ -121,10 +121,10 @@
                 return;
             }
 
-            using (FormAddPersonToLoad addTandemWindow = new FormAddPersonToLoad(this.selectedLoad))
+            using (AddPersonToLoadForm addPersonToLoadForm = new AddPersonToLoadForm(this.selectedLoad))
             {
-                addTandemWindow.ShowDialog();
-                DialogResult result = addTandemWindow.Result;
+                addPersonToLoadForm.ShowDialog();
+                DialogResult result = addPersonToLoadForm.Result;
                 if (result == DialogResult.None)
                 {
                     return;
@@ -138,27 +138,27 @@
                 {
                     foreach (ListViewItem i in c.Items)
                     {
-                        if (i.Text.Contains(addTandemWindow.Instructor1ManNum) && string.IsNullOrEmpty(addTandemWindow.Instructor1ManNum) == false)
+                        if (i.Text.Contains(addPersonToLoadForm.Instructor1ManNum) && string.IsNullOrEmpty(addPersonToLoadForm.Instructor1ManNum) == false)
                         {
-                            DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor1 + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
+                            DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addPersonToLoadForm.Instructor1 + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.No)
                             {
                                 return;
                             }
                         }
 
-                        if (i.Text.Contains(addTandemWindow.Instructor2orVideoManNum) && string.IsNullOrEmpty(addTandemWindow.Instructor2orVideoManNum) == false)
+                        if (i.Text.Contains(addPersonToLoadForm.Instructor2orVideoManNum) && string.IsNullOrEmpty(addPersonToLoadForm.Instructor2orVideoManNum) == false)
                         {
-                            DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.Instructor2orVideo + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
+                            DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addPersonToLoadForm.Instructor2orVideo + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.No)
                             {
                                 return;
                             }
                         }
 
-                        if (i.Text.Contains(addTandemWindow.ManNum) && string.IsNullOrEmpty(addTandemWindow.ManNum) == false)
+                        if (i.Text.Contains(addPersonToLoadForm.ManNum) && string.IsNullOrEmpty(addPersonToLoadForm.ManNum) == false)
                         {
-                            DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addTandemWindow.JumperName + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
+                            DialogResult dialogResult = MessageBox.Show("Double manifest warning for " + addPersonToLoadForm.JumperName + ".\nClick Yes to allow double manifest.", "Double manifest warning", MessageBoxButtons.YesNo);
                             if (dialogResult == DialogResult.No)
                             {
                                 return;
@@ -173,7 +173,7 @@
                     if (c.Items[0].ToString().Contains(this.selectedLoad))
                     {
                         // If tandem, make a separate entry for the TI and video if applicable
-                        if (addTandemWindow.JumpType.Contains("TAN"))
+                        if (addPersonToLoadForm.JumpType.Contains("TAN"))
                         {
                             // Update the first item in the list to have correct number of slots left
                             loadInfo = c.Items[0];
@@ -182,7 +182,7 @@
                             int num = 0;
                             int.TryParse(slots, out num);
 
-                            if (string.IsNullOrEmpty(addTandemWindow.Instructor2orVideo.Trim()) == false)
+                            if (string.IsNullOrEmpty(addPersonToLoadForm.Instructor2orVideo.Trim()) == false)
                             {
                                 num = num - 3; // Has video, so subtract 3
                             }
@@ -205,15 +205,15 @@
                             c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
 
                             // Add the people
-                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor1 });
-                            AddLog(this.selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
-                            if (string.IsNullOrEmpty(addTandemWindow.Instructor2orVideo.Trim()) == false)
+                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addPersonToLoadForm.Instructor1 });
+                            AddLog(this.selectedLoad, addPersonToLoadForm.Instructor1ManNum, " replace this with instructor pay rate");
+                            if (string.IsNullOrEmpty(addPersonToLoadForm.Instructor2orVideo.Trim()) == false)
                             {
-                                c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor2orVideo });
-                                AddLog(this.selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with video pay rate");
+                                c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addPersonToLoadForm.Instructor2orVideo });
+                                AddLog(this.selectedLoad, addPersonToLoadForm.Instructor2orVideoManNum, " replace this with video pay rate");
                             }
 
-                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.JumperName });
+                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addPersonToLoadForm.JumperName });
                             AddLog(this.selectedLoad, "TANSTUDENT", " replace this with tandems cost");
                             this.imageIndex = this.imageIndex + 1;
                             if (this.imageIndex == 12)
@@ -225,7 +225,7 @@
                         }
 
                         // If AFF, make a separate entry for the AFFIs
-                        else if (addTandemWindow.JumpType.Contains("AFF"))
+                        else if (addPersonToLoadForm.JumpType.Contains("AFF"))
                         {
                             // Update the first item in the list to have correct number of slots left
                             loadInfo = c.Items[0];
@@ -233,7 +233,7 @@
                             string slots = pieces[2].Replace("slots", string.Empty).Trim();
                             int num = 0;
                             int.TryParse(slots, out num);
-                            if (string.IsNullOrEmpty(addTandemWindow.Instructor2orVideo.Trim()) == false)
+                            if (string.IsNullOrEmpty(addPersonToLoadForm.Instructor2orVideo.Trim()) == false)
                             {
                                 num = num - 3; // Has 2 instructors, so subtract 3
                             }
@@ -255,16 +255,16 @@
 
                             c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
 
-                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor1 });
-                            AddLog(this.selectedLoad, addTandemWindow.Instructor1ManNum, " replace this with instructor pay rate");
-                            if (string.IsNullOrEmpty(addTandemWindow.Instructor2orVideo.Trim()) == false)
+                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addPersonToLoadForm.Instructor1 });
+                            AddLog(this.selectedLoad, addPersonToLoadForm.Instructor1ManNum, " replace this with instructor pay rate");
+                            if (string.IsNullOrEmpty(addPersonToLoadForm.Instructor2orVideo.Trim()) == false)
                             {
-                                c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.Instructor2orVideo });
-                                AddLog(this.selectedLoad, addTandemWindow.Instructor2orVideoManNum, " replace this with instructor pay rate");
+                                c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addPersonToLoadForm.Instructor2orVideo });
+                                AddLog(this.selectedLoad, addPersonToLoadForm.Instructor2orVideoManNum, " replace this with instructor pay rate");
                             }
 
-                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addTandemWindow.ManNum + " - " + addTandemWindow.JumperName });
-                            AddLog(this.selectedLoad, addTandemWindow.ManNum, " replace this with AFF student rate");
+                            c.Items.Add(new ListViewItem { ImageIndex = this.imageIndex, Text = addPersonToLoadForm.ManNum + " - " + addPersonToLoadForm.JumperName });
+                            AddLog(this.selectedLoad, addPersonToLoadForm.ManNum, " replace this with AFF student rate");
                             this.imageIndex = this.imageIndex + 1;
                             if (this.imageIndex == 12)
                             {
@@ -300,8 +300,8 @@
 
                             c.Items[0].Text = pieces[0].Trim() + " - " + pieces[1].Trim() + " - " + num + " slots";
 
-                            c.Items.Add(new ListViewItem { Text = addTandemWindow.ManNum + " - " + addTandemWindow.JumperName });
-                            AddLog(this.selectedLoad, addTandemWindow.ManNum, " replace this with fun jump pay rate or 0 if beginning of year free jumps");
+                            c.Items.Add(new ListViewItem { Text = addPersonToLoadForm.ManNum + " - " + addPersonToLoadForm.JumperName });
+                            AddLog(this.selectedLoad, addPersonToLoadForm.ManNum, " replace this with fun jump pay rate or 0 if beginning of year free jumps");
                         }
                     }
                 }
@@ -1169,9 +1169,9 @@
                                 string aircraft = "Super King Air";
                                 string instructor = "TI Jim";
 
-                                using (FormPrintCertificate printCert = new FormPrintCertificate(studentname, aircraft, instructor))
+                                using (PrintCertificateForm printCertificateForm = new PrintCertificateForm(studentname, aircraft, instructor))
                                 {
-                                    printCert.ShowDialog();
+                                    printCertificateForm.ShowDialog();
                                 }
                             }
                         }

@@ -72,35 +72,35 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AircraftType.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormAddPersonToLoad.cs">
+    <Compile Include="AddPersonToLoadForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddPersonToLoad.Designer.cs">
-      <DependentUpon>FormAddPersonToLoad.cs</DependentUpon>
+    <Compile Include="AddPersonToLoadForm.Designer.cs">
+      <DependentUpon>AddPersonToLoadForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormPrintCertificate.cs">
+    <Compile Include="PrintCertificateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPrintCertificate.Designer.cs">
-      <DependentUpon>FormPrintCertificate.cs</DependentUpon>
+    <Compile Include="PrintCertificateForm.Designer.cs">
+      <DependentUpon>PrintCertificateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PersonType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAddPersonToLoad.resx">
-      <DependentUpon>FormAddPersonToLoad.cs</DependentUpon>
+    <EmbeddedResource Include="AddPersonToLoadForm.resx">
+      <DependentUpon>AddPersonToLoadForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormPrintCertificate.resx">
-      <DependentUpon>FormPrintCertificate.cs</DependentUpon>
+    <EmbeddedResource Include="PrintCertificateForm.resx">
+      <DependentUpon>PrintCertificateForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
