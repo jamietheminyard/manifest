@@ -8,12 +8,12 @@ namespace Manifest
 {
     class PersonType : IComparable<PersonType>
     {
-        private String manifestNumber;
-        private String firstName;
-        private String lastName;
+        private string manifestNumber;
+        private string firstName;
+        private string lastName;
         private double paid;
 
-        public PersonType(String manNum, String fname, String lname, double p)
+        public PersonType(string manNum, string fname, string lname, double p)
         {
             if (string.IsNullOrWhiteSpace(manNum))
                 throw new Exception("Person manifest number cannot be empty.");
@@ -33,17 +33,17 @@ namespace Manifest
             return result;
         }
 
-        public String getFirstName()
+        public string getFirstName()
         {
             return this.firstName;
         }
 
-        public String getLastName()
+        public string getLastName()
         {
             return this.lastName;
         }
 
-        public String getManifestNumber()
+        public string getManifestNumber()
         {
             return this.manifestNumber;
         }

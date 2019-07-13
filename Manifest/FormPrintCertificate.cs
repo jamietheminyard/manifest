@@ -14,12 +14,12 @@ namespace Manifest
 {
     public partial class FormPrintCertificate : Form
     {
-        String studentname;
-        String aircraft;
-        String instructor;
+        string studentname;
+        string aircraft;
+        string instructor;
         private PrintDocument pd;
 
-        public FormPrintCertificate(String sn, String a, String i)
+        public FormPrintCertificate(string sn, string a, string i)
         {
             InitializeComponent();
             studentname = sn;
@@ -46,12 +46,12 @@ namespace Manifest
 
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)
         {
-            String n = textBoxName.Text;
-            String a = textBoxAircraft.Text;
-            String i = textBoxInstructor.Text;
-            String alt = textBoxAltitude.Text;
-            String f = textBoxFreefall.Text;
-            String d = textBoxDate.Text;
+            string n = textBoxName.Text;
+            string a = textBoxAircraft.Text;
+            string i = textBoxInstructor.Text;
+            string alt = textBoxAltitude.Text;
+            string f = textBoxFreefall.Text;
+            string d = textBoxDate.Text;
             float x = 0.1f;
             float y = 20f;
 

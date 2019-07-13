@@ -20,9 +20,9 @@ namespace Manifest
         public ImageList Imagelist = new ImageList();
         int searchIndex;
         int tmpLoadNum = 1;
-        String selectedLoad = "";
+        string selectedLoad = "";
         int imageIndex = 0;
-        List<String> selectedPeople = new List<String>();
+        List<string> selectedPeople = new List<string>();
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Form1()
@@ -69,7 +69,7 @@ namespace Manifest
             }
 
             // Retrieve all image files for logos used to group tandems/AFF
-            String[] ImageFiles = Directory.GetFiles(@"C:\test");
+            string[] ImageFiles = Directory.GetFiles(@"C:\test");
             foreach (var file in ImageFiles)
             {
                 // Add images to Imagelist
@@ -171,10 +171,10 @@ namespace Manifest
                     {
                         // Update the first item in the list to have correct number of slots left
                         loadInfo = c.Items[0];
-                        String[] pieces = loadInfo.Text.Split('-');
-                        String slots = pieces[2].Replace("slots", "").Trim();
-                        Int32 num = 0;
-                        Int32.TryParse(slots, out num);
+                        string[] pieces = loadInfo.Text.Split('-');
+                        string slots = pieces[2].Replace("slots", "").Trim();
+                        int num = 0;
+                        int.TryParse(slots, out num);
                         if (addTandemWindow.instructor2orVideo.Trim() != "") // Has video, so subtract 3
                             num = num - 3;
                         else
@@ -213,10 +213,10 @@ namespace Manifest
                     {
                         // Update the first item in the list to have correct number of slots left
                         loadInfo = c.Items[0];
-                        String[] pieces = loadInfo.Text.Split('-');
-                        String slots = pieces[2].Replace("slots", "").Trim();
-                        Int32 num = 0;
-                        Int32.TryParse(slots, out num);
+                        string[] pieces = loadInfo.Text.Split('-');
+                        string slots = pieces[2].Replace("slots", "").Trim();
+                        int num = 0;
+                        int.TryParse(slots, out num);
                         if (addTandemWindow.instructor2orVideo.Trim() != "") // Has 2 instructors, so subtract 3
                             num = num - 3;
                         else
@@ -254,11 +254,11 @@ namespace Manifest
                         // Update the first item in the list to have correct number of slots left
                         loadInfo = c.Items[0];
 
-                        String[] pieces = loadInfo.Text.Split('-');
-                        String slots = pieces[2].Replace("slots", "").Trim();
+                        string[] pieces = loadInfo.Text.Split('-');
+                        string slots = pieces[2].Replace("slots", "").Trim();
 
-                        Int32 num = 0;
-                        Int32.TryParse(slots, out num);
+                        int num = 0;
+                        int.TryParse(slots, out num);
 
                         num = num - 1;
 
@@ -300,8 +300,8 @@ namespace Manifest
 
         public void searchForPeople()
         {
-            String searchText = textBoxSearchPeople.Text.ToLower();
-            Boolean found = false;
+            string searchText = textBoxSearchPeople.Text.ToLower();
+            bool found = false;
             int selectedIndex = listBoxPeople.SelectedIndex;
             int numItems = listBoxPeople.Items.Count;
 
@@ -343,7 +343,7 @@ namespace Manifest
 
         public void loadPeople()
         {
-            ObservableCollection<String> people = new ObservableCollection<String>();
+            ObservableCollection<string> people = new ObservableCollection<string>();
             List<PersonType> peopleFromDB = new List<PersonType>();
 
             using (var conn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
@@ -369,7 +369,7 @@ namespace Manifest
                 }
             }
 
-            String m, f, l;
+            string m, f, l;
             double p;
 
             using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
@@ -385,7 +385,7 @@ namespace Manifest
                         f = dr.GetString(1);
                         l = dr.GetString(2);
                         if (dr["paid"] != DBNull.Value)
-                            Double.TryParse(dr.GetString(3), out p);
+                            double.TryParse(dr.GetString(3), out p);
                         else
                             p = 0;
                         PersonType per = new PersonType(m, f, l, p);
@@ -470,7 +470,7 @@ namespace Manifest
             loadList.HeaderStyle = ColumnHeaderStyle.None;
             loadList.FullRowSelect = true;
             loadList.Columns.Add("", -2);
-            String aircraft = comboBoxLoadAircraft.Text;
+            string aircraft = comboBoxLoadAircraft.Text;
 
             // Get the number of max jumpers for this aircraft
             int num = 0;
@@ -572,7 +572,7 @@ namespace Manifest
         void load_click(object sender, EventArgs e)
         {
             ListView lv = (ListView)sender;
-            String load = lv.Items[0].Text.Split('-')[0];
+            string load = lv.Items[0].Text.Split('-')[0];
             selectedLoad = load;
             labelSelectedLoad.Text = selectedLoad;
             selectedPeople.Clear();
@@ -587,10 +587,10 @@ namespace Manifest
         {
             try
             {
-                String item = listBoxPeople.GetItemText(listBoxPeople.SelectedItem);
-                String[] splitString = item.Split('-');
-                String manNum = splitString[0];
-                String name = splitString[1];
+                string item = listBoxPeople.GetItemText(listBoxPeople.SelectedItem);
+                string[] splitString = item.Split('-');
+                string manNum = splitString[0];
+                string name = splitString[1];
                 DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this person from the database?\n\nManifest Number: " + manNum + "\nName: " + name + "\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -626,21 +626,21 @@ namespace Manifest
             buttonAddPerson.Hide();
             try
             {
-                String item = listBoxPeople.GetItemText(listBoxPeople.SelectedItem);
-                String[] splitString = item.Split('-');
-                String manNum = splitString[0].Trim();
-                String name = splitString[1].Trim();
-                String firstName = name.Split(' ')[0];
-                String lastName = name.Split(' ')[1];
+                string item = listBoxPeople.GetItemText(listBoxPeople.SelectedItem);
+                string[] splitString = item.Split('-');
+                string manNum = splitString[0].Trim();
+                string name = splitString[1].Trim();
+                string firstName = name.Split(' ')[0];
+                string lastName = name.Split(' ')[1];
                 textBoxManifestNumber.Text = manNum;
                 textBoxFirstName.Text = firstName;
                 textBoxLastName.Text = lastName;
 
                 // Get their checkbox statuses from the database
-                Boolean t = false;
-                Boolean a = false;
-                Boolean c = false;
-                Boolean v = false;
+                bool t = false;
+                bool a = false;
+                bool c = false;
+                bool v = false;
 
                 using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
                 using (SqlCommand cmd = cn.CreateCommand())
@@ -675,27 +675,27 @@ namespace Manifest
 
         private void buttonSavePerson_Click(object sender, EventArgs e)
         {
-            String manNum = textBoxManifestNumber.Text;
+            string manNum = textBoxManifestNumber.Text;
             manNum = manNum.Replace("'", "");
-            String fName = textBoxFirstName.Text;
+            string fName = textBoxFirstName.Text;
             fName = fName.Replace("'", "");
-            String lName = textBoxLastName.Text;
+            string lName = textBoxLastName.Text;
             lName = lName.Replace("'", "");
-            Boolean ti = checkBoxTI.Checked;
-            Boolean affi = checkBoxAFF.Checked;
-            Boolean coach = checkBoxCoach.Checked;
-            Boolean video = checkBoxVideo.Checked;
+            bool ti = checkBoxTI.Checked;
+            bool affi = checkBoxAFF.Checked;
+            bool coach = checkBoxCoach.Checked;
+            bool video = checkBoxVideo.Checked;
 
-            String t = "0";
+            string t = "0";
             if (ti)
                 t = "1";
-            String a = "0";
+            string a = "0";
             if (affi)
                 a = "1";
-            String c = "0";
+            string c = "0";
             if (coach)
                 c = "1";
-            String v = "0";
+            string v = "0";
             if (video)
                 v = "1";
 
@@ -725,27 +725,27 @@ namespace Manifest
 
         private void buttonAddPerson_Click(object sender, EventArgs e)
         {
-            String manNum = textBoxManifestNumber.Text;
+            string manNum = textBoxManifestNumber.Text;
             manNum = manNum.Replace("'", "");
-            String fName = textBoxFirstName.Text;
+            string fName = textBoxFirstName.Text;
             fName = fName.Replace("'", "");
-            String lName = textBoxLastName.Text;
+            string lName = textBoxLastName.Text;
             lName = lName.Replace("'", "");
-            Boolean ti = checkBoxTI.Checked;
-            Boolean affi = checkBoxAFF.Checked;
-            Boolean coach = checkBoxCoach.Checked;
-            Boolean video = checkBoxVideo.Checked;
+            bool ti = checkBoxTI.Checked;
+            bool affi = checkBoxAFF.Checked;
+            bool coach = checkBoxCoach.Checked;
+            bool video = checkBoxVideo.Checked;
 
-            String t = "0";
+            string t = "0";
             if (ti)
                 t = "1";
-            String a = "0";
+            string a = "0";
             if (affi)
                 a = "1";
-            String c = "0";
+            string c = "0";
             if (coach)
                 c = "1";
-            String v = "0";
+            string v = "0";
             if (video)
                 v = "1";
 
@@ -818,10 +818,10 @@ namespace Manifest
 
         private void buttonAddAircraftSubmit_Click(object sender, EventArgs e)
         {
-            String name = textBoxAircraftName.Text;
+            string name = textBoxAircraftName.Text;
             int cap = (int)numericUpDownMaxJumpers.Value;
 
-            if (String.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 MessageBox.Show("Please enter a name for this aircraft.");
                 return;
@@ -860,8 +860,8 @@ namespace Manifest
 
         public void loadAircraft()
         {
-            ObservableCollection<String> aircraft = new ObservableCollection<String>();
-            ObservableCollection<String> aircraftNames = new ObservableCollection<String>();
+            ObservableCollection<string> aircraft = new ObservableCollection<string>();
+            ObservableCollection<string> aircraftNames = new ObservableCollection<string>();
             List<AircraftType> aircraftFromDB = new List<AircraftType>();
 
             using (var conn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
@@ -876,7 +876,7 @@ namespace Manifest
                 }
             }
 
-            String an;
+            string an;
             int c;
 
             using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
@@ -909,10 +909,10 @@ namespace Manifest
 
         private void buttonSaveAircraft_Click(object sender, EventArgs e)
         {
-            String name = textBoxAircraftName.Text;
+            string name = textBoxAircraftName.Text;
             int cap = (int)numericUpDownMaxJumpers.Value;
 
-            if (String.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 MessageBox.Show("Please enter a name for this aircraft.");
                 return;
@@ -963,13 +963,13 @@ namespace Manifest
         {
             // Make the aircraft name read-only
             textBoxAircraftName.Enabled = false;
-            String item = listBoxAircraft.GetItemText(listBoxAircraft.SelectedItem);
-            String[] splitString = item.Split(new string[] { " - Max jumpers " }, StringSplitOptions.None);
-            String name = splitString[0].Trim();
-            String cap = splitString[1].Trim();
+            string item = listBoxAircraft.GetItemText(listBoxAircraft.SelectedItem);
+            string[] splitString = item.Split(new string[] { " - Max jumpers " }, StringSplitOptions.None);
+            string name = splitString[0].Trim();
+            string cap = splitString[1].Trim();
             int capacity = 0;
             textBoxAircraftName.Text = name;
-            Int32.TryParse(cap, out capacity);
+            int.TryParse(cap, out capacity);
             numericUpDownMaxJumpers.Value = capacity;
 
             labelEditDetailsAircraft.Text = "Editing details for " + name + " with max jumpers " + capacity + ".";
@@ -985,9 +985,9 @@ namespace Manifest
             DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this aircrafit?\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
             {
-                String item = listBoxAircraft.GetItemText(listBoxAircraft.SelectedItem);
-                String[] splitString = item.Split(new string[] { " - Max jumpers " }, StringSplitOptions.None);
-                String name = splitString[0].Trim();
+                string item = listBoxAircraft.GetItemText(listBoxAircraft.SelectedItem);
+                string[] splitString = item.Split(new string[] { " - Max jumpers " }, StringSplitOptions.None);
+                string name = splitString[0].Trim();
 
                 using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
                 using (SqlCommand cmd = cn.CreateCommand())
@@ -1025,8 +1025,8 @@ namespace Manifest
             // Delete the selected entries
 
             // If deleting a tandem, must select all people to delete
-            String load = selectedLoad;
-            String manNum = "";
+            string load = selectedLoad;
+            string manNum = "";
 
             foreach (ListView c in panelLoads.Controls)
             {
@@ -1034,7 +1034,7 @@ namespace Manifest
                 {
                     foreach (ListViewItem listitem in c.Items) // For each item in the load
                     {
-                        foreach (String item in selectedPeople) // For each of the selected people
+                        foreach (string item in selectedPeople) // For each of the selected people
                         {
                             if (listitem.ToString().Contains(item)) // If they match an entry in the list, remove them
                             {
@@ -1055,10 +1055,10 @@ namespace Manifest
                                 addLog(load, manNum);
 
                                 ListViewItem loadInfo = c.Items[0];
-                                String[] pieces = loadInfo.Text.Split('-');
-                                String slots = pieces[2].Replace("slots", "").Trim();
-                                Int32 num = 0;
-                                Int32.TryParse(slots, out num);
+                                string[] pieces = loadInfo.Text.Split('-');
+                                string slots = pieces[2].Replace("slots", "").Trim();
+                                int num = 0;
+                                int.TryParse(slots, out num);
                                 num = num + 1;
 
                                 if (num > 0) // If load is full, color it red
@@ -1079,8 +1079,8 @@ namespace Manifest
 
         private void printCertificate()
         {
-            String load = selectedLoad;
-            String manNum = "";
+            string load = selectedLoad;
+            string manNum = "";
 
             foreach (ListView c in panelLoads.Controls)
             {
@@ -1088,7 +1088,7 @@ namespace Manifest
                 {
                     foreach (ListViewItem listitem in c.Items) // For each item in the load
                     {
-                        foreach (String item in selectedPeople) // For each of the selected people
+                        foreach (string item in selectedPeople) // For each of the selected people
                         {
                             if (listitem.ToString().Contains(item)) // If selected
                             {
@@ -1106,9 +1106,9 @@ namespace Manifest
                                 } // Tandems don't have a manifest number so naturally this fails
 
                                 // Print!!
-                                String studentname = "Joe Tandem";
-                                String aircraft = "Super King Air";
-                                String instructor = "TI Jim";
+                                string studentname = "Joe Tandem";
+                                string aircraft = "Super King Air";
+                                string instructor = "TI Jim";
                                 FormPrintCertificate printCert = new FormPrintCertificate(studentname, aircraft, instructor);
                                 printCert.ShowDialog();
                             }
@@ -1135,17 +1135,17 @@ namespace Manifest
             }
         }
 
-        private void addLog(String loadNum, String manifestNum, String price)
+        private void addLog(string loadNum, string manifestNum, string price)
         {
             log.Info("\nLoad " + loadNum + " added number " + manifestNum + " $" + price);
         }
 
-        private void addLog(String loadNum, String manifestNum)
+        private void addLog(string loadNum, string manifestNum)
         {
             log.Info("\nLoad " + loadNum + " removed number " + manifestNum);
         }
 
-        private void addLog(String loadNum)
+        private void addLog(string loadNum)
         {
             log.Info("\nLoad " + loadNum + " created.");
         }

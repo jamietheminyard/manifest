@@ -8,10 +8,10 @@ namespace Manifest
 {
     class AircraftType
     {
-        private String name;
+        private string name;
         private int capacity;
 
-        public AircraftType(String n, int c)
+        public AircraftType(string n, int c)
         {
             if (string.IsNullOrWhiteSpace(n))
                 throw new Exception("Aircraft name cannot be blank or null.");
@@ -21,7 +21,7 @@ namespace Manifest
             this.capacity = c;
         }
 
-        public String getName()
+        public string getName()
         {
             return name;
         }

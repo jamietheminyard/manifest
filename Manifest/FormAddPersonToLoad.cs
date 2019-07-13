@@ -34,7 +34,7 @@ namespace Manifest
 
         public DialogResult result { get; set; }
 
-        public FormAddPersonToLoad(String l)
+        public FormAddPersonToLoad(string l)
         {
             InitializeComponent();
             this.KeyUp += new KeyEventHandler(this.KeyPressHandler);
@@ -61,9 +61,9 @@ namespace Manifest
             this.KeyDown += new KeyEventHandler(this.FormAddPersonToLoad_KeyDown);
 
             // Load the instructors and videographers
-            String num;
-            String fname;
-            String lname;
+            string num;
+            string fname;
+            string lname;
 
             using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
             using (SqlCommand cmd = cn.CreateCommand())
@@ -197,17 +197,17 @@ namespace Manifest
             // Populate the other fields
             textBoxAltitude.Text = "14500";
 
-            String selected = comboBoxJumpType.Items[comboBoxJumpType.SelectedIndex].ToString();
-            String price = selected.Split('-')[1].Replace("$", "");
+            string selected = comboBoxJumpType.Items[comboBoxJumpType.SelectedIndex].ToString();
+            string price = selected.Split('-')[1].Replace("$", "");
             textBoxPrice.Text = price.Trim();
         }
 
         private void textBoxManNum_Leave(object sender, EventArgs e)
         {
             // Pull up this manifest number's name
-            String num = textBoxManNum.Text.Trim();
-            String fname = "";
-            String lname = "";
+            string num = textBoxManNum.Text.Trim();
+            string fname = "";
+            string lname = "";
 
             if (num == "")
                 return;
