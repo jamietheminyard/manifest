@@ -1183,17 +1183,17 @@
             }
         }
 
-        private void AddLog(string loadNum, string manifestNum, string price)
+        private static void AddLog(string loadNum, string manifestNum, string price)
         {
             Log.Info("\nLoad " + loadNum + " added number " + manifestNum + " $" + price);
         }
 
-        private void AddLog(string loadNum, string manifestNum)
+        private static void AddLog(string loadNum, string manifestNum)
         {
             Log.Info("\nLoad " + loadNum + " removed number " + manifestNum);
         }
 
-        private void AddLog(string loadNum)
+        private static void AddLog(string loadNum)
         {
             Log.Info("\nLoad " + loadNum + " created.");
         }
