@@ -12,7 +12,6 @@
 
     public partial class Form1 : Form
     {
-        public ImageList Imagelist = new ImageList();
         private int searchIndex;
         private int tmpLoadNum = 1;
         private string selectedLoad = "";
@@ -68,7 +67,7 @@
             foreach (var file in imageFiles)
             {
                 // Add images to Imagelist
-                this.Imagelist.Images.Add(Image.FromFile(file));
+                this.imageList.Images.Add(Image.FromFile(file));
             }
         }
 
@@ -486,8 +485,8 @@
         {
             ListView loadList = new ListView();
 
-            loadList.LargeImageList = this.Imagelist;
-            loadList.SmallImageList = this.Imagelist;
+            loadList.LargeImageList = this.imageList;
+            loadList.SmallImageList = this.imageList;
 
             loadList.View = View.Details;
 

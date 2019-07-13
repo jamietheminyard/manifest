@@ -4,13 +4,13 @@
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1014" Action="None" />
     <Rule Id="CA1031" Action="None" />
-    <Rule Id="CA1051" Action="None" />
     <Rule Id="CA1303" Action="None" />
     <Rule Id="CA1304" Action="None" />
     <Rule Id="CA1305" Action="None" />
     <Rule Id="CA1307" Action="None" />
     <Rule Id="CA1501" Action="None" />
     <Rule Id="CA1502" Action="None" />
+    <Rule Id="CA1506" Action="None" />
     <Rule Id="CA1707" Action="None" />
     <Rule Id="CA1806" Action="None" />
     <Rule Id="CA1820" Action="None" />
@@ -23,9 +23,9 @@
   <Rules AnalyzerId="Microsoft.CodeQuality.Analyzers" RuleNamespace="Microsoft.CodeQuality.Analyzers">
     <Rule Id="CA1014" Action="None" />
     <Rule Id="CA1031" Action="None" />
-    <Rule Id="CA1051" Action="None" />
     <Rule Id="CA1501" Action="None" />
     <Rule Id="CA1502" Action="None" />
+    <Rule Id="CA1506" Action="None" />
     <Rule Id="CA1508" Action="None" />
     <Rule Id="CA1707" Action="None" />
     <Rule Id="CA1806" Action="None" />
@@ -53,7 +53,6 @@
     <Rule Id="SA1201" Action="None" />
     <Rule Id="SA1204" Action="None" />
     <Rule Id="SA1305" Action="None" />
-    <Rule Id="SA1401" Action="None" />
     <Rule Id="SA1600" Action="None" />
     <Rule Id="SA1601" Action="None" />
     <Rule Id="SA1633" Action="None" />
