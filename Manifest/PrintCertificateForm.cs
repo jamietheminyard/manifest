@@ -18,44 +18,46 @@
             this.aircraft = a;
             this.instructor = i;
 
-            this.textBoxName.Text = this.studentname;
-            this.textBoxAircraft.Text = this.aircraft;
-            this.textBoxInstructor.Text = this.instructor;
-            this.textBoxAltitude.Text = "14,500";
-            this.textBoxFreefall.Text = "60";
-            this.textBoxDate.Text = DateTime.Today.ToString("dd MMMM yyyy");
+            this.nameTextBox.Text = this.studentname;
+            this.aircraftTextBox.Text = this.aircraft;
+            this.instructorTextBox.Text = this.instructor;
+            this.altitudeTextBox.Text = "14,500";
+            this.freefallTextBox.Text = "60";
+            this.dateTextBox.Text = DateTime.Today.ToString("dd MMMM yyyy");
         }
 
-        private void ButtonPrint_Click(object sender, EventArgs e)
+        private void PrintButton_Click(object sender, EventArgs e)
         {
-            using (PrintDocument pd = new PrintDocument())
+            using (PrintDocument printDocument = new PrintDocument())
             {
-                pd.PrintPage += this.Pd_PrintPage;
+                printDocument.PrintPage += this.PrintDocument_PrintPage;
 
-                pd.Print();
+                printDocument.Print();
             }
 
             this.Close();
         }
 
-        private void Pd_PrintPage(object sender, PrintPageEventArgs e)
+        private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
-            string n = this.textBoxName.Text;
-            string a = this.textBoxAircraft.Text;
-            string i = this.textBoxInstructor.Text;
-            string alt = this.textBoxAltitude.Text;
-            string f = this.textBoxFreefall.Text;
-            string d = this.textBoxDate.Text;
+            PrintDocument printDocument = sender as PrintDocument;
+
+            string n = this.nameTextBox.Text;
+            string a = this.aircraftTextBox.Text;
+            string i = this.instructorTextBox.Text;
+            string alt = this.altitudeTextBox.Text;
+            string f = this.freefallTextBox.Text;
+            string d = this.dateTextBox.Text;
             float x = 0.1f;
             float y = 20f;
 
-            float availableWidth = (float)Math.Floor(((PrintDocument)sender).OriginAtMargins
+            float availableWidth = (float)Math.Floor(printDocument.OriginAtMargins
                 ? e.MarginBounds.Width
                 : (e.PageSettings.Landscape
                     ? e.PageSettings.PrintableArea.Height
                     : e.PageSettings.PrintableArea.Width));
 
-            float availableHeight = (float)Math.Floor(((PrintDocument)sender).OriginAtMargins
+            float availableHeight = (float)Math.Floor(printDocument.OriginAtMargins
                 ? e.MarginBounds.Height
                 : (e.PageSettings.Landscape
                     ? e.PageSettings.PrintableArea.Width

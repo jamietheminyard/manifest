@@ -22,13 +22,13 @@
             this.Instructor2orVideoManNum = string.Empty;
 
             // Default to the first item in the price list
-            this.comboBoxJumpType.SelectedIndex = 0;
+            this.jumpTypeComboBox.SelectedIndex = 0;
 
             // Set the DialogResult to
             this.Result = DialogResult.None;
 
             // Display which load is selected
-            this.labelLoad.Text = l;
+            this.loadLabel.Text = l;
 
             // Load the instructors and videographers
             string num;
@@ -47,7 +47,7 @@
                         num = dr.GetString(0);
                         fname = dr.GetString(1);
                         lname = dr.GetString(2);
-                        this.comboBoxInstructors.Items.Add(num + " - " + fname + " " + lname);
+                        this.tandemInstructorOrAffInstructor1ComboBox.Items.Add(num + " - " + fname + " " + lname);
                     }
                 }
             }
@@ -64,7 +64,7 @@
                         num = dr.GetString(0);
                         fname = dr.GetString(1);
                         lname = dr.GetString(2);
-                        this.comboBoxVideo.Items.Add(num + " - " + fname + " " + lname);
+                        this.videographerOrAffInstructor2ComboBox.Items.Add(num + " - " + fname + " " + lname);
                     }
                 }
             }
@@ -108,15 +108,15 @@
             }
         }
 
-        private void ButtonAdd_Click(object sender, EventArgs e)
+        private void AddPersonButton_Click(object sender, EventArgs e)
         {
-            this.JumpType = this.comboBoxJumpType.Text;
-            this.ManNum = this.textBoxManNum.Text;
-            this.Altitude = this.textBoxAltitude.Text;
-            this.Price = this.textBoxPrice.Text;
-            this.JumperName = this.textBoxName.Text;
-            this.Instructor1 = this.comboBoxInstructors.Text;
-            this.Instructor2orVideo = this.comboBoxVideo.Text;
+            this.JumpType = this.jumpTypeComboBox.Text;
+            this.ManNum = this.manfestNumberTextBox.Text;
+            this.Altitude = this.altitudeTextBox.Text;
+            this.Price = this.priceTextBox.Text;
+            this.JumperName = this.jumberNameTextBox.Text;
+            this.Instructor1 = this.tandemInstructorOrAffInstructor1ComboBox.Text;
+            this.Instructor2orVideo = this.videographerOrAffInstructor2ComboBox.Text;
 
             // If tandem is selected, ensure jumper name isn't blank and an instructor is selected
             if (this.JumpType.Contains("TAN"))
@@ -182,20 +182,20 @@
             this.Close();
         }
 
-        private void ComboBoxJumpType_SelectedIndexChanged(object sender, EventArgs e)
+        private void JumpTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Populate the other fields
-            this.textBoxAltitude.Text = "14500";
+            this.altitudeTextBox.Text = "14500";
 
-            string selected = this.comboBoxJumpType.Items[this.comboBoxJumpType.SelectedIndex].ToString();
+            string selected = this.jumpTypeComboBox.Items[this.jumpTypeComboBox.SelectedIndex].ToString();
             string price = selected.Split('-')[1].Replace("$", string.Empty);
-            this.textBoxPrice.Text = price.Trim();
+            this.priceTextBox.Text = price.Trim();
         }
 
-        private void TextBoxManNum_Leave(object sender, EventArgs e)
+        private void ManfestNumberTextBox_Leave(object sender, EventArgs e)
         {
             // Pull up this manifest number's name
-            string num = this.textBoxManNum.Text.Trim();
+            string num = this.manfestNumberTextBox.Text.Trim();
             string fname = string.Empty;
             string lname = string.Empty;
 
@@ -219,7 +219,7 @@
                 }
             }
 
-            this.textBoxName.Text = fname + " " + lname;
+            this.jumberNameTextBox.Text = fname + " " + lname;
         }
     }
 }

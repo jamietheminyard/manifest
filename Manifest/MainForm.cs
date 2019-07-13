@@ -30,27 +30,27 @@
 
             // show/hide UI components
             this.HideEditPersonUI();
-            this.buttonSavePerson.Hide();
-            this.buttonAddPerson.Hide();
-            this.buttonCancel.Hide();
-            this.labelEditDetails.Hide();
+            this.addPersonSaveButton.Hide();
+            this.addPersonSubmitButton.Hide();
+            this.addPersonCancelButton.Hide();
+            this.editDetailsLabel.Hide();
 
             this.HideEditAircraftUI();
-            this.buttonAddAircraftSubmit.Hide();
-            this.buttonSaveAircraft.Hide();
-            this.buttonCancelAircraft.Hide();
+            this.addAircraftSubmitButton.Hide();
+            this.addAircraftSaveButton.Hide();
+            this.addAircraftCancelButton.Hide();
 
             this.WindowState = FormWindowState.Maximized;
-            this.tabControl.SelectedTab = this.tabPageLoads;
+            this.tabControl.SelectedTab = this.loadsTabPage;
 
-            this.numericUpDownMaxJumpers.Value = 1;
+            this.maxJumpersNumericUpDown.Value = 1;
             this.LoadPeople();
             this.LoadAircraft();
 
             // Default to the King Air
             try
             {
-                this.comboBoxLoadAircraft.SelectedIndex = this.comboBoxLoadAircraft.Items.IndexOf("King Air");
+                this.loadAircraftComboBox.SelectedIndex = this.loadAircraftComboBox.Items.IndexOf("King Air");
             }
             catch (Exception)
             {
@@ -84,16 +84,16 @@
         {
             if (e.KeyCode == Keys.Right)
             {
-                Point current = this.panelLoads.AutoScrollPosition;
+                Point current = this.loadsPanel.AutoScrollPosition;
                 Point scrolled = new Point(current.X + 50, current.Y);
-                this.panelLoads.AutoScrollPosition = scrolled;
+                this.loadsPanel.AutoScrollPosition = scrolled;
             }
 
             if (e.KeyCode == Keys.Left)
             {
-                Point current = this.panelLoads.AutoScrollPosition;
+                Point current = this.loadsPanel.AutoScrollPosition;
                 Point scrolled = new Point(current.X - 50, current.Y);
-                this.panelLoads.AutoScrollPosition = scrolled;
+                this.loadsPanel.AutoScrollPosition = scrolled;
             }
 
             if (e.KeyCode == Keys.Insert)
@@ -109,7 +109,7 @@
 
         private void HandleAddPersonToLoad()
         {
-            if (this.panelLoads.Controls.Count == 0)
+            if (this.loadsPanel.Controls.Count == 0)
             {
                 MessageBox.Show("Please create a load first.", "Create a load", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
@@ -134,7 +134,7 @@
                 ListViewItem loadInfo;
 
                 // Check to see if this person's manifest number is already manifested
-                foreach (ListView c in this.panelLoads.Controls)
+                foreach (ListView c in this.loadsPanel.Controls)
                 {
                     foreach (ListViewItem i in c.Items)
                     {
@@ -168,7 +168,7 @@
                 }
 
                 // Proceed with adding them to the load
-                foreach (ListView c in this.panelLoads.Controls)
+                foreach (ListView c in this.loadsPanel.Controls)
                 {
                     if (c.Items[0].ToString().Contains(this.selectedLoad))
                     {
@@ -318,7 +318,7 @@
             MessageBox.Show("The Manifest Program\nCopyright 2018-" + DateTime.Now.ToString("yyyy") + "\nAll rights reserved", "About");
         }
 
-        private void SearchPeople_KeyDown(object sender, KeyEventArgs e)
+        private void SearchPeopleTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -328,13 +328,13 @@
 
         private void SearchForPeople()
         {
-            string searchText = this.textBoxSearchPeople.Text.ToLower();
+            string searchText = this.searchPeopleTextBox.Text.ToLower();
             bool found = false;
-            int selectedIndex = this.listBoxPeople.SelectedIndex;
-            int numItems = this.listBoxPeople.Items.Count;
+            int selectedIndex = this.peopleListBox.SelectedIndex;
+            int numItems = this.peopleListBox.Items.Count;
 
             // If the first item in the list is selected and matches, just increment search index and return
-            if (selectedIndex == 0 && this.searchIndex == 0 && this.listBoxPeople.Items[0].ToString().ToLower().Contains(searchText))
+            if (selectedIndex == 0 && this.searchIndex == 0 && this.peopleListBox.Items[0].ToString().ToLower().Contains(searchText))
             {
                 this.searchIndex++;
                 return;
@@ -344,7 +344,7 @@
             {
                 this.searchIndex = 0;
                 selectedIndex = 0;
-                this.listBoxPeople.SelectedIndex = 0;
+                this.peopleListBox.SelectedIndex = 0;
             }
             else
             {
@@ -352,12 +352,12 @@
             }
 
             // Starting at the search index, look for the next instance of the search text
-            for (int i = this.searchIndex; i < this.listBoxPeople.Items.Count; i++)
+            for (int i = this.searchIndex; i < this.peopleListBox.Items.Count; i++)
             {
-                if (this.listBoxPeople.Items[i].ToString().ToLower().Contains(searchText))
+                if (this.peopleListBox.Items[i].ToString().ToLower().Contains(searchText))
                 {
                     found = true;
-                    this.listBoxPeople.SelectedIndex = i;
+                    this.peopleListBox.SelectedIndex = i;
                     this.searchIndex = i;
                     break;
                 }
@@ -367,7 +367,7 @@
             {
                 MessageBox.Show("Reached the end of the list.");
                 this.searchIndex = 0;
-                this.listBoxPeople.SelectedIndex = 0;
+                this.peopleListBox.SelectedIndex = 0;
             }
         }
 
@@ -436,64 +436,64 @@
                 people.Add(pt.GetManifestNumber() + " - " + pt.GetFirstName() + " " + pt.GetLastName());
             }
 
-            this.listBoxPeople.DataSource = people;
+            this.peopleListBox.DataSource = people;
         }
 
         private void ShowEditPersonUI()
         {
-            this.labelManifestNumber.Show();
-            this.textBoxManifestNumber.Show();
-            this.labelFirstName.Show();
-            this.textBoxFirstName.Show();
-            this.labelLastName.Show();
-            this.textBoxLastName.Show();
-            this.checkBoxTI.Show();
-            this.checkBoxAFF.Show();
-            this.checkBoxCoach.Show();
-            this.checkBoxVideo.Show();
+            this.manifestNumberLabel.Show();
+            this.manifestNumberTextBox.Show();
+            this.firstNameLabel.Show();
+            this.firstNameTextBox.Show();
+            this.lastNameLabel.Show();
+            this.lastNameTextBox.Show();
+            this.tandemInstructorCheckbox.Show();
+            this.affInstructorCheckbox.Show();
+            this.coachCheckbox.Show();
+            this.videographerCheckbox.Show();
         }
 
         private void HideEditPersonUI()
         {
-            this.labelManifestNumber.Hide();
-            this.textBoxManifestNumber.Text = string.Empty;
-            this.textBoxManifestNumber.Hide();
-            this.labelFirstName.Hide();
-            this.textBoxFirstName.Text = string.Empty;
-            this.textBoxFirstName.Hide();
-            this.labelLastName.Hide();
-            this.textBoxLastName.Text = string.Empty;
-            this.textBoxLastName.Hide();
-            this.checkBoxTI.Checked = false;
-            this.checkBoxTI.Hide();
-            this.checkBoxAFF.Checked = false;
-            this.checkBoxAFF.Hide();
-            this.checkBoxCoach.Checked = false;
-            this.checkBoxCoach.Hide();
-            this.checkBoxVideo.Checked = false;
-            this.checkBoxVideo.Hide();
+            this.manifestNumberLabel.Hide();
+            this.manifestNumberTextBox.Text = string.Empty;
+            this.manifestNumberTextBox.Hide();
+            this.firstNameLabel.Hide();
+            this.firstNameTextBox.Text = string.Empty;
+            this.firstNameTextBox.Hide();
+            this.lastNameLabel.Hide();
+            this.lastNameTextBox.Text = string.Empty;
+            this.lastNameTextBox.Hide();
+            this.tandemInstructorCheckbox.Checked = false;
+            this.tandemInstructorCheckbox.Hide();
+            this.affInstructorCheckbox.Checked = false;
+            this.affInstructorCheckbox.Hide();
+            this.coachCheckbox.Checked = false;
+            this.coachCheckbox.Hide();
+            this.videographerCheckbox.Checked = false;
+            this.videographerCheckbox.Hide();
         }
 
-        private void ButtonAddNewPerson_Click(object sender, EventArgs e)
+        private void AddNewPersonButton_Click(object sender, EventArgs e)
         {
             // Display the edit UI components
             this.ShowEditPersonUI();
-            this.buttonAddPerson.Show();
-            this.buttonCancel.Show();
-            this.buttonSavePerson.Hide();
+            this.addPersonSubmitButton.Show();
+            this.addPersonCancelButton.Show();
+            this.addPersonSaveButton.Hide();
 
             // Clear the edit UI components
-            this.textBoxManifestNumber.Text = string.Empty;
-            this.textBoxFirstName.Text = string.Empty;
-            this.textBoxLastName.Text = string.Empty;
+            this.manifestNumberTextBox.Text = string.Empty;
+            this.firstNameTextBox.Text = string.Empty;
+            this.lastNameTextBox.Text = string.Empty;
         }
 
-        private void ButtonAddTandem_Click(object sender, EventArgs e)
+        private void AddPersonToLoad_Click(object sender, EventArgs e)
         {
             this.HandleAddPersonToLoad();
         }
 
-        private void ButtonNewLoad_Click(object sender, EventArgs e)
+        private void NewLoadButton_Click(object sender, EventArgs e)
         {
             ListView loadList = new ListView();
 
@@ -505,7 +505,7 @@
             loadList.HeaderStyle = ColumnHeaderStyle.None;
             loadList.FullRowSelect = true;
             loadList.Columns.Add(string.Empty, -2);
-            string aircraft = this.comboBoxLoadAircraft.Text;
+            string aircraft = this.loadAircraftComboBox.Text;
 
             // Get the number of max jumpers for this aircraft
             int num = 0;
@@ -562,16 +562,16 @@
             loadList.Height = 500;
             loadList.Columns[0].Width = this.Width - 50;
 
-            loadList.Click += new EventHandler(this.Load_click);
+            loadList.Click += new EventHandler(this.LoadList_Click);
 
-            this.panelLoads.Controls.Add(loadList);
+            this.loadsPanel.Controls.Add(loadList);
             AddLog(this.tmpLoadNum.ToString());
             this.tmpLoadNum++;
 
-            if (this.panelLoads.Controls.Count == 1)
+            if (this.loadsPanel.Controls.Count == 1)
             {
                 this.selectedLoad = "Load 1";
-                this.labelSelectedLoad.Text = "Load 1";
+                this.selectedLoadLabel.Text = "Load 1";
             }
         }
 
@@ -604,12 +604,12 @@
    //             e.Effect = DragDropEffects.None;
         }
 
-        private void Load_click(object sender, EventArgs e)
+        private void LoadList_Click(object sender, EventArgs e)
         {
             ListView lv = (ListView)sender;
             string load = lv.Items[0].Text.Split('-')[0];
             this.selectedLoad = load;
-            this.labelSelectedLoad.Text = this.selectedLoad;
+            this.selectedLoadLabel.Text = this.selectedLoad;
             this.selectedPeople.Clear();
             for (int i = 0; i < lv.SelectedItems.Count; i++)
             {
@@ -618,11 +618,11 @@
             }
         }
 
-        private void ButtonDeletePerson_Click(object sender, EventArgs e)
+        private void DeletePersonButton_Click(object sender, EventArgs e)
         {
             try
             {
-                string item = this.listBoxPeople.GetItemText(this.listBoxPeople.SelectedItem);
+                string item = this.peopleListBox.GetItemText(this.peopleListBox.SelectedItem);
                 string[] splitString = item.Split('-');
                 string manNum = splitString[0];
                 string name = splitString[1];
@@ -641,7 +641,7 @@
 
                             // Hide the edit UI components
                             this.HideEditPersonUI();
-                            this.buttonSavePerson.Hide();
+                            this.addPersonSaveButton.Hide();
                         }
                     }
                 }
@@ -652,24 +652,24 @@
             }
         }
 
-        private void ButtonEditPerson_Click(object sender, EventArgs e)
+        private void EditPersonButton_Click(object sender, EventArgs e)
         {
             // Display the edit UI components
             this.ShowEditPersonUI();
-            this.buttonSavePerson.Show();
-            this.buttonCancel.Show();
-            this.buttonAddPerson.Hide();
+            this.addPersonSaveButton.Show();
+            this.addPersonCancelButton.Show();
+            this.addPersonSubmitButton.Hide();
             try
             {
-                string item = this.listBoxPeople.GetItemText(this.listBoxPeople.SelectedItem);
+                string item = this.peopleListBox.GetItemText(this.peopleListBox.SelectedItem);
                 string[] splitString = item.Split('-');
                 string manNum = splitString[0].Trim();
                 string name = splitString[1].Trim();
                 string firstName = name.Split(' ')[0];
                 string lastName = name.Split(' ')[1];
-                this.textBoxManifestNumber.Text = manNum;
-                this.textBoxFirstName.Text = firstName;
-                this.textBoxLastName.Text = lastName;
+                this.manifestNumberTextBox.Text = manNum;
+                this.firstNameTextBox.Text = firstName;
+                this.lastNameTextBox.Text = lastName;
 
                 // Get their checkbox statuses from the database
                 bool t = false;
@@ -694,13 +694,13 @@
                     }
                 }
 
-                this.checkBoxTI.Checked = t;
-                this.checkBoxAFF.Checked = a;
-                this.checkBoxCoach.Checked = c;
-                this.checkBoxVideo.Checked = v;
+                this.tandemInstructorCheckbox.Checked = t;
+                this.affInstructorCheckbox.Checked = a;
+                this.coachCheckbox.Checked = c;
+                this.videographerCheckbox.Checked = v;
 
-                this.labelEditDetails.Text = "Editing details for " + manNum.ToString() + " - " + firstName + " " + lastName;
-                this.labelEditDetails.Show();
+                this.editDetailsLabel.Text = "Editing details for " + manNum.ToString() + " - " + firstName + " " + lastName;
+                this.editDetailsLabel.Show();
             }
             catch (Exception x)
             {
@@ -708,18 +708,18 @@
             }
         }
 
-        private void ButtonSavePerson_Click(object sender, EventArgs e)
+        private void AddPersonSaveButton_Click(object sender, EventArgs e)
         {
-            string manNum = this.textBoxManifestNumber.Text;
+            string manNum = this.manifestNumberTextBox.Text;
             manNum = manNum.Replace("'", string.Empty);
-            string firstName = this.textBoxFirstName.Text;
+            string firstName = this.firstNameTextBox.Text;
             firstName = firstName.Replace("'", string.Empty);
-            string lastName = this.textBoxLastName.Text;
+            string lastName = this.lastNameTextBox.Text;
             lastName = lastName.Replace("'", string.Empty);
-            bool ti = this.checkBoxTI.Checked;
-            bool affi = this.checkBoxAFF.Checked;
-            bool coach = this.checkBoxCoach.Checked;
-            bool video = this.checkBoxVideo.Checked;
+            bool ti = this.tandemInstructorCheckbox.Checked;
+            bool affi = this.affInstructorCheckbox.Checked;
+            bool coach = this.coachCheckbox.Checked;
+            bool video = this.videographerCheckbox.Checked;
 
             string t = "0";
             if (ti)
@@ -762,25 +762,25 @@
 
                     // Hide the edit UI components
                     this.HideEditPersonUI();
-                    this.buttonSavePerson.Hide();
-                    this.buttonCancel.Hide();
-                    this.labelEditDetails.Hide();
+                    this.addPersonSaveButton.Hide();
+                    this.addPersonCancelButton.Hide();
+                    this.editDetailsLabel.Hide();
                 }
             }
         }
 
-        private void ButtonAddPerson_Click(object sender, EventArgs e)
+        private void AddPersonSubmitButton_Click(object sender, EventArgs e)
         {
-            string manNum = this.textBoxManifestNumber.Text;
+            string manNum = this.manifestNumberTextBox.Text;
             manNum = manNum.Replace("'", string.Empty);
-            string firstName = this.textBoxFirstName.Text;
+            string firstName = this.firstNameTextBox.Text;
             firstName = firstName.Replace("'", string.Empty);
-            string lastName = this.textBoxLastName.Text;
+            string lastName = this.lastNameTextBox.Text;
             lastName = lastName.Replace("'", string.Empty);
-            bool ti = this.checkBoxTI.Checked;
-            bool affi = this.checkBoxAFF.Checked;
-            bool coach = this.checkBoxCoach.Checked;
-            bool video = this.checkBoxVideo.Checked;
+            bool ti = this.tandemInstructorCheckbox.Checked;
+            bool affi = this.affInstructorCheckbox.Checked;
+            bool coach = this.coachCheckbox.Checked;
+            bool video = this.videographerCheckbox.Checked;
 
             string t = "0";
             if (ti)
@@ -825,58 +825,58 @@
 
                     // Hide the edit UI components
                     this.HideEditPersonUI();
-                    this.buttonCancel.Hide();
-                    this.buttonAddPerson.Hide();
+                    this.addPersonCancelButton.Hide();
+                    this.addPersonSubmitButton.Hide();
                 }
             }
         }
 
-        private void ButtonSearchPeople_Click(object sender, EventArgs e)
+        private void SearchPeopleButton_Click(object sender, EventArgs e)
         {
             this.SearchForPeople();
         }
 
-        private void ButtonCancel_Click(object sender, EventArgs e)
+        private void AddPersonCancelButton_Click(object sender, EventArgs e)
         {
             this.HideEditPersonUI();
-            this.buttonSavePerson.Hide();
-            this.buttonAddPerson.Hide();
-            this.buttonCancel.Hide();
-            this.labelEditDetails.Hide();
+            this.addPersonSaveButton.Hide();
+            this.addPersonSubmitButton.Hide();
+            this.addPersonCancelButton.Hide();
+            this.editDetailsLabel.Hide();
         }
 
         private void ShowEditAircraftUI()
         {
-            this.labelEditDetailsAircraft.Show();
-            this.labelAircraftName.Show();
-            this.textBoxAircraftName.Show();
-            this.labelMaxJumpers.Show();
-            this.numericUpDownMaxJumpers.Show();
+            this.editAircraftDetailLabel.Show();
+            this.aircraftNameLabel.Show();
+            this.aircraftNameTextBox.Show();
+            this.maxJumbersLabel.Show();
+            this.maxJumpersNumericUpDown.Show();
         }
 
         private void HideEditAircraftUI()
         {
-            this.labelEditDetailsAircraft.Hide();
-            this.labelAircraftName.Hide();
-            this.textBoxAircraftName.Text = string.Empty;
-            this.textBoxAircraftName.Hide();
-            this.labelMaxJumpers.Hide();
-            this.numericUpDownMaxJumpers.Value = 0;
-            this.numericUpDownMaxJumpers.Hide();
+            this.editAircraftDetailLabel.Hide();
+            this.aircraftNameLabel.Hide();
+            this.aircraftNameTextBox.Text = string.Empty;
+            this.aircraftNameTextBox.Hide();
+            this.maxJumbersLabel.Hide();
+            this.maxJumpersNumericUpDown.Value = 0;
+            this.maxJumpersNumericUpDown.Hide();
         }
 
-        private void ButtonCancelAircraft_Click(object sender, EventArgs e)
+        private void AddAircraftCancelButton_Click(object sender, EventArgs e)
         {
             this.HideEditAircraftUI();
-            this.buttonAddAircraftSubmit.Hide();
-            this.buttonSaveAircraft.Hide();
-            this.buttonCancelAircraft.Hide();
+            this.addAircraftSubmitButton.Hide();
+            this.addAircraftSaveButton.Hide();
+            this.addAircraftCancelButton.Hide();
         }
 
-        private void ButtonAddAircraftSubmit_Click(object sender, EventArgs e)
+        private void AddAircraftSubmitButton_Click(object sender, EventArgs e)
         {
-            string name = this.textBoxAircraftName.Text;
-            int cap = (int)this.numericUpDownMaxJumpers.Value;
+            string name = this.aircraftNameTextBox.Text;
+            int cap = (int)this.maxJumpersNumericUpDown.Value;
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -908,9 +908,9 @@
 
                     // Hide the edit UI components
                     this.HideEditAircraftUI();
-                    this.buttonAddAircraftSubmit.Hide();
-                    this.buttonSaveAircraft.Hide();
-                    this.buttonCancelAircraft.Hide();
+                    this.addAircraftSubmitButton.Hide();
+                    this.addAircraftSaveButton.Hide();
+                    this.addAircraftCancelButton.Hide();
                 }
             }
         }
@@ -960,14 +960,14 @@
                 aircraftNames.Add(plane.GetName());
             }
 
-            this.listBoxAircraft.DataSource = aircraft;
-            this.comboBoxLoadAircraft.DataSource = aircraftNames;
+            this.aircraftListBox.DataSource = aircraft;
+            this.loadAircraftComboBox.DataSource = aircraftNames;
         }
 
-        private void ButtonSaveAircraft_Click(object sender, EventArgs e)
+        private void AddAircraftSaveButton_Click(object sender, EventArgs e)
         {
-            string name = this.textBoxAircraftName.Text;
-            int cap = (int)this.numericUpDownMaxJumpers.Value;
+            string name = this.aircraftNameTextBox.Text;
+            int cap = (int)this.maxJumpersNumericUpDown.Value;
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -997,52 +997,52 @@
 
                     // Hide the edit UI components
                     this.HideEditAircraftUI();
-                    this.buttonAddAircraftSubmit.Hide();
-                    this.buttonSaveAircraft.Hide();
-                    this.buttonCancelAircraft.Hide();
+                    this.addAircraftSubmitButton.Hide();
+                    this.addAircraftSaveButton.Hide();
+                    this.addAircraftCancelButton.Hide();
                 }
             }
         }
 
-        private void ButtonAddAircraft_Click(object sender, EventArgs e)
+        private void AddAircraftButton_Click(object sender, EventArgs e)
         {
             this.ShowEditAircraftUI();
-            this.buttonAddAircraftSubmit.Show();
-            this.buttonSaveAircraft.Hide();
-            this.buttonCancelAircraft.Show();
-            this.labelEditDetailsAircraft.Hide();
+            this.addAircraftSubmitButton.Show();
+            this.addAircraftSaveButton.Hide();
+            this.addAircraftCancelButton.Show();
+            this.editAircraftDetailLabel.Hide();
 
             // Make the aircraft name read-write
-            this.textBoxAircraftName.Enabled = true;
+            this.aircraftNameTextBox.Enabled = true;
         }
 
-        private void ButtonEditAircraft_Click(object sender, EventArgs e)
+        private void EditAircraftButton_Click(object sender, EventArgs e)
         {
             // Make the aircraft name read-only
-            this.textBoxAircraftName.Enabled = false;
-            string item = this.listBoxAircraft.GetItemText(this.listBoxAircraft.SelectedItem);
+            this.aircraftNameTextBox.Enabled = false;
+            string item = this.aircraftListBox.GetItemText(this.aircraftListBox.SelectedItem);
             string[] splitString = item.Split(new string[] { " - Max jumpers " }, StringSplitOptions.None);
             string name = splitString[0].Trim();
             string cap = splitString[1].Trim();
             int capacity = 0;
-            this.textBoxAircraftName.Text = name;
+            this.aircraftNameTextBox.Text = name;
             int.TryParse(cap, out capacity);
-            this.numericUpDownMaxJumpers.Value = capacity;
+            this.maxJumpersNumericUpDown.Value = capacity;
 
-            this.labelEditDetailsAircraft.Text = "Editing details for " + name + " with max jumpers " + capacity + ".";
+            this.editAircraftDetailLabel.Text = "Editing details for " + name + " with max jumpers " + capacity + ".";
 
             this.ShowEditAircraftUI();
-            this.buttonAddAircraftSubmit.Hide();
-            this.buttonSaveAircraft.Show();
-            this.buttonCancelAircraft.Show();
+            this.addAircraftSubmitButton.Hide();
+            this.addAircraftSaveButton.Show();
+            this.addAircraftCancelButton.Show();
         }
 
-        private void ButtonDeleteAircraft_Click(object sender, EventArgs e)
+        private void DeleteAircraftButton_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this aircrafit?\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (dialogResult == DialogResult.Yes)
             {
-                string item = this.listBoxAircraft.GetItemText(this.listBoxAircraft.SelectedItem);
+                string item = this.aircraftListBox.GetItemText(this.aircraftListBox.SelectedItem);
                 string[] splitString = item.Split(new string[] { " - Max jumpers " }, StringSplitOptions.None);
                 string name = splitString[0].Trim();
 
@@ -1060,9 +1060,9 @@
             }
         }
 
-        private void ButtonAddFunJumper_Click(object sender, EventArgs e)
+        private void QuickAddButton_Click(object sender, EventArgs e)
         {
-            if (this.panelLoads.Controls.Count == 0)
+            if (this.loadsPanel.Controls.Count == 0)
             {
                 MessageBox.Show("Please create a load first.", "Create a load", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
@@ -1077,7 +1077,7 @@
             MessageBox.Show("The selected load is " + this.selectedLoad);
         }
 
-        private void ButtonDeletePersonFromLoad_Click(object sender, EventArgs e)
+        private void DeletePersonFromLoadButton_Click(object sender, EventArgs e)
         {
             // Delete the selected entries
 
@@ -1085,7 +1085,7 @@
             string load = this.selectedLoad;
             string manNum = string.Empty;
 
-            foreach (ListView c in this.panelLoads.Controls)
+            foreach (ListView c in this.loadsPanel.Controls)
             {
                 if (c.Items[0].ToString().Contains(this.selectedLoad))
                 {
@@ -1141,7 +1141,7 @@
             string load = this.selectedLoad;
             string manNum = string.Empty;
 
-            foreach (ListView c in this.panelLoads.Controls)
+            foreach (ListView c in this.loadsPanel.Controls)
             {
                 if (c.Items[0].ToString().Contains(this.selectedLoad))
                 {
@@ -1180,9 +1180,9 @@
             }
         }
 
-        private void ButtonCompleteLoad_Click(object sender, EventArgs e)
+        private void CompleteLoadButton_Click(object sender, EventArgs e)
         {
-            foreach (ListView c in this.panelLoads.Controls)
+            foreach (ListView c in this.loadsPanel.Controls)
             {
                 if (c.Items[0].ToString().Contains(this.selectedLoad))
                 {
@@ -1192,7 +1192,7 @@
                         MessageBox.Show(listitem.Text);
                     }
 
-                    this.panelLoads.Controls.Remove(c); // Delete the load from the view
+                    this.loadsPanel.Controls.Remove(c); // Delete the load from the view
                 }
             }
         }

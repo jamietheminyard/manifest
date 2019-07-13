@@ -28,167 +28,183 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonPrint = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.textBoxAltitude = new System.Windows.Forms.TextBox();
+            this.printButton = new System.Windows.Forms.Button();
+            this.nameLabel = new System.Windows.Forms.Label();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.altitudeTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxDate = new System.Windows.Forms.TextBox();
-            this.textBoxAircraft = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxInstructor = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBoxFreefall = new System.Windows.Forms.TextBox();
+            this.dateLabel = new System.Windows.Forms.Label();
+            this.dateTextBox = new System.Windows.Forms.TextBox();
+            this.aircraftTextBox = new System.Windows.Forms.TextBox();
+            this.aircractLabel = new System.Windows.Forms.Label();
+            this.instructorTextBox = new System.Windows.Forms.TextBox();
+            this.instructorLabel = new System.Windows.Forms.Label();
+            this.freefallTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.feetLabel = new System.Windows.Forms.Label();
+            this.secondsLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // buttonPrint
+            // printButton
             // 
-            this.buttonPrint.Location = new System.Drawing.Point(329, 406);
-            this.buttonPrint.Name = "buttonPrint";
-            this.buttonPrint.Size = new System.Drawing.Size(140, 56);
-            this.buttonPrint.TabIndex = 0;
-            this.buttonPrint.Text = "Print";
-            this.buttonPrint.UseVisualStyleBackColor = true;
-            this.buttonPrint.Click += new System.EventHandler(this.ButtonPrint_Click);
+            this.printButton.Location = new System.Drawing.Point(164, 211);
+            this.printButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.printButton.Name = "printButton";
+            this.printButton.Size = new System.Drawing.Size(70, 29);
+            this.printButton.TabIndex = 0;
+            this.printButton.Text = "Print";
+            this.printButton.UseVisualStyleBackColor = true;
+            this.printButton.Click += new System.EventHandler(this.PrintButton_Click);
             // 
-            // label1
+            // nameLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(90, 60);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 25);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Name";
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.Location = new System.Drawing.Point(45, 31);
+            this.nameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(35, 13);
+            this.nameLabel.TabIndex = 1;
+            this.nameLabel.Text = "Name";
             // 
-            // textBoxName
+            // nameTextBox
             // 
-            this.textBoxName.Location = new System.Drawing.Point(198, 60);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(439, 31);
-            this.textBoxName.TabIndex = 2;
+            this.nameTextBox.Location = new System.Drawing.Point(99, 31);
+            this.nameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(222, 20);
+            this.nameTextBox.TabIndex = 2;
             // 
-            // textBoxAltitude
+            // altitudeTextBox
             // 
-            this.textBoxAltitude.Location = new System.Drawing.Point(198, 126);
-            this.textBoxAltitude.Name = "textBoxAltitude";
-            this.textBoxAltitude.Size = new System.Drawing.Size(182, 31);
-            this.textBoxAltitude.TabIndex = 4;
+            this.altitudeTextBox.Location = new System.Drawing.Point(99, 66);
+            this.altitudeTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.altitudeTextBox.Name = "altitudeTextBox";
+            this.altitudeTextBox.Size = new System.Drawing.Size(93, 20);
+            this.altitudeTextBox.TabIndex = 4;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(90, 126);
+            this.label2.Location = new System.Drawing.Point(45, 66);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 25);
+            this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Altitude";
             // 
-            // label3
+            // dateLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(90, 245);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 25);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Date";
+            this.dateLabel.AutoSize = true;
+            this.dateLabel.Location = new System.Drawing.Point(45, 127);
+            this.dateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.dateLabel.Name = "dateLabel";
+            this.dateLabel.Size = new System.Drawing.Size(30, 13);
+            this.dateLabel.TabIndex = 5;
+            this.dateLabel.Text = "Date";
             // 
-            // textBoxDate
+            // dateTextBox
             // 
-            this.textBoxDate.Location = new System.Drawing.Point(198, 239);
-            this.textBoxDate.Name = "textBoxDate";
-            this.textBoxDate.Size = new System.Drawing.Size(439, 31);
-            this.textBoxDate.TabIndex = 6;
+            this.dateTextBox.Location = new System.Drawing.Point(99, 124);
+            this.dateTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTextBox.Name = "dateTextBox";
+            this.dateTextBox.Size = new System.Drawing.Size(222, 20);
+            this.dateTextBox.TabIndex = 6;
             // 
-            // textBoxAircraft
+            // aircraftTextBox
             // 
-            this.textBoxAircraft.Location = new System.Drawing.Point(198, 294);
-            this.textBoxAircraft.Name = "textBoxAircraft";
-            this.textBoxAircraft.Size = new System.Drawing.Size(439, 31);
-            this.textBoxAircraft.TabIndex = 8;
+            this.aircraftTextBox.Location = new System.Drawing.Point(99, 153);
+            this.aircraftTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.aircraftTextBox.Name = "aircraftTextBox";
+            this.aircraftTextBox.Size = new System.Drawing.Size(222, 20);
+            this.aircraftTextBox.TabIndex = 8;
             // 
-            // label4
+            // aircractLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(90, 300);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 25);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Aircraft";
+            this.aircractLabel.AutoSize = true;
+            this.aircractLabel.Location = new System.Drawing.Point(45, 156);
+            this.aircractLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.aircractLabel.Name = "aircractLabel";
+            this.aircractLabel.Size = new System.Drawing.Size(40, 13);
+            this.aircractLabel.TabIndex = 7;
+            this.aircractLabel.Text = "Aircraft";
             // 
-            // textBoxInstructor
+            // instructorTextBox
             // 
-            this.textBoxInstructor.Location = new System.Drawing.Point(198, 353);
-            this.textBoxInstructor.Name = "textBoxInstructor";
-            this.textBoxInstructor.Size = new System.Drawing.Size(439, 31);
-            this.textBoxInstructor.TabIndex = 10;
+            this.instructorTextBox.Location = new System.Drawing.Point(99, 184);
+            this.instructorTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.instructorTextBox.Name = "instructorTextBox";
+            this.instructorTextBox.Size = new System.Drawing.Size(222, 20);
+            this.instructorTextBox.TabIndex = 10;
             // 
-            // label5
+            // instructorLabel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(90, 359);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 25);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Instructor";
+            this.instructorLabel.AutoSize = true;
+            this.instructorLabel.Location = new System.Drawing.Point(45, 187);
+            this.instructorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.instructorLabel.Name = "instructorLabel";
+            this.instructorLabel.Size = new System.Drawing.Size(51, 13);
+            this.instructorLabel.TabIndex = 9;
+            this.instructorLabel.Text = "Instructor";
             // 
-            // textBoxFreefall
+            // freefallTextBox
             // 
-            this.textBoxFreefall.Location = new System.Drawing.Point(198, 186);
-            this.textBoxFreefall.Name = "textBoxFreefall";
-            this.textBoxFreefall.Size = new System.Drawing.Size(182, 31);
-            this.textBoxFreefall.TabIndex = 12;
+            this.freefallTextBox.Location = new System.Drawing.Point(99, 97);
+            this.freefallTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.freefallTextBox.Name = "freefallTextBox";
+            this.freefallTextBox.Size = new System.Drawing.Size(93, 20);
+            this.freefallTextBox.TabIndex = 12;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(90, 186);
+            this.label6.Location = new System.Drawing.Point(45, 97);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 25);
+            this.label6.Size = new System.Drawing.Size(41, 13);
             this.label6.TabIndex = 11;
             this.label6.Text = "Freefall";
             // 
-            // label7
+            // feetLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(386, 126);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 25);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "feet";
+            this.feetLabel.AutoSize = true;
+            this.feetLabel.Location = new System.Drawing.Point(193, 66);
+            this.feetLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.feetLabel.Name = "feetLabel";
+            this.feetLabel.Size = new System.Drawing.Size(25, 13);
+            this.feetLabel.TabIndex = 13;
+            this.feetLabel.Text = "feet";
             // 
-            // label8
+            // secondsLabel
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(386, 189);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(93, 25);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "seconds";
+            this.secondsLabel.AutoSize = true;
+            this.secondsLabel.Location = new System.Drawing.Point(193, 98);
+            this.secondsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.secondsLabel.Name = "secondsLabel";
+            this.secondsLabel.Size = new System.Drawing.Size(47, 13);
+            this.secondsLabel.TabIndex = 14;
+            this.secondsLabel.Text = "seconds";
             // 
             // PrintCertificateForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 520);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBoxFreefall);
+            this.ClientSize = new System.Drawing.Size(400, 270);
+            this.Controls.Add(this.secondsLabel);
+            this.Controls.Add(this.feetLabel);
+            this.Controls.Add(this.freefallTextBox);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBoxInstructor);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBoxAircraft);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBoxDate);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBoxAltitude);
+            this.Controls.Add(this.instructorTextBox);
+            this.Controls.Add(this.instructorLabel);
+            this.Controls.Add(this.aircraftTextBox);
+            this.Controls.Add(this.aircractLabel);
+            this.Controls.Add(this.dateTextBox);
+            this.Controls.Add(this.dateLabel);
+            this.Controls.Add(this.altitudeTextBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBoxName);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonPrint);
+            this.Controls.Add(this.nameTextBox);
+            this.Controls.Add(this.nameLabel);
+            this.Controls.Add(this.printButton);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "PrintCertificateForm";
             this.Text = "Print Certificate";
             this.ResumeLayout(false);
@@ -198,20 +214,20 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonPrint;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.TextBox textBoxAltitude;
+        private System.Windows.Forms.Button printButton;
+        private System.Windows.Forms.Label nameLabel;
+        private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.TextBox altitudeTextBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxDate;
-        private System.Windows.Forms.TextBox textBoxAircraft;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxInstructor;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxFreefall;
+        private System.Windows.Forms.Label dateLabel;
+        private System.Windows.Forms.TextBox dateTextBox;
+        private System.Windows.Forms.TextBox aircraftTextBox;
+        private System.Windows.Forms.Label aircractLabel;
+        private System.Windows.Forms.TextBox instructorTextBox;
+        private System.Windows.Forms.Label instructorLabel;
+        private System.Windows.Forms.TextBox freefallTextBox;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label feetLabel;
+        private System.Windows.Forms.Label secondsLabel;
     }
 }
