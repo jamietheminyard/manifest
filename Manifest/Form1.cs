@@ -19,7 +19,6 @@ namespace Manifest
     {
         public ImageList Imagelist = new ImageList();
         int searchIndex;
-        bool startup;
         int tmpLoadNum = 1;
         String selectedLoad = "";
         int imageIndex = 0;
@@ -32,7 +31,6 @@ namespace Manifest
             log4net.Config.XmlConfigurator.Configure();
             log.Info("\n---------------------------------------------Application startup " + DateTime.Now.ToString() + "---------------------------------------------");
 
-            startup = true;
             searchIndex = 0;
 
             // Key event handler for left/right keys
@@ -66,7 +64,7 @@ namespace Manifest
             {
                 comboBoxLoadAircraft.SelectedIndex = comboBoxLoadAircraft.Items.IndexOf("King Air");
             }
-            catch (Exception e) { }
+            catch (Exception) { }
             
 
             // Retrieve all image files for logos used to group tandems/AFF
@@ -76,7 +74,6 @@ namespace Manifest
                 //Add images to Imagelist
                 Imagelist.Images.Add(Image.FromFile(file));
             }
-            startup = false;
         }
 
         void Form1_KeyUp(object sender, KeyEventArgs e)
@@ -125,7 +122,6 @@ namespace Manifest
 
             // Add the person to the selected load
             ListViewItem loadInfo;
-            String loadInfoText = "";
 
             // Check to see if this person's manifest number is already manifested
             foreach (ListView c in panelLoads.Controls)
@@ -603,7 +599,7 @@ namespace Manifest
                     }
                 }
             }
-            catch (Exception x)
+            catch (Exception)
             {
                 MessageBox.Show("Unable to delete person.");
             }
@@ -1020,7 +1016,6 @@ namespace Manifest
             // If deleting a tandem, must select all people to delete
             String load = selectedLoad;
             String manNum = "";
-            String name = "";
 
             foreach (ListView c in panelLoads.Controls)
             {
@@ -1078,7 +1073,6 @@ namespace Manifest
         {
             String load = selectedLoad;
             String manNum = "";
-            String name = "";
 
             foreach (ListView c in panelLoads.Controls)
             {
