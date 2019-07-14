@@ -1,13 +1,14 @@
 ﻿namespace Manifest
 {
     using System;
-    using System.Data.SqlClient;
+    using System.Linq;
     using System.Windows.Forms;
-    using Manifest.Properties;
+    using Manifest.Domain.Entities;
+    using Manifest.Persistence.Context;
 
     public partial class AddPersonToLoadForm : Form
     {
-        public AddPersonToLoadForm(string l)
+        public AddPersonToLoadForm(string load)
         {
             this.InitializeComponent();
 
@@ -28,44 +29,21 @@
             this.Result = DialogResult.None;
 
             // Display which load is selected
-            this.loadLabel.Text = l;
+            this.loadLabel.Text = load;
 
             // Load the instructors and videographers
-            string num;
-            string fname;
-            string lname;
-
-            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-            using (SqlCommand cmd = cn.CreateCommand())
+            using (ManifestDbContext context = new ManifestDbContext())
             {
-                cmd.CommandText = "select manifestNumber, firstName, lastName from People where TI = 1 or AFFI = 1";
-                cn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                foreach (Person person in context.People.Where(p => p.IsTandemInstructor || p.IsAffInstructor))
                 {
-                    while (dr.Read())
-                    {
-                        num = dr.GetString(0);
-                        fname = dr.GetString(1);
-                        lname = dr.GetString(2);
-                        this.tandemInstructorOrAffInstructor1ComboBox.Items.Add(num + " - " + fname + " " + lname);
-                    }
+                    string personText = $"{person.ManifestNumber} - {person.FirstName} {person.LastName}";
+                    this.tandemInstructorOrAffInstructor1ComboBox.Items.Add(personText);
                 }
-            }
 
-            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-            using (SqlCommand cmd = cn.CreateCommand())
-            {
-                cmd.CommandText = "select manifestNumber, firstName, lastName from People where AFFI = 1 or videographer = 1";
-                cn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                foreach (Person person in context.People.Where(p => p.IsAffInstructor || p.IsVideographer))
                 {
-                    while (dr.Read())
-                    {
-                        num = dr.GetString(0);
-                        fname = dr.GetString(1);
-                        lname = dr.GetString(2);
-                        this.videographerOrAffInstructor2ComboBox.Items.Add(num + " - " + fname + " " + lname);
-                    }
+                    string personText = $"{person.ManifestNumber} - {person.FirstName} {person.LastName}";
+                    this.videographerOrAffInstructor2ComboBox.Items.Add(personText);
                 }
             }
         }
@@ -195,31 +173,22 @@
         private void ManfestNumberTextBox_Leave(object sender, EventArgs e)
         {
             // Pull up this manifest number's name
-            string num = this.manfestNumberTextBox.Text.Trim();
-            string fname = string.Empty;
-            string lname = string.Empty;
+            string manifestNumber = this.manfestNumberTextBox.Text.Trim();
 
-            if (string.IsNullOrEmpty(num))
+            if (string.IsNullOrEmpty(manifestNumber) == false)
             {
-                return;
-            }
+                Person person;
 
-            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-            using (SqlCommand cmd = cn.CreateCommand())
-            {
-                cmd.CommandText = "select firstName, lastName from People where manifestNumber = '" + num + "'";
-                cn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                using (ManifestDbContext context = new ManifestDbContext())
                 {
-                    while (dr.Read())
-                    {
-                        fname = dr.GetString(0);
-                        lname = dr.GetString(1);
-                    }
+                    person = context.People.SingleOrDefault(p => p.ManifestNumber == manifestNumber);
+                }
+
+                if (person != null)
+                {
+                    this.jumberNameTextBox.Text = $"{person.FirstName} {person.LastName}";
                 }
             }
-
-            this.jumberNameTextBox.Text = fname + " " + lname;
         }
     }
 }

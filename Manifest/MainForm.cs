@@ -2,13 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Data;
-    using System.Data.SqlClient;
     using System.Drawing;
     using System.IO;
+    using System.Linq;
     using System.Windows.Forms;
-    using Manifest.Properties;
+    using Manifest.Domain.Entities;
+    using Manifest.Persistence.Context;
+    using Microsoft.EntityFrameworkCore;
 
     public partial class MainForm : Form
     {
@@ -373,70 +373,16 @@
 
         private void LoadPeople()
         {
-            ObservableCollection<string> people = new ObservableCollection<string>();
-            List<PersonType> peopleFromDB = new List<PersonType>();
+            IReadOnlyCollection<Person> people;
 
-            using (var conn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
+            using (ManifestDbContext context = new ManifestDbContext())
             {
-                string sqlString = @"select manifestNumber, firstName, lastName, paid from people";
-                using (var command = new SqlCommand(sqlString, conn))
-                {
-                    try
-                    {
-                        conn.Open();
-                        var result = command.ExecuteScalar();
-                        System.Diagnostics.Debug.WriteLine(result.ToString());
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show("Unable to connect to database. Exiting now.\n\nError: " + e.ToString());
-                    }
-                    finally
-                    {
-                        conn.Close();
-                        Application.Exit();
-                    }
-                }
+                people = context.People.OrderBy(p => p.ManifestNumber).ToList();
             }
 
-            string m, f, l;
-            double p;
-
-            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-            using (SqlCommand cmd = cn.CreateCommand())
-            {
-                cmd.CommandText = "select manifestNumber, firstName, lastName, paid from people";
-                cn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        m = dr.GetString(0);
-                        f = dr.GetString(1);
-                        l = dr.GetString(2);
-                        if (dr["paid"] != DBNull.Value)
-                        {
-                            double.TryParse(dr.GetString(3), out p);
-                        }
-                        else
-                        {
-                            p = 0;
-                        }
-
-                        PersonType per = new PersonType(m, f, l, p);
-                        peopleFromDB.Add(per);
-                    }
-                }
-            }
-
-            peopleFromDB.Sort();
-
-            foreach (PersonType pt in peopleFromDB)
-            {
-                people.Add(pt.GetManifestNumber() + " - " + pt.GetFirstName() + " " + pt.GetLastName());
-            }
-
-            this.peopleListBox.DataSource = people;
+            this.peopleListBox.DataSource = people
+                .Select(person => $"{person.ManifestNumber} - {person.FirstName} {person.LastName}")
+                .ToList();
         }
 
         private void ShowEditPersonUI()
@@ -505,25 +451,17 @@
             loadList.HeaderStyle = ColumnHeaderStyle.None;
             loadList.FullRowSelect = true;
             loadList.Columns.Add(string.Empty, -2);
-            string aircraft = this.loadAircraftComboBox.Text;
 
             // Get the number of max jumpers for this aircraft
-            int num = 0;
-            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-            using (SqlCommand cmd = cn.CreateCommand())
+            string aircraftName = this.loadAircraftComboBox.Text;
+            Aircraft aircraft;
+
+            using (ManifestDbContext context = new ManifestDbContext())
             {
-                cmd.CommandText = "select capacity from Aircraft where aircraftName = '" + aircraft + "'";
-                cn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        num = dr.GetInt32(0);
-                    }
-                }
+                aircraft = context.Aircraft.Single(a => a.Name == aircraftName);
             }
 
-            loadList.Items.Add("Load " + this.tmpLoadNum + " - " + aircraft + " - " + num + " slots");
+            loadList.Items.Add($"Load {this.tmpLoadNum} - {aircraft.Name} - {aircraft.Capacity} slots");
 
             loadList.Scrollable = false;
 
@@ -624,26 +562,25 @@
             {
                 string item = this.peopleListBox.GetItemText(this.peopleListBox.SelectedItem);
                 string[] splitString = item.Split('-');
-                string manNum = splitString[0];
+                string manifestNumber = splitString[0];
                 string name = splitString[1];
-                DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this person from the database?\n\nManifest Number: " + manNum + "\nName: " + name + "\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                DialogResult dialogResult = MessageBox.Show("ARE YOU SURE you want to delete this person from the database?\n\nManifest Number: " + manifestNumber + "\nName: " + name + "\n\n***THIS ACTION CANNOT BE UNDONE***", "Confirm delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-                    using (SqlCommand cmd = cn.CreateCommand())
+                    using (ManifestDbContext context = new ManifestDbContext())
                     {
-                        cmd.CommandText = "delete from People where manifestNumber = '" + manNum + "'";
-                        cn.Open();
-                        if (cmd.ExecuteNonQuery() == 1)
-                        {
-                            // If delete was successful, reload the people in the UI list
-                            this.LoadPeople();
+                        Person person = context.People.Single(p => p.ManifestNumber == manifestNumber);
 
-                            // Hide the edit UI components
-                            this.HideEditPersonUI();
-                            this.addPersonSaveButton.Hide();
-                        }
+                        context.Entry(person).State = EntityState.Deleted;
+                        context.SaveChanges();
                     }
+
+                    // If delete was successful, reload the people in the UI list
+                    this.LoadPeople();
+
+                    // Hide the edit UI components
+                    this.HideEditPersonUI();
+                    this.addPersonSaveButton.Hide();
                 }
             }
             catch (Exception)
@@ -663,43 +600,24 @@
             {
                 string item = this.peopleListBox.GetItemText(this.peopleListBox.SelectedItem);
                 string[] splitString = item.Split('-');
-                string manNum = splitString[0].Trim();
-                string name = splitString[1].Trim();
-                string firstName = name.Split(' ')[0];
-                string lastName = name.Split(' ')[1];
-                this.manifestNumberTextBox.Text = manNum;
-                this.firstNameTextBox.Text = firstName;
-                this.lastNameTextBox.Text = lastName;
+                string manifestNumber = splitString[0].Trim();
 
-                // Get their checkbox statuses from the database
-                bool t = false;
-                bool a = false;
-                bool c = false;
-                bool v = false;
+                Person person;
 
-                using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-                using (SqlCommand cmd = cn.CreateCommand())
+                using (ManifestDbContext context = new ManifestDbContext())
                 {
-                    cmd.CommandText = "select TI, AFFI, coach, videographer from people where manifestNumber = '" + manNum + "'";
-                    cn.Open();
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-                            t = dr.IsDBNull(0) ? false : dr.GetBoolean(0);
-                            a = dr.IsDBNull(1) ? false : dr.GetBoolean(1);
-                            c = dr.IsDBNull(2) ? false : dr.GetBoolean(2);
-                            v = dr.IsDBNull(3) ? false : dr.GetBoolean(3);
-                        }
-                    }
+                    person = context.People.Single(p => p.ManifestNumber == manifestNumber);
                 }
 
-                this.tandemInstructorCheckbox.Checked = t;
-                this.affInstructorCheckbox.Checked = a;
-                this.coachCheckbox.Checked = c;
-                this.videographerCheckbox.Checked = v;
+                this.manifestNumberTextBox.Text = person.ManifestNumber;
+                this.firstNameTextBox.Text = person.FirstName;
+                this.lastNameTextBox.Text = person.LastName;
+                this.tandemInstructorCheckbox.Checked = person.IsTandemInstructor;
+                this.affInstructorCheckbox.Checked = person.IsAffInstructor;
+                this.coachCheckbox.Checked = person.IsCoach;
+                this.videographerCheckbox.Checked = person.IsVideographer;
 
-                this.editDetailsLabel.Text = "Editing details for " + manNum.ToString() + " - " + firstName + " " + lastName;
+                this.editDetailsLabel.Text = $"Editing details for {person.ManifestNumber} - {person.FirstName} {person.LastName}";
                 this.editDetailsLabel.Show();
             }
             catch (Exception x)
@@ -710,125 +628,57 @@
 
         private void AddPersonSaveButton_Click(object sender, EventArgs e)
         {
-            string manNum = this.manifestNumberTextBox.Text;
-            manNum = manNum.Replace("'", string.Empty);
-            string firstName = this.firstNameTextBox.Text;
-            firstName = firstName.Replace("'", string.Empty);
-            string lastName = this.lastNameTextBox.Text;
-            lastName = lastName.Replace("'", string.Empty);
-            bool ti = this.tandemInstructorCheckbox.Checked;
-            bool affi = this.affInstructorCheckbox.Checked;
-            bool coach = this.coachCheckbox.Checked;
-            bool video = this.videographerCheckbox.Checked;
+            string manifestNumber = this.manifestNumberTextBox.Text;
 
-            string t = "0";
-            if (ti)
+            using (ManifestDbContext context = new ManifestDbContext())
             {
-                t = "1";
+                Person person = context.People.Single(p => p.ManifestNumber == manifestNumber);
+
+                person.FirstName = this.firstNameTextBox.Text;
+                person.LastName = this.lastNameTextBox.Text;
+                person.IsTandemInstructor = this.tandemInstructorCheckbox.Checked;
+                person.IsAffInstructor = this.affInstructorCheckbox.Checked;
+                person.IsCoach = this.coachCheckbox.Checked;
+                person.IsVideographer = this.videographerCheckbox.Checked;
+
+                context.SaveChanges();
             }
 
-            string a = "0";
-            if (affi)
-            {
-                a = "1";
-            }
+            // If save was successful, reload the people in the UI list
+            this.LoadPeople();
 
-            string c = "0";
-            if (coach)
-            {
-                c = "1";
-            }
-
-            string v = "0";
-            if (video)
-            {
-                v = "1";
-            }
-
-            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-            using (SqlCommand cmd = cn.CreateCommand())
-            {
-                cmd.CommandText = "update People set firstName = @param2, lastName = @param3, TI = " + t + ", AFFI = " + a + ", coach = " + c + ", videographer = " + v + " where manifestNumber = @param1";
-
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 8).Value = manNum;
-                cmd.Parameters.Add("@param2", SqlDbType.NVarChar, 50).Value = firstName;
-                cmd.Parameters.Add("@param3", SqlDbType.NVarChar, 50).Value = lastName;
-
-                cn.Open();
-                if (cmd.ExecuteNonQuery() == 1)
-                {
-                    // If insert was successful, reload the people in the UI list
-                    this.LoadPeople();
-
-                    // Hide the edit UI components
-                    this.HideEditPersonUI();
-                    this.addPersonSaveButton.Hide();
-                    this.addPersonCancelButton.Hide();
-                    this.editDetailsLabel.Hide();
-                }
-            }
+            // Hide the edit UI components
+            this.HideEditPersonUI();
+            this.addPersonSaveButton.Hide();
+            this.addPersonCancelButton.Hide();
+            this.editDetailsLabel.Hide();
         }
 
         private void AddPersonSubmitButton_Click(object sender, EventArgs e)
         {
-            string manNum = this.manifestNumberTextBox.Text;
-            manNum = manNum.Replace("'", string.Empty);
-            string firstName = this.firstNameTextBox.Text;
-            firstName = firstName.Replace("'", string.Empty);
-            string lastName = this.lastNameTextBox.Text;
-            lastName = lastName.Replace("'", string.Empty);
-            bool ti = this.tandemInstructorCheckbox.Checked;
-            bool affi = this.affInstructorCheckbox.Checked;
-            bool coach = this.coachCheckbox.Checked;
-            bool video = this.videographerCheckbox.Checked;
-
-            string t = "0";
-            if (ti)
+            Person person = new Person(this.manifestNumberTextBox.Text)
             {
-                t = "1";
+                FirstName = this.firstNameTextBox.Text,
+                LastName = this.lastNameTextBox.Text,
+                IsTandemInstructor = this.tandemInstructorCheckbox.Checked,
+                IsAffInstructor = this.affInstructorCheckbox.Checked,
+                IsCoach = this.coachCheckbox.Checked,
+                IsVideographer = this.videographerCheckbox.Checked,
+            };
+
+            using (ManifestDbContext context = new ManifestDbContext())
+            {
+                context.Add(person);
+                context.SaveChanges();
             }
 
-            string a = "0";
-            if (affi)
-            {
-                a = "1";
-            }
+            // If insert was successful, reload the people in the UI list
+            this.LoadPeople();
 
-            string c = "0";
-            if (coach)
-            {
-                c = "1";
-            }
-
-            string v = "0";
-            if (video)
-            {
-                v = "1";
-            }
-
-            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-            using (SqlCommand cmd = cn.CreateCommand())
-            {
-                cmd.CommandText = "insert into People(manifestNumber, firstName, lastName, paid, TI, AFFI, coach, videographer)" +
-                    "values(@param1, @param2, @param3,'" + 0 + "'," + t + "," + a + "," + c + "," + v + ")";
-
-                cmd.Parameters.Add("@param1", SqlDbType.VarChar, 8).Value = manNum;
-                cmd.Parameters.Add("@param2", SqlDbType.NVarChar, 50).Value = firstName;
-                cmd.Parameters.Add("@param3", SqlDbType.NVarChar, 50).Value = lastName;
-
-                cn.Open();
-
-                if (cmd.ExecuteNonQuery() == 1)
-                {
-                    // If insert was successful, reload the people in the UI list
-                    this.LoadPeople();
-
-                    // Hide the edit UI components
-                    this.HideEditPersonUI();
-                    this.addPersonCancelButton.Hide();
-                    this.addPersonSubmitButton.Hide();
-                }
-            }
+            // Hide the edit UI components
+            this.HideEditPersonUI();
+            this.addPersonCancelButton.Hide();
+            this.addPersonSubmitButton.Hide();
         }
 
         private void SearchPeopleButton_Click(object sender, EventArgs e)
@@ -875,133 +725,90 @@
 
         private void AddAircraftSubmitButton_Click(object sender, EventArgs e)
         {
-            string name = this.aircraftNameTextBox.Text;
-            int cap = (int)this.maxJumpersNumericUpDown.Value;
-
-            if (string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(this.aircraftNameTextBox.Text))
             {
                 MessageBox.Show("Please enter a name for this aircraft.");
                 return;
             }
 
-            if (cap < 1)
+            if (this.maxJumpersNumericUpDown.Value < 1)
             {
                 MessageBox.Show("Max jumpers cannot be less than 1.");
                 return;
             }
 
-            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-            using (SqlCommand cmd = cn.CreateCommand())
+            Aircraft aircraft = new Aircraft(
+                name: this.aircraftNameTextBox.Text.Replace("-", string.Empty),
+                capacity: (int)this.maxJumpersNumericUpDown.Value);
+
+            using (ManifestDbContext context = new ManifestDbContext())
             {
-                cmd.CommandText = "insert into Aircraft(aircraftName, capacity)" +
-                    "values(@param1, @param2)";
-
-                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-", string.Empty);
-                cmd.Parameters.Add("@param2", SqlDbType.Int).Value = cap;
-
-                cn.Open();
-
-                if (cmd.ExecuteNonQuery() == 1)
-                {
-                    // If insert was successful, reload the people in the UI list
-                    this.LoadAircraft();
-
-                    // Hide the edit UI components
-                    this.HideEditAircraftUI();
-                    this.addAircraftSubmitButton.Hide();
-                    this.addAircraftSaveButton.Hide();
-                    this.addAircraftCancelButton.Hide();
-                }
+                context.Add(aircraft);
+                context.SaveChanges();
             }
+
+            // If insert was successful, reload the aircraft in the UI list
+            this.LoadAircraft();
+
+            // Hide the edit UI components
+            this.HideEditAircraftUI();
+            this.addAircraftSubmitButton.Hide();
+            this.addAircraftSaveButton.Hide();
+            this.addAircraftCancelButton.Hide();
         }
 
         private void LoadAircraft()
         {
-            ObservableCollection<string> aircraft = new ObservableCollection<string>();
-            ObservableCollection<string> aircraftNames = new ObservableCollection<string>();
-            List<AircraftType> aircraftFromDB = new List<AircraftType>();
+            IReadOnlyCollection<Aircraft> aircraft;
 
-            using (var conn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
+            using (ManifestDbContext context = new ManifestDbContext())
             {
-                string sqlString = @"select aircraftName, capacity from Aircraft";
-                using (var command = new SqlCommand(sqlString, conn))
-                {
-                    conn.Open();
-                    var result = command.ExecuteScalar();
-                    System.Diagnostics.Debug.WriteLine(result.ToString());
-                    conn.Close();
-                }
+                aircraft = context.Aircraft.ToList();
             }
 
-            string an;
-            int c;
+            this.aircraftListBox.DataSource = aircraft
+                .Select(a => $"{a.Name} - Max jumpers {a.Capacity}")
+                .ToList();
 
-            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-            using (SqlCommand cmd = cn.CreateCommand())
-            {
-                cmd.CommandText = "select aircraftName, capacity from Aircraft";
-                cn.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        an = dr.GetString(0);
-                        c = dr.GetInt32(1);
-
-                        AircraftType air = new AircraftType(an, c);
-                        aircraftFromDB.Add(air);
-                    }
-                }
-            }
-
-            foreach (AircraftType plane in aircraftFromDB)
-            {
-                aircraft.Add(plane.GetName() + " - Max jumpers " + plane.GetCapacity());
-                aircraftNames.Add(plane.GetName());
-            }
-
-            this.aircraftListBox.DataSource = aircraft;
-            this.loadAircraftComboBox.DataSource = aircraftNames;
+            this.loadAircraftComboBox.DataSource = aircraft
+                .Select(a => a.Name)
+                .ToList();
         }
 
         private void AddAircraftSaveButton_Click(object sender, EventArgs e)
         {
-            string name = this.aircraftNameTextBox.Text;
-            int cap = (int)this.maxJumpersNumericUpDown.Value;
+            string aircraftName = this.aircraftNameTextBox.Text;
+            int capacity = (int)this.maxJumpersNumericUpDown.Value;
 
-            if (string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(aircraftName))
             {
                 MessageBox.Show("Please enter a name for this aircraft.");
                 return;
             }
 
-            if (cap < 1)
+            if (capacity < 1)
             {
                 MessageBox.Show("Max jumpers cannot be less than 1.");
                 return;
             }
 
-            using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-            using (SqlCommand cmd = cn.CreateCommand())
+            using (ManifestDbContext context = new ManifestDbContext())
             {
-                cmd.CommandText = "update Aircraft set capacity = " + cap + " where aircraftName = @param1";
+                Aircraft aircraft = context.Aircraft.Single(a => a.Name == aircraftName);
 
-                cmd.Parameters.Add("@param1", SqlDbType.NVarChar, 50).Value = name.Replace("-", string.Empty);
+                aircraft.Capacity = capacity;
 
-                cn.Open();
-
-                if (cmd.ExecuteNonQuery() == 1)
-                {
-                    // If insert was successful, reload the people in the UI list
-                    this.LoadAircraft();
-
-                    // Hide the edit UI components
-                    this.HideEditAircraftUI();
-                    this.addAircraftSubmitButton.Hide();
-                    this.addAircraftSaveButton.Hide();
-                    this.addAircraftCancelButton.Hide();
-                }
+                context.SaveChanges();
             }
+
+            // If save was successful, reload the aircraft in the UI list
+            this.LoadAircraft();
+
+            // Hide the edit UI components
+            this.HideEditAircraftUI();
+            this.addAircraftSubmitButton.Hide();
+            this.addAircraftSaveButton.Hide();
+            this.addAircraftCancelButton.Hide();
         }
 
         private void AddAircraftButton_Click(object sender, EventArgs e)
@@ -1044,19 +851,17 @@
             {
                 string item = this.aircraftListBox.GetItemText(this.aircraftListBox.SelectedItem);
                 string[] splitString = item.Split(new string[] { " - Max jumpers " }, StringSplitOptions.None);
-                string name = splitString[0].Trim();
+                string aircraftName = splitString[0].Trim();
 
-                using (SqlConnection cn = new SqlConnection(Settings.Default.WTSDatabaseConnectionString))
-                using (SqlCommand cmd = cn.CreateCommand())
+                using (ManifestDbContext context = new ManifestDbContext())
                 {
-                    cmd.CommandText = "delete from aircraft where aircraftName = '" + name + "'";
-                    cn.Open();
-                    if (cmd.ExecuteNonQuery() == 1)
-                    {
-                        // If delete was successful, reload the aircraft in the UI list
-                        this.LoadAircraft();
-                    }
+                    Aircraft aircraft = context.Aircraft.Single(a => a.Name == aircraftName);
+
+                    context.Entry(aircraft).State = EntityState.Deleted;
+                    context.SaveChanges();
                 }
+
+                this.LoadAircraft();
             }
         }
 
