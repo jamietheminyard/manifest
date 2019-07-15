@@ -7,6 +7,8 @@
     {
         public virtual DbSet<Aircraft> Aircraft { get; set; }
 
+        public virtual DbSet<Jump> Jumps { get; set; }
+
         public virtual DbSet<Person> People { get; set; }
     }
 }

@@ -9,7 +9,10 @@
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Aircraft>(ConfigureAircraftEntityType);
+            modelBuilder.Entity<Jump>(ConfigureJumpEntityType);
             modelBuilder.Entity<Person>(ConfigurePersonEntityType);
+
+            ConfigureJumpData(modelBuilder);
         }
 
         private static void ConfigureAircraftEntityType(EntityTypeBuilder<Aircraft> aircraftEntityTypeBuilder)
@@ -20,6 +23,16 @@
             aircraftEntityTypeBuilder
                 .Property(aircraft => aircraft.Name)
                 .HasMaxLength(50);
+        }
+
+        private static void ConfigureJumpEntityType(EntityTypeBuilder<Jump> jumpEntityTypeBuilder)
+        {
+            jumpEntityTypeBuilder
+                .HasKey(jump => jump.Id);
+
+            jumpEntityTypeBuilder
+                .Property(jump => jump.Id)
+                .HasMaxLength(10);
         }
 
         private static void ConfigurePersonEntityType(EntityTypeBuilder<Person> personEntityTypeBuilder)
