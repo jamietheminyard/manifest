@@ -1,14 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net4.6.1</TargetFramework>
+    <TargetFrameworks>net4.6.1;netstandard2.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn />
     <LangVersion>latest</LangVersion>
     <CodeAnalysisRuleSet>..\analysis.ruleset</CodeAnalysisRuleSet>
-    <ApplicationIcon />
-    <OutputType>WinExe</OutputType>
-    <StartupObject>Manifest.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,23 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="PrintCertificateForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="AddPersonToLoadForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -40,11 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Manifest.Persistence\Manifest.Persistence.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
+    <ProjectReference Include="..\Manifest.Domain\Manifest.Domain.csproj" />
   </ItemGroup>
 
 </Project>

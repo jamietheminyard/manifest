@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="analysis-rules" ToolsVersion="16.0">
+  <Include Path="all-rules.ruleset" Action="Error" />
+  <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+    <Rule Id="CA1014" Action="None" />
+    <Rule Id="CA1031" Action="None" />
+    <Rule Id="CA1062" Action="None" />
+    <Rule Id="CA1303" Action="None" />
+    <Rule Id="CA1304" Action="None" />
+    <Rule Id="CA1305" Action="None" />
+    <Rule Id="CA1307" Action="None" />
+    <Rule Id="CA1501" Action="None" />
+    <Rule Id="CA1502" Action="None" />
+    <Rule Id="CA1506" Action="None" />
+    <Rule Id="CA1707" Action="None" />
+    <Rule Id="CA1806" Action="None" />
+    <Rule Id="CA1824" Action="None" />
+    <Rule Id="CA2100" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.CodeQuality.Analyzers" RuleNamespace="Microsoft.CodeQuality.Analyzers">
+    <Rule Id="CA1014" Action="None" />
+    <Rule Id="CA1031" Action="None" />
+    <Rule Id="CA1062" Action="None" />
+    <Rule Id="CA1501" Action="None" />
+    <Rule Id="CA1502" Action="None" />
+    <Rule Id="CA1506" Action="None" />
+    <Rule Id="CA1508" Action="None" />
+    <Rule Id="CA1707" Action="None" />
+    <Rule Id="CA1806" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
+    <Rule Id="CA1303" Action="None" />
+    <Rule Id="CA1304" Action="None" />
+    <Rule Id="CA1305" Action="None" />
+    <Rule Id="CA1307" Action="None" />
+    <Rule Id="CA2100" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.NetCore.CSharp.Analyzers" RuleNamespace="Microsoft.NetCore.CSharp.Analyzers">
+    <Rule Id="CA1824" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA0001" Action="None" />
+    <Rule Id="SA1118" Action="None" />
+    <Rule Id="SA1309" Action="None" />
+    <Rule Id="SA1600" Action="None" />
+    <Rule Id="SA1601" Action="None" />
+    <Rule Id="SA1633" Action="None" />
+    <Rule Id="SX1101" Action="None" />
+    <Rule Id="SX1309" Action="None" />
+  </Rules>
+</RuleSet>
